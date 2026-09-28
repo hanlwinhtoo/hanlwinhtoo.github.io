@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== SEO ===== -->
+  <title>Han Lwin Htoo — DevOps & Cloud Infrastructure Portfolio</title>
+  <meta name="description" content="Han Lwin Htoo, Computer Engineering (Cloud Systems) student at Singapore Polytechnic. Seeking a year-long DevOps / cloud infrastructure internship from March 2027.">
+  <meta name="author" content="Han Lwin Htoo">
+  <meta name="keywords" content="Han Lwin Htoo, DevOps, cloud infrastructure, Proxmox, homelab, Linux, networking, internship, Singapore Polytechnic">
+  <meta name="theme-color" content="#161826">
+  <!-- Replace with your GitHub Pages URL -->
+  <link rel="canonical" href="https://your-username.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Han Lwin Htoo — DevOps & Cloud Infrastructure">
+  <meta property="og:description" content="I run a Proxmox homelab to learn infrastructure hands-on.">
+  <meta property="og:url" content="https://your-username.github.io/">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Apply saved theme before paint (default: dark) -->
+  <script>
+    try { document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark'); } catch (e) {}
+  </script>
+
+  <!-- Fonts & icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#projects">Skip to content</a>
+
+  <!-- Background: drifting blobs + fog (decorative) -->
+  <div class="scene" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="fog" aria-hidden="true"></div>
+
+  <!-- ===== Sticky glass nav ===== -->
+  <div class="nav-wrap">
+    <nav class="nav glass" aria-label="Main">
+      <a class="brand" href="#top">
+        <span class="brand-mark">Han</span>
+        <span class="brand-name">Han Lwin Htoo</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+        <a href="#resume">Resume</a>
+      </div>
+      <button class="btn btn-icon theme-toggle" type="button" aria-label="Switch to light mode">
+        <i class="ph ph-sun"></i>
+      </button>
+      <!-- Menu button (two-line icon): only visible on narrow screens -->
+      <button class="btn btn-icon menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="menu-lines" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- ===== 1. Hero ===== -->
+    <header class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="tag tag-neutral"><span class="status-dot"></span> Open to internships · March 2027</span>
+          <h1>Han Lwin Htoo</h1>
+          <p class="school">Diploma in Computer Engineering (Cloud Systems)<br>Singapore Polytechnic · Graduating 2028</p>
+          <p class="intro">I run a Proxmox homelab to learn infrastructure hands-on</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="resume.pdf" download><i class="ph ph-download-simple"></i> Download Resume</a>
+            <a class="btn" href="#contact"><i class="ph ph-paper-plane-tilt"></i> Contact</a>
+          </div>
+        </div>
+
+        <aside class="glass status-card" aria-label="Internship details">
+          <h3><i class="ph ph-terminal-window"></i> Looking for</h3>
+          <dl>
+            <div class="row"><dt>Role</dt><dd>DevOps / Cloud infrastructure intern</dd></div>
+            <div class="row"><dt>Duration</dt><dd>Year-long</dd></div>
+            <div class="row"><dt>Start</dt><dd>March 2027</dd></div>
+            <div class="row"><dt>Based in</dt><dd>Singapore</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
+    <!-- ===== 2. Projects ===== -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">01 · Projects</span>
+          <h2>Things I've built and run</h2>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Featured project -->
+          <article class="glass project featured">
+            <div class="project-top">
+              <span class="project-icon"><i class="ph ph-hard-drives"></i></span>
+              <!-- Replace with your repo URL -->
+              <a class="btn btn-icon" href="https://github.com/your-username/proxmox-homelab" target="_blank" rel="noopener" aria-label="Proxmox Homelab on GitHub"><i class="ph ph-github-logo"></i></a>
+            </div>
+            <h3>Proxmox Homelab</h3>
+            <p>Self-hosted Proxmox VE 9.2 on a mini PC with Tailscale remote access and an isolated security lab.</p>
+            <div class="tags">
+              <span class="tag">Proxmox</span><span class="tag">Linux</span><span class="tag">Networking</span><span class="tag">Tailscale</span>
+            </div>
+          </article>
+
+          <article class="glass project">
+            <div class="project-top">
+              <span class="project-icon"><i class="ph ph-bus"></i></span>
+              <a class="btn btn-icon" href="https://github.com/your-username/bustech-grand-challenge" target="_blank" rel="noopener" aria-label="BusTech Grand Challenge on GitHub"><i class="ph ph-github-logo"></i></a>
+            </div>
+            <h3>BusTech Grand Challenge (LTA)</h3>
+            <!-- TODO: replace the highlighted text with your actual role -->
+            <p>AI-assisted smart-bus prototype for passengers with special needs. I <mark class="todo">[your actual role]</mark>.</p>
+            <div class="tags">
+              <span class="tag">Computer Vision</span><span class="tag">MQTT</span><span class="tag">RTSP</span><span class="tag">Three.js</span>
+            </div>
+          </article>
+
+          <article class="glass project">
+            <div class="project-top">
+              <span class="project-icon"><i class="ph ph-browser"></i></span>
+              <a class="btn btn-icon" href="https://github.com/your-username/your-username.github.io" target="_blank" rel="noopener" aria-label="Portfolio site on GitHub"><i class="ph ph-github-logo"></i></a>
+            </div>
+            <h3>Portfolio Site</h3>
+            <p>This site, built and hosted on GitHub Pages.</p>
+            <div class="tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">GitHub Pages</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. Skills ===== -->
+    <!-- Edit the lists to match what you actually use -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">02 · Skills</span>
+          <h2>Tools I work with</h2>
+        </div>
+
+        <div class="skills-grid">
+          <div class="glass skill-group">
+            <h3><i class="ph ph-linux-logo"></i> Linux</h3>
+            <ul><li>Debian / Ubuntu</li><li>Bash scripting</li><li>SSH &amp; key auth</li><li>systemd services</li></ul>
+          </div>
+          <div class="glass skill-group">
+            <h3><i class="ph ph-network"></i> Networking</h3>
+            <ul><li>TCP/IP, subnetting</li><li>VLANs &amp; isolation</li><li>DNS / DHCP</li><li>Tailscale (WireGuard)</li></ul>
+          </div>
+          <div class="glass skill-group">
+            <h3><i class="ph ph-cloud"></i> Cloud</h3>
+            <ul><li>Proxmox VE</li><li>KVM VMs &amp; LXC</li><li>Virtual networking</li><li>GitHub Pages hosting</li></ul>
+          </div>
+          <div class="glass skill-group">
+            <h3><i class="ph ph-wrench"></i> Tools</h3>
+            <ul><li>Git &amp; GitHub</li><li>MQTT</li><li>RTSP streams</li><li>VS Code</li></ul>
+          </div>
+        </div>
+
+        <!-- Certifications: keep only the ones you're actively studying -->
+        <div class="glass certs">
+          <h3>Certifications</h3>
+          <div class="cert"><i class="ph ph-certificate"></i> <mark class="todo">CCNA</mark> <span class="tag">In progress</span></div>
+          <div class="cert"><i class="ph ph-certificate"></i> <mark class="todo">RHCSA</mark> <span class="tag">In progress</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. Education ===== -->
+    <section id="education">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">03 · Education</span>
+          <h2>Education</h2>
+        </div>
+
+        <div class="edu-list">
+          <article class="glass edu">
+            <div class="years">2025 – 2028</div>
+            <div>
+              <h3>Singapore Polytechnic</h3>
+              <p>Diploma in Computer Engineering (Cloud Systems)</p>
+            </div>
+          </article>
+          <article class="glass edu">
+            <div class="years">IGCSE</div>
+            <div>
+              <h3>Guarantee International College</h3>
+              <p>IGCSE: 4 A* in Computer Science, ICT, Mathematics, Physics; A in Additional Mathematics</p>
+              <div class="tags">
+                <span class="tag">A* Computer Science</span><span class="tag">A* ICT</span><span class="tag">A* Mathematics</span><span class="tag">A* Physics</span><span class="tag tag-neutral">A Additional Mathematics</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. Contact ===== -->
+    <!-- Replace the three hrefs and values with your real details -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">04 · Contact</span>
+          <h2>Get in touch</h2>
+          <p class="muted">Open to a year-long DevOps / cloud infrastructure internship from March 2027.</p>
+        </div>
+
+        <div class="contact-grid">
+          <a class="glass contact-link" href="mailto:you@example.com">
+            <i class="ph ph-envelope-simple"></i>
+            <span class="label">Email</span>
+            <span class="value">you@example.com</span>
+          </a>
+          <a class="glass contact-link" href="https://github.com/your-username" target="_blank" rel="noopener">
+            <i class="ph ph-github-logo"></i>
+            <span class="label">GitHub</span>
+            <span class="value">github.com/your-username</span>
+          </a>
+          <a class="glass contact-link" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">
+            <i class="ph ph-linkedin-logo"></i>
+            <span class="label">LinkedIn</span>
+            <span class="value">linkedin.com/in/your-profile</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. Resume ===== -->
+    <section id="resume">
+      <div class="container">
+        <div class="glass resume-card">
+          <div>
+            <span class="kicker">05 · Resume</span>
+            <h3 style="margin-top: 12px;">Resume</h3>
+            <p class="muted">PDF · updated for 2027 internship applications</p>
+          </div>
+          <!-- resume.pdf must sit in the same folder as index.html -->
+          <a class="btn btn-primary" href="resume.pdf" download><i class="ph ph-download-simple"></i> Download Resume</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <hr class="rule">
+      <div class="row">
+        <span>© <span id="year">2026</span> Han Lwin Htoo</span>
+        <span>Plain HTML, CSS &amp; JS · Hosted on GitHub Pages</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
