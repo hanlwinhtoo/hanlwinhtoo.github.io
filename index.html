@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,219 +9,218 @@
   <meta name="description" content="Han Lwin Htoo, Computer Engineering (Cloud Systems) student at Singapore Polytechnic. Seeking a year-long industrial attachment in DevOps / cloud infrastructure from March 2027.">
   <meta name="author" content="Han Lwin Htoo">
   <meta name="keywords" content="Han Lwin Htoo, DevOps, cloud infrastructure, Proxmox, homelab, Linux, networking, internship, industrial attachment, Singapore Polytechnic">
-  <meta name="theme-color" content="#161826">
+  <meta name="theme-color" content="#000000">
   <link rel="canonical" href="https://hanlwinhtoo.github.io/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Han Lwin Htoo — DevOps & Cloud Infrastructure">
   <meta property="og:description" content="I run a Proxmox homelab to learn infrastructure hands-on.">
   <meta property="og:url" content="https://hanlwinhtoo.github.io/">
+  <meta property="og:image" content="https://hanlwinhtoo.github.io/me.jpg">
   <meta name="twitter:card" content="summary">
 
-  <!-- Apply saved theme before paint (default: dark) -->
+  <!-- Apply a saved theme before paint (default: black); .js enables the scroll fade-ins -->
   <script>
-    try { document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark'); } catch (e) {}
+    document.documentElement.classList.add('js');
+    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
 
-  <!-- Fonts & icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <a class="skip-link" href="#projects">Skip to content</a>
 
-  <!-- Liquid glass refraction: soft noise bends whatever is behind the nav (Chromium only, see style.css) -->
-  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
-    <filter id="lg-refract" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.02" numOctaves="2" seed="4" result="noise"/>
-      <feGaussianBlur in="noise" stdDeviation="3" result="soft"/>
-      <feDisplacementMap in="SourceGraphic" in2="soft" scale="28" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
-
-  <!-- Background: drifting blobs + fog (decorative) -->
-  <div class="scene" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
-  <div class="fog" aria-hidden="true"></div>
-
-  <!-- ===== Sticky glass nav ===== -->
-  <div class="nav-wrap">
-    <nav class="nav lg" aria-label="Main">
-      <a class="brand" href="#top">
-        <span class="brand-mark lg">Han</span>
-        <span class="brand-name">Han Lwin Htoo</span>
-      </a>
-      <div class="nav-links lg" id="nav-links">
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <nav class="topbar-inner" aria-label="Main">
+      <a class="brand" href="#home">Han Lwin Htoo</a>
+      <div class="nav-links" id="nav-links">
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
-        <a class="nav-resume lg" href="resume.pdf" download><i class="ph ph-download-simple"></i> Resume</a>
       </div>
-      <button class="btn btn-icon theme-toggle" type="button" aria-label="Switch to light mode">
-        <i class="ph ph-sun"></i>
+      <button class="theme-toggle" type="button" aria-label="Toggle light mode">
+        <span class="theme-icon" aria-hidden="true"></span>
       </button>
-      <!-- Menu button (two-line icon): only visible on narrow screens -->
-      <button class="btn btn-icon menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-        <span class="menu-lines" aria-hidden="true"><span></span><span></span></span>
+      <!-- Phones: opens the section links as a dropdown (see script.js, section 1b) -->
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
       </button>
     </nav>
-  </div>
+  </header>
 
-  <main id="top">
+  <!-- ===== Side dots: one per screen ===== -->
+  <nav class="dots" aria-label="Sections">
+    <a href="#home" aria-label="Home"></a>
+    <a href="#projects" aria-label="Project 1: Proxmox Homelab"></a>
+    <a href="#project-bustech" aria-label="Project 2: BusTech Grand Challenge"></a>
+    <a href="#project-portfolio" aria-label="Project 3: Portfolio Site"></a>
+    <a href="#skills" aria-label="Skills"></a>
+    <a href="#education" aria-label="Education"></a>
+    <a href="#contact" aria-label="Contact"></a>
+  </nav>
 
-    <!-- ===== 1. Hero ===== -->
-    <header class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="tag tag-neutral"><span class="status-dot"></span> Open to internships · March 2027</span>
+  <main>
+
+    <!-- ===== 1. Home ===== -->
+    <section class="screen" id="home">
+      <div class="container hero">
+        <div class="hero-text">
+          <div class="hero-top">
+            <!-- me-avatar.jpg is a 360px copy of me.jpg -->
+            <img class="avatar" src="me-avatar.jpg" alt="Portrait of Han Lwin Htoo" width="56" height="56">
+            <p class="status"><span class="dot" aria-hidden="true"></span> Open to internships · March 2027</p>
+          </div>
           <h1>Han Lwin Htoo</h1>
-          <p class="school">Diploma in Computer Engineering (Cloud Systems)<br>Singapore Polytechnic · Graduating 2028</p>
-          <p class="intro">I'm a Computer Engineering student at Singapore Polytechnic, specialising in Cloud Systems. Most of what I know about infrastructure comes from running my own Proxmox homelab: building it, breaking it and rebuilding it. I want to work in DevOps, cloud and infrastructure, and I'm looking for an internship where I can work on real systems with an experienced team.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="resume.pdf" download><i class="ph ph-download-simple"></i> Download Resume</a>
-            <a class="btn" href="#contact"><i class="ph ph-paper-plane-tilt"></i> Contact</a>
+          <p class="role">DevOps &amp; Cloud Infrastructure</p>
+          <p class="lead">I'm a Computer Engineering student at Singapore Polytechnic, specialising in Cloud Systems. Most of what I know about infrastructure comes from running my own Proxmox homelab: building it, breaking it and rebuilding it. I want to work in DevOps, cloud and infrastructure, and I'm looking for an internship where I can work on real systems with an experienced team.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="resume.pdf" download>Download Resume</a>
+            <a class="btn" href="#contact">Get in touch</a>
           </div>
         </div>
-
-        <!-- Internship details as a terminal session; --d sets the order lines appear in -->
-        <aside class="terminal lg" aria-label="Internship details">
-          <div class="term-title" style="--d:0"><span class="term-dots" aria-hidden="true"><span></span><span></span><span></span></span> han@homelab: ~</div>
-          <p style="--d:1"><span class="prompt">$</span>whoami</p>
-          <p class="term-out" style="--d:2">han-lwin-htoo</p>
-          <p style="--d:3"><span class="prompt">$</span>cat looking-for.yml</p>
-          <dl class="term-out" style="--d:4">
-            <div><dt>role:</dt><dd>DevOps / Cloud Infrastructure Internship</dd></div>
-            <div><dt>duration:</dt><dd>year-long industrial attachment</dd></div>
-            <div><dt>start:</dt><dd>March 2027</dd></div>
-            <div><dt>based_in:</dt><dd>Singapore</dd></div>
-          </dl>
-          <p style="--d:5"><span class="prompt">$</span><span class="cursor" aria-hidden="true"></span></p>
-        </aside>
-      </div>
-    </header>
-
-    <!-- ===== 2. Projects ===== -->
-    <section id="projects">
-      <div class="container">
-        <div class="section-head">
-          <span class="kicker">01 · Projects</span>
-          <h2>Things I've built and run</h2>
+        <!-- Terminal window. script.js types the .t-cmd lines out each time Home
+             appears; without JS (or with reduced motion) it shows as written. -->
+        <div class="terminal" role="img" aria-label="Terminal: whoami returns han-lwin-htoo; looking for a year-long DevOps / Cloud Infrastructure attachment in Singapore from March 2027; projects: proxmox-homelab, bustech-grand-challenge, hanlwinhtoo.github.io">
+          <div class="term-bar" aria-hidden="true">
+            <span class="term-dots"><i></i><i></i><i></i></span>
+            <span class="term-title">han@portfolio: ~</span>
+          </div>
+          <div class="term-body" aria-hidden="true">
+            <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">whoami</span></p>
+            <p class="t-out">han-lwin-htoo</p>
+            <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">cat looking-for.yml</span></p>
+            <p class="t-out"><span class="t-key">role:</span> DevOps / Cloud Infrastructure</p>
+            <p class="t-out"><span class="t-key">type:</span> year-long industrial attachment</p>
+            <p class="t-out"><span class="t-key">start:</span> March 2027</p>
+            <p class="t-out"><span class="t-key">based_in:</span> Singapore</p>
+            <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">ls ~/projects</span></p>
+            <p class="t-out t-ls"><span>proxmox-homelab</span><span>bustech-grand-challenge</span><span>hanlwinhtoo.github.io</span></p>
+            <p class="t-cmd t-last"><span class="t-ps">han@portfolio:~$</span> <span class="t-text"></span><span class="t-cursor"></span></p>
+          </div>
         </div>
+      </div>
+      <a class="scroll-hint" href="#projects" aria-label="Scroll to projects">Scroll <span aria-hidden="true">↓</span></a>
+    </section>
 
-        <!-- Numbered list; each row links to its repo (replace the URLs with yours) -->
-        <ol class="project-list">
-          <li class="project-row featured">
-            <span class="num" aria-hidden="true">01</span>
-            <div class="project-main">
-              <span class="tag">Featured</span>
-              <h3>Proxmox Homelab</h3>
-              <p>Self-hosted Proxmox VE 9.2 on a mini PC with Tailscale remote access and an isolated security lab.</p>
-              <div class="tags">
-                <span class="tag">Proxmox</span><span class="tag">Linux</span><span class="tag">Networking</span><span class="tag">Tailscale</span>
-              </div>
-            </div>
-            <a class="project-link" href="https://github.com/hanlwinhtoo/proxmox-homelab" target="_blank" rel="noopener" aria-label="Proxmox Homelab on GitHub"><i class="ph ph-github-logo"></i><span class="link-text">GitHub</span><i class="ph ph-arrow-up-right"></i></a>
-          </li>
+    <!-- ===== 2. Projects: one full screen per project =====
+         data-nav keeps the "Projects" menu link highlighted on all three -->
+    <section class="screen project" id="projects" data-nav="projects">
+      <div class="container project-grid">
+        <div class="project-info">
+          <p class="kicker">Projects · 1 of 3</p>
+          <span class="project-label">Featured</span>
+          <h2>Proxmox Homelab</h2>
+          <p class="lead">Self-hosted Proxmox VE 9.2 on a mini PC with Tailscale remote access and an isolated security lab.</p>
+          <p class="tags"><span>Proxmox</span><span>Linux</span><span>Networking</span><span>Tailscale</span></p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/hanlwinhtoo/proxmox-homelab" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="project-index" aria-hidden="true"><span class="num">01</span><span class="of">/03</span></div>
+      </div>
+    </section>
 
-          <li class="project-row">
-            <span class="num" aria-hidden="true">02</span>
-            <div class="project-main">
-              <h3>BusTech Grand Challenge (LTA)</h3>
-              <!-- TODO: replace the highlighted text with your actual role -->
-              <p>AI-assisted smart-bus prototype for passengers with special needs. I <mark class="todo">[your actual role]</mark>.</p>
-              <div class="tags">
-                <span class="tag">Computer Vision</span><span class="tag">MQTT</span><span class="tag">RTSP</span><span class="tag">Three.js</span>
-              </div>
-            </div>
-            <a class="project-link" href="https://github.com/hanlwinhtoo/bustech-grand-challenge" target="_blank" rel="noopener" aria-label="BusTech Grand Challenge on GitHub"><i class="ph ph-github-logo"></i><span class="link-text">GitHub</span><i class="ph ph-arrow-up-right"></i></a>
-          </li>
+    <section class="screen project" id="project-bustech" data-nav="projects">
+      <div class="container project-grid">
+        <div class="project-info">
+          <p class="kicker">Projects · 2 of 3</p>
+          <span class="project-label">LTA</span>
+          <h2>BusTech Grand Challenge</h2>
+          <!-- TODO: replace the highlighted text with your actual role -->
+          <p class="lead">AI-assisted smart-bus prototype for passengers with special needs. I <mark class="todo">[your actual role]</mark>.</p>
+          <p class="tags"><span>Computer Vision</span><span>MQTT</span><span>RTSP</span><span>Three.js</span></p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/hanlwinhtoo/bustech-grand-challenge" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="project-index" aria-hidden="true"><span class="num">02</span><span class="of">/03</span></div>
+      </div>
+    </section>
 
-          <li class="project-row">
-            <span class="num" aria-hidden="true">03</span>
-            <div class="project-main">
-              <h3>Portfolio Site</h3>
-              <p>This site, built and hosted on GitHub Pages.</p>
-              <div class="tags">
-                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">GitHub Pages</span>
-              </div>
-            </div>
-            <a class="project-link" href="https://github.com/hanlwinhtoo/hanlwinhtoo.github.io" target="_blank" rel="noopener" aria-label="Portfolio site on GitHub"><i class="ph ph-github-logo"></i><span class="link-text">GitHub</span><i class="ph ph-arrow-up-right"></i></a>
-          </li>
-        </ol>
+    <section class="screen project" id="project-portfolio" data-nav="projects">
+      <div class="container project-grid">
+        <div class="project-info">
+          <p class="kicker">Projects · 3 of 3</p>
+          <span class="project-label">Web</span>
+          <h2>Portfolio Site</h2>
+          <p class="lead">This site, built and hosted on GitHub Pages.</p>
+          <p class="tags"><span>HTML</span><span>CSS</span><span>GitHub Pages</span></p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/hanlwinhtoo/hanlwinhtoo.github.io" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="project-index" aria-hidden="true"><span class="num">03</span><span class="of">/03</span></div>
       </div>
     </section>
 
     <!-- ===== 3. Skills ===== -->
     <!-- Edit the lists to match what you actually use -->
-    <section id="skills">
+    <section class="screen" id="skills">
       <div class="container">
-        <div class="section-head">
-          <span class="kicker">02 · Skills</span>
-          <h2>Tools I work with</h2>
+        <div class="skills-head">
+          <div>
+            <p class="kicker">Skills</p>
+            <h2>Tools I work with</h2>
+          </div>
+          <p class="lead">Mostly learned hands-on by building, breaking and rebuilding my own homelab.</p>
         </div>
 
-        <!-- Skills as an infrastructure stack, top = closest to the user, bottom = the hardware.
-             --w insets the layer (pyramid shape), --tint sets how strong its colour is. -->
-        <ol class="stack">
-          <li class="layer lg" style="--w:4; --tint:5%">
-            <h3 class="layer-name"><span class="idx">L5</span><i class="ph ph-wrench"></i> Tools</h3>
-            <ul class="layer-items"><li>Git &amp; GitHub</li><li>GitHub Pages</li><li>MQTT</li><li>RTSP streams</li><li>VS Code</li></ul>
-          </li>
-          <li class="layer lg" style="--w:3; --tint:8%">
-            <h3 class="layer-name"><span class="idx">L4</span><i class="ph ph-network"></i> Networking</h3>
-            <ul class="layer-items"><li>TCP/IP, subnetting</li><li>VLANs &amp; isolation</li><li>DNS / DHCP</li><li>Tailscale (WireGuard)</li></ul>
-          </li>
-          <li class="layer lg" style="--w:2; --tint:11%">
-            <h3 class="layer-name"><span class="idx">L3</span><i class="ph ph-linux-logo"></i> Linux</h3>
-            <ul class="layer-items"><li>Debian / Ubuntu</li><li>Bash scripting</li><li>SSH &amp; key auth</li><li>systemd services</li></ul>
-          </li>
-          <li class="layer lg" style="--w:1; --tint:14%">
-            <h3 class="layer-name"><span class="idx">L2</span><i class="ph ph-cloud"></i> Virtualisation</h3>
-            <ul class="layer-items"><li>Proxmox VE</li><li>KVM VMs &amp; LXC</li><li>Virtual networking</li></ul>
-          </li>
-          <li class="layer lg" style="--w:0; --tint:18%">
-            <h3 class="layer-name"><span class="idx">L1</span><i class="ph ph-cpu"></i> Hardware</h3>
-            <ul class="layer-items"><li>Mini PC homelab host</li></ul>
-          </li>
-        </ol>
-        <p class="stack-caption" aria-hidden="true"><span>↑ closer to the user</span><span>closer to the metal ↓</span></p>
-
-        <!-- Certifications: keep only the ones you're actively studying -->
-        <p class="certs">
-          <span class="muted">Studying for</span>
-          <mark class="todo">CCNA</mark> <span class="tag">In progress</span>
-          <mark class="todo">RHCSA</mark> <span class="tag">In progress</span>
-        </p>
+        <!-- One tile per tool. The icon comes from the i-* class (see style.css, section 7).
+             Order: virtualisation, Linux, networking, tools, hardware, then studying. -->
+        <ul class="tiles">
+          <li class="tile"><span class="ico i-proxmox"></span><span class="tile-name">Proxmox VE</span></li>
+          <li class="tile"><span class="ico i-qemu"></span><span class="tile-name">KVM VMs</span></li>
+          <li class="tile"><span class="ico i-lxc"></span><span class="tile-name">LXC</span></li>
+          <li class="tile"><span class="ico i-vnet"></span><span class="tile-name">Virtual networking</span></li>
+          <li class="tile"><span class="ico i-debian"></span><span class="tile-name">Debian</span></li>
+          <li class="tile"><span class="ico i-ubuntu"></span><span class="tile-name">Ubuntu</span></li>
+          <li class="tile"><span class="ico i-bash"></span><span class="tile-name">Bash scripting</span></li>
+          <li class="tile"><span class="ico i-ssh"></span><span class="tile-name">SSH &amp; key auth</span></li>
+          <li class="tile"><span class="ico i-systemd"></span><span class="tile-name">systemd</span></li>
+          <li class="tile"><span class="ico i-tcpip"></span><span class="tile-name">TCP/IP, subnetting</span></li>
+          <li class="tile"><span class="ico i-vlan"></span><span class="tile-name">VLANs &amp; isolation</span></li>
+          <li class="tile"><span class="ico i-dns"></span><span class="tile-name">DNS / DHCP</span></li>
+          <li class="tile"><span class="ico i-tailscale"></span><span class="tile-name">Tailscale</span></li>
+          <li class="tile"><span class="ico i-wireguard"></span><span class="tile-name">WireGuard</span></li>
+          <li class="tile"><span class="ico i-git"></span><span class="tile-name">Git</span></li>
+          <li class="tile"><span class="ico i-github"></span><span class="tile-name">GitHub</span></li>
+          <li class="tile"><span class="ico i-ghpages"></span><span class="tile-name">GitHub Pages</span></li>
+          <li class="tile"><span class="ico i-mqtt"></span><span class="tile-name">MQTT</span></li>
+          <li class="tile"><span class="ico i-rtsp"></span><span class="tile-name">RTSP streams</span></li>
+          <li class="tile"><span class="ico i-code"></span><span class="tile-name">VS Code</span></li>
+          <li class="tile"><span class="ico i-cpu"></span><span class="tile-name">Mini PC homelab</span></li>
+          <!-- Certifications: keep only the ones you're actively studying -->
+          <li class="tile studying"><span class="ico i-cisco"></span><span class="tile-name"><mark class="todo">CCNA</mark></span><span class="tile-note">Studying</span></li>
+          <li class="tile studying"><span class="ico i-redhat"></span><span class="tile-name"><mark class="todo">RHCSA</mark></span><span class="tile-note">Studying</span></li>
+        </ul>
       </div>
     </section>
 
     <!-- ===== 4. Education ===== -->
-    <section id="education">
+    <section class="screen" id="education">
       <div class="container">
-        <div class="section-head">
-          <span class="kicker">03 · Education</span>
-          <h2>Education</h2>
-        </div>
+        <p class="kicker">Education</p>
+        <h2>Education</h2>
 
         <ol class="timeline">
           <li>
             <span class="years">2025 – 2028</span>
-            <h3>Singapore Polytechnic</h3>
-            <p>Diploma in Computer Engineering, Specialisation in Cloud Systems</p>
+            <div>
+              <h3>Singapore Polytechnic</h3>
+              <p>Diploma in Computer Engineering, Specialisation in Cloud Systems</p>
+            </div>
           </li>
           <li>
             <span class="years">2023 – 2024</span>
-            <h3>Guarantee International College</h3>
-            <p>IGCSE: 4 A* in Computer Science, ICT, Mathematics, Physics; A in Additional Mathematics</p>
-            <div class="tags">
-              <span class="tag">A* Computer Science</span><span class="tag">A* ICT</span><span class="tag">A* Mathematics</span><span class="tag">A* Physics</span><span class="tag tag-neutral">A Additional Mathematics</span>
+            <div>
+              <h3>Guarantee International College</h3>
+              <p>IGCSE</p>
+              <p class="tags"><span>A* Computer Science</span><span>A* ICT</span><span>A* Mathematics</span><span>A* Physics</span><span>A Additional Mathematics</span></p>
             </div>
           </li>
         </ol>
@@ -229,57 +228,63 @@
     </section>
 
     <!-- ===== 5. Contact ===== -->
-    <section id="contact">
-      <div class="container">
-        <div class="section-head">
-          <span class="kicker">04 · Contact</span>
-          <h2>Get in touch</h2>
-          <p class="muted">Open to a year-long industrial attachment in DevOps / Cloud Infrastructure from March 2027.</p>
+    <section class="screen" id="contact">
+      <div class="container contact">
+        <div class="contact-intro">
+          <p class="kicker">Contact</p>
+          <h2>Let's work together</h2>
+          <p class="lead">I'm looking for a year-long industrial attachment in DevOps / Cloud Infrastructure. Email is the quickest way to reach me.</p>
+          <dl class="contact-facts">
+            <div><dt>Role</dt><dd>DevOps / Cloud Infrastructure</dd></div>
+            <div><dt>Duration</dt><dd>Year-long attachment</dd></div>
+            <div><dt>Start</dt><dd>March 2027</dd></div>
+            <div><dt>Based in</dt><dd>Singapore</dd></div>
+          </dl>
         </div>
 
-        <div class="contact-grid">
-          <a class="contact-card lg" href="mailto:hanlwinhtoo.connect@gmail.com">
-            <span class="contact-icon lg"><i class="ph ph-envelope-simple"></i></span>
-            <span class="label">Email</span>
-            <span class="value">hanlwinhtoo.connect@gmail.com</span>
-            <i class="ph ph-arrow-up-right arrow" aria-hidden="true"></i>
-          </a>
-          <a class="contact-card lg" href="https://github.com/hanlwinhtoo" target="_blank" rel="noopener">
-            <span class="contact-icon lg"><i class="ph ph-github-logo"></i></span>
-            <span class="label">GitHub</span>
-            <span class="value">github.com/hanlwinhtoo</span>
-            <i class="ph ph-arrow-up-right arrow" aria-hidden="true"></i>
-          </a>
-          <a class="contact-card lg" href="https://www.linkedin.com/in/hanlwinhtoo" target="_blank" rel="noopener">
-            <span class="contact-icon lg"><i class="ph ph-linkedin-logo"></i></span>
-            <span class="label">LinkedIn</span>
-            <span class="value">linkedin.com/in/hanlwinhtoo</span>
-            <i class="ph ph-arrow-up-right arrow" aria-hidden="true"></i>
-          </a>
-        </div>
-
-        <!-- ===== 6. Resume (shares the contact screen) ===== -->
-        <div class="resume-cta" id="resume">
-          <div>
-            <h3>Want the full picture?</h3>
-            <p class="muted">Resume PDF · updated for 2027 internship applications</p>
-          </div>
-          <!-- resume.pdf must sit in the same folder as index.html -->
-          <a class="btn btn-primary" href="resume.pdf" download><i class="ph ph-download-simple"></i> Download Resume</a>
-        </div>
+        <ul class="contact-list">
+          <li class="contact-row">
+            <a class="row-link" href="mailto:hanlwinhtoo.connect@gmail.com">
+              <span class="ico row-ico i-mail" aria-hidden="true"></span>
+              <span class="row-label">Email</span>
+              <span class="row-value">hanlwinhtoo.connect@gmail.com</span>
+            </a>
+            <button class="copy-btn" type="button" data-copy="hanlwinhtoo.connect@gmail.com" aria-label="Copy email address">Copy</button>
+          </li>
+          <li class="contact-row">
+            <a class="row-link" href="https://www.linkedin.com/in/hanlwinhtoo" target="_blank" rel="noopener">
+              <span class="ico row-ico i-linkedin" aria-hidden="true"></span>
+              <span class="row-label">LinkedIn</span>
+              <span class="row-value">in/hanlwinhtoo</span>
+              <span class="row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="contact-row">
+            <a class="row-link" href="https://github.com/hanlwinhtoo" target="_blank" rel="noopener">
+              <span class="ico row-ico i-github" aria-hidden="true"></span>
+              <span class="row-label">GitHub</span>
+              <span class="row-value">hanlwinhtoo</span>
+              <span class="row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="contact-row">
+            <!-- resume.pdf must sit in the same folder as index.html -->
+            <a class="row-link" href="resume.pdf" download>
+              <span class="ico row-ico i-doc" aria-hidden="true"></span>
+              <span class="row-label">Resume</span>
+              <span class="row-value">Download PDF</span>
+              <span class="row-arrow" aria-hidden="true">↓</span>
+            </a>
+          </li>
+        </ul>
       </div>
+
+      <footer>
+        <span>© <span id="year">2026</span> Han Lwin Htoo</span>
+        <a class="back-top" href="#home">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
+      </footer>
     </section>
   </main>
-
-  <footer>
-    <div class="container">
-      <hr class="rule">
-      <div class="row">
-        <span>© <span id="year">2026</span> Han Lwin Htoo</span>
-        <span>Plain HTML, CSS &amp; JS · Hosted on GitHub Pages</span>
-      </div>
-    </div>
-  </footer>
 
   <script src="script.js"></script>
 </body>

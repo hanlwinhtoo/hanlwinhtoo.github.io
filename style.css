@@ -1,498 +1,601 @@
 /* =====================================================================
    Han Lwin Htoo — Portfolio
-   Nocturne design system + "liquid glass" layer.
+   One section per screen. Black & white theme with a soft light behind each
+   screen and a faint film grain. (The Home terminal keeps its own classic
+   green Linux-shell colours, see section 6.)
    Edit colors in the two theme blocks below; everything else reads them.
    ===================================================================== */
 
-/* ---------- 1. Design tokens (Nocturne) ---------- */
+/* ---------- 1. Tokens ---------- */
 :root {
-  /* Nocturne ramps (shared by both themes) */
-  --neutral-100: #f3f5fe; --neutral-200: #e4e7f5; --neutral-300: #cfd3e5;
-  --neutral-400: #b2b6ca; --neutral-500: #9397ab; --neutral-600: #75798c;
-  --neutral-700: #595d6c; --neutral-800: #3f424d; --neutral-900: #292b31;
-  --accent-100: #f5f4ff; --accent-200: #e7e5fe; --accent-300: #d2cefd;
-  --accent-400: #b5abfc; --accent-500: #968ae0; --accent-600: #796cbf;
-  --accent-700: #5d5294; --accent-800: #423a6a; --accent-900: #2b2741;
-
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+  --container: 1100px;
+  --topbar: 68px;
+  --ease: cubic-bezier(.22, .61, .36, 1);   /* smooth ease-out */
 
-  /* Compact Nocturne spacing (density 0.7x) */
-  --space-1: 2.8px; --space-2: 5.6px; --space-3: 8.4px; --space-4: 11.2px;
-  --space-6: 16.8px; --space-8: 22.4px; --space-12: 33.6px; --space-16: 44.8px;
-  --space-24: 67.2px;
-
-  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 22px;
-
-  --lg-blur: 14px;   /* liquid glass frost */
-  --spring: cubic-bezier(.34, 1.4, .64, 1);   /* slight overshoot, like iOS */
-  --container: 1120px;
-}
-
-/* Dark theme (default) */
-:root, :root[data-theme="dark"] {
+  /* Dark (default): black */
+  --bg: #000000;
+  --bg-alt: #0a0a0a;         /* every other screen */
+  --surface: #141414;        /* tiles, panels */
+  --border: #262626;
+  --text: #ffffff;
+  --muted: #a3a3a3;
+  --faint: #6b6b6b;
+  --accent: #ffffff;         /* buttons, labels, active states */
+  --accent-strong: #d4d4d4;  /* tag text, primary button hover */
+  --on-accent: #000000;      /* text on a white fill */
+  --accent-soft: rgba(255, 255, 255, 0.08);
+  --glow: rgba(255, 255, 255, 0.045); /* soft light behind each screen */
+  --grain: 0.05;             /* film-grain strength */
+  --ok: #ffffff;             /* status dot */
+  --mark: rgba(255, 255, 255, 0.18);
+  --sweep: #ffffff;          /* hover fill: menu, contact rows, skill tiles */
+  --on-sweep: #000000;       /* text on that fill */
   color-scheme: dark;
-  --bg: #161826;
-  --text: #e9e9ed;
-  --text-muted: var(--neutral-400);
-  --accent: #9184d9;
-  --accent-text: var(--accent-300);          /* accent at body-text size */
-  --accent-hover: color-mix(in srgb, #9184d9 16%, transparent);
-  --accent-press: var(--accent-400);
-
-  --glass-solid: rgba(30, 32, 46, 0.94);     /* fallback without blur */
-
-  /* Liquid glass */
-  --lg-tint: rgba(38, 40, 58, 0.30);          /* fill over the blurred backdrop */
-  --lg-tint-hover: rgba(66, 68, 94, 0.42);
-  --lg-shine: rgba(255, 255, 255, 0.10);      /* highlight that follows the pointer */
-  --lg-rim-hi: rgba(255, 255, 255, 0.45);     /* rim where light hits (top) */
-  --lg-rim-mid: rgba(255, 255, 255, 0.14);    /* reflected light (bottom) */
-  --lg-rim-lo: rgba(255, 255, 255, 0.03);     /* rim at the sides */
-  --lg-inner: inset 0 1px 1px rgba(255, 255, 255, 0.10), inset 0 -10px 18px -14px rgba(255, 255, 255, 0.14);
-  --lg-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.55);
-  --lg-shadow-sm: 0 6px 16px -8px rgba(0, 0, 0, 0.55);
-  --lg-pill: rgba(255, 255, 255, 0.09);       /* active tab inside the nav */
-
-  --tag-bg: var(--accent-900);
-  --tag-text: var(--accent-300);
-  --tag-border: color-mix(in srgb, var(--accent-700) 70%, transparent);
-  --divider: rgba(233, 233, 237, 0.14);
-
-  --blob-1: #6a5cc4;   /* lavender */
-  --blob-2: #262a60;   /* deep indigo (Nocturne section ground) */
-  --blob-3: #4b3f8c;   /* deep purple */
-  --blob-opacity: 0.55;
-  --fog: rgba(207, 211, 229, 0.06);
 }
 
-/* Light theme */
 :root[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-alt: #f7f7f7;
+  --surface: #efefef;        /* slightly grey so tiles stand out without borders */
+  --border: #e5e5e5;
+  --text: #000000;
+  --muted: #525252;
+  --faint: #8a8a8a;
+  --accent: #000000;
+  --accent-strong: #262626;
+  --on-accent: #ffffff;
+  --accent-soft: rgba(0, 0, 0, 0.05);
+  --glow: rgba(0, 0, 0, 0.03);
+  --grain: 0.035;
+  --ok: #000000;
+  --mark: rgba(0, 0, 0, 0.1);
+  --sweep: #000000;          /* black in light mode */
+  --on-sweep: #ffffff;
   color-scheme: light;
-  --bg: #eceff9;
-  --text: #161826;
-  --text-muted: var(--neutral-700);
-  --accent: var(--accent-600);
-  --accent-text: var(--accent-700);
-  --accent-hover: color-mix(in srgb, #796cbf 12%, transparent);
-  --accent-press: var(--accent-700);
+}
 
-  --glass-solid: rgba(243, 245, 254, 0.95);
-
-  --lg-tint: rgba(255, 255, 255, 0.38);
-  --lg-tint-hover: rgba(255, 255, 255, 0.60);
-  --lg-shine: rgba(255, 255, 255, 0.65);
-  --lg-rim-hi: rgba(255, 255, 255, 1);
-  --lg-rim-mid: rgba(255, 255, 255, 0.65);
-  --lg-rim-lo: rgba(22, 24, 38, 0.07);
-  --lg-inner: inset 0 1px 1px rgba(255, 255, 255, 0.85), inset 0 -10px 18px -14px rgba(255, 255, 255, 0.9);
-  --lg-shadow: 0 0 0 .5px rgba(22, 24, 38, 0.06), 0 12px 32px -10px rgba(41, 43, 49, 0.22);
-  --lg-shadow-sm: 0 0 0 .5px rgba(22, 24, 38, 0.06), 0 6px 16px -8px rgba(41, 43, 49, 0.25);
-  --lg-pill: rgba(255, 255, 255, 0.70);
-
-  --tag-bg: var(--accent-200);
-  --tag-text: var(--accent-700);
-  --tag-border: color-mix(in srgb, var(--accent-400) 50%, transparent);
-  --divider: rgba(22, 24, 38, 0.12);
-
-  --blob-1: #b5abfc;
-  --blob-2: #cfd3e5;
-  --blob-3: #d2cefd;
-  --blob-opacity: 0.7;
-  --fog: rgba(243, 245, 254, 0.45);
+/* Fade colors when the theme is switched (class added briefly by script.js) */
+.theme-fade, .theme-fade *, .theme-fade *::before {
+  transition: background-color .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease) !important;
 }
 
 /* ---------- 2. Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 0;
+}
+/* Snap one screen at a time on screens tall enough to fit each section */
+@media (min-width: 900px) and (min-height: 700px) {
+  html { scroll-snap-type: y mandatory; }
+}
+
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  transition: background-color .3s ease, color .3s ease;
-}
-h1, h2, h3, h4 { font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; margin: 0; }
-p { margin: 0; text-wrap: pretty; }
-ul, ol { margin: 0; padding: 0; list-style: none; }
-a { color: var(--accent-text); text-underline-offset: 3px; }
-a:hover { color: var(--text); }
-:focus { outline: none; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-sm); }
-::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); }
-.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 var(--space-8); }
-.muted { color: var(--text-muted); }
-[hidden] { display: none !important; }
-.skip-link { position: absolute; left: -999px; top: 8px; }
-.skip-link:focus { left: 8px; z-index: 100; background: var(--glass-solid); padding: 8px 12px; border-radius: var(--radius-sm); }
-
-/* Placeholders you still need to fill in — remove the <mark class="todo"> once done */
-mark.todo {
-  background: color-mix(in srgb, #e0b252 22%, transparent);
-  color: inherit; padding: 0 4px; border-radius: 4px;
 }
 
-/* ---------- 3. Background: drifting blobs + fog ---------- */
-/* Radial gradients (not filter: blur) keep this cheap on phones. */
-.scene { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
-.blob {
-  position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%;
-  opacity: var(--blob-opacity);
-  will-change: transform;
-  animation: drift 38s ease-in-out infinite alternate;
-}
-.blob-1 { background: radial-gradient(circle, var(--blob-1) 0%, transparent 62%); top: -30vmax; left: -18vmax; }
-.blob-2 { background: radial-gradient(circle, var(--blob-2) 0%, transparent 62%); top: 10vh; right: -30vmax; animation-duration: 46s; animation-delay: -12s; }
-.blob-3 { background: radial-gradient(circle, var(--blob-3) 0%, transparent 62%); bottom: -40vmax; left: 20vw; animation-duration: 54s; animation-delay: -24s; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
-@keyframes drift {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  50%  { transform: translate3d(8vw, 6vh, 0) scale(1.08); }
-  100% { transform: translate3d(-6vw, 10vh, 0) scale(0.95); }
-}
+mark.todo { background: var(--mark); color: inherit; padding: 0 3px; border-radius: 3px; }
 
-/* Fog: soft haze bands over the blobs. Static on purpose: animating a layer
-   this size forced a full repaint every frame. */
-.fog {
-  position: fixed; inset: 0 -50% 0 -50%; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(ellipse 40% 22% at 25% 70%, var(--fog), transparent 70%),
-    radial-gradient(ellipse 35% 18% at 70% 30%, var(--fog), transparent 70%),
-    radial-gradient(ellipse 50% 25% at 50% 100%, var(--fog), transparent 70%);
-}
+.skip-link { position: absolute; left: -999px; top: 12px; background: var(--accent); color: var(--on-accent); padding: 8px 14px; border-radius: 6px; z-index: 100; }
+.skip-link:focus { left: 12px; }
 
-/* Lighter on small screens: drop one blob and hold the others still */
-@media (max-width: 720px) {
-  .blob-3 { display: none; }
-  .blob { width: 110vmax; height: 110vmax; animation: none; will-change: auto; }
-}
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 32px; }
 
-/* ---------- 4. Liquid glass ---------- */
-/* iOS-style material for the floating layer only (nav, buttons, terminal,
-   skill layers). Page content stays clear, as in iOS. Kept to a handful of
-   elements: many blurred surfaces over the animated blobs made scrolling lag.
-
-   ::before is the material (tint + frost + inner light). It sits on a pseudo
-   element so the host is never a backdrop root, which lets the mobile menu
-   inside the nav blur the page behind it too.
-   ::after is the specular rim: bright on top, dim at the sides, softly lit
-   underneath. --mx/--my (set in script.js) move a highlight with the pointer. */
-.lg, .btn { position: relative; isolation: isolate; }
-.lg::before, .btn::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  border-radius: inherit; pointer-events: none;
-  background:
-    radial-gradient(140px circle at var(--mx, 30%) var(--my, -30%), var(--lg-shine), transparent 70%),
-    var(--lg-tint);
-  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(180%);
-  backdrop-filter: blur(var(--lg-blur)) saturate(180%);
-  box-shadow: var(--lg-inner), var(--lg-shadow);
+/* ---------- 3. Top bar ---------- */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  height: var(--topbar);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
-.lg::after, .btn::after {
-  content: ""; position: absolute; inset: 0; padding: 1px;
-  border-radius: inherit; pointer-events: none;
-  background: linear-gradient(to bottom, var(--lg-rim-hi), var(--lg-rim-lo) 35%, var(--lg-rim-lo) 70%, var(--lg-rim-mid));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
+.topbar-inner {
+  max-width: var(--container); height: 100%; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; gap: 32px;
 }
-/* Refraction: Chromium can run an SVG filter on the backdrop, so the nav
-   bends what scrolls under it. script.js adds .lg-refract only there. */
-.lg-refract .nav::before,
-.lg-refract .nav-links::before {
-  backdrop-filter: blur(4px) url(#lg-refract) saturate(180%);
-}
-/* Fallbacks: solid fill without backdrop-filter or when the OS asks for less transparency */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .lg::before, .btn::before { background: var(--glass-solid); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .lg::before, .btn::before, .lg-refract .nav::before, .lg-refract .nav-links::before {
-    background: var(--glass-solid); -webkit-backdrop-filter: none; backdrop-filter: none;
-  }
-}
-
-/* ---------- 5. Buttons & tags ---------- */
-.btn {
-  display: inline-flex; align-items: center; gap: var(--space-3);
-  height: 42px; padding: 0 var(--space-8);
-  font: 500 14px/1 var(--font); text-decoration: none; cursor: pointer;
-  border-radius: 999px; border: 0;
-  background: none; color: var(--text);
-  --lg-shadow: var(--lg-shadow-sm);
-  transition: transform .45s var(--spring), color .15s ease;
-}
-.btn i { font-size: 17px; }
-.btn:hover { --lg-tint: var(--lg-tint-hover); color: var(--text); }
-.btn:active { transform: scale(.94); transition-duration: .12s; } /* squish on press */
-/* Primary: glass tinted with the accent */
-.btn-primary { --lg-tint: color-mix(in srgb, var(--accent) 26%, transparent); color: var(--text); }
-.btn-primary:hover { --lg-tint: color-mix(in srgb, var(--accent) 40%, transparent); }
-.btn-icon { width: 38px; height: 38px; padding: 0; justify-content: center; }
-
-.tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.tag {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 3px 10px; border-radius: 999px;
-  font-size: 12px; font-weight: 500;
-  background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--tag-border);
-  box-shadow: inset 0 1px 0 var(--lg-rim-mid); /* glassy top edge, no blur (there are many tags) */
-}
-.tag-neutral { background: transparent; color: var(--text-muted); border-color: var(--divider); }
-
-/* ---------- 6. Nav ---------- */
-/* Fixed (not sticky) so the nav takes no space and every section can fill the screen */
-.nav-wrap { position: fixed; top: var(--space-4); left: 0; right: 0; z-index: 50; padding: 0 var(--space-4); }
-.nav {
-  max-width: var(--container); margin: 0 auto;
-  display: flex; align-items: center; gap: var(--space-6);
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-6);
-  border-radius: 999px;
-}
-.brand { display: flex; align-items: center; gap: var(--space-3); color: var(--text); text-decoration: none; font-weight: 500; white-space: nowrap; }
-.brand-mark {
-  height: 28px; padding: 0 9px; border-radius: 8px; display: grid; place-items: center;
-  font-size: 12px; font-weight: 600; letter-spacing: .02em;
-  color: var(--text);
-  --lg-tint: color-mix(in srgb, var(--accent) 30%, transparent); /* accent-tinted glass chip */
-  --lg-shadow: var(--lg-shadow-sm);
-}
-.nav-links { display: flex; gap: var(--space-1); margin-left: auto; }
-/* On wide screens the links sit on the nav's glass, so they don't need their own */
-@media (min-width: 821px) { .nav-links::before, .nav-links::after { display: none; } }
+.brand { font-weight: 600; letter-spacing: -0.01em; margin-right: auto; }
+.nav-links { display: flex; align-self: stretch; font-size: 15px; }
+/* Links: full-height segments of the bar separated by thin lines; a fill
+   sweeps in from the left on hover, like the contact rows
+   (white in dark mode, black in light mode via --sweep / --on-sweep) */
 .nav-links a {
-  position: relative; z-index: 1;
-  padding: 7px 12px; border-radius: 999px; font-size: 14px;
-  color: var(--text-muted); text-decoration: none; white-space: nowrap;
-  transition: color .15s ease;
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; align-items: center; padding: 0 18px;
+  color: var(--muted);
+  transition: color .4s var(--ease);
 }
-.nav-links a:hover { color: var(--text); }
-/* Glass capsule that springs to the active tab (positioned by script.js) */
-.nav-indicator {
-  position: absolute; top: 0; left: 0; z-index: 0; border-radius: 999px; pointer-events: none;
-  background: var(--lg-pill);
-  box-shadow: inset 0 1px 0 var(--lg-rim-mid), inset 0 0 0 .5px var(--lg-rim-lo), var(--lg-shadow-sm);
-  opacity: 0;
-  transition: transform .55s var(--spring), width .55s var(--spring), height .55s var(--spring), opacity .2s ease;
+.nav-links a + a { border-left: 1px solid var(--border); }
+.nav-links a::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--sweep);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .4s var(--ease);
 }
-.nav-indicator.no-anim { transition: none; }
-/* Resume downloads the PDF, so it's an accent glass button, not a section tab */
-.nav-links a.nav-resume {
-  display: inline-flex; align-items: center; gap: var(--space-2); margin-left: var(--space-2);
-  color: var(--text);
-  --lg-tint: color-mix(in srgb, var(--accent) 26%, transparent);
-  --lg-shadow: var(--lg-shadow-sm);
-  transition: transform .45s var(--spring), color .15s ease;
-}
-.nav-links a.nav-resume:hover { --lg-tint: color-mix(in srgb, var(--accent) 40%, transparent); }
-.nav-links a.nav-resume:active { transform: scale(.94); transition-duration: .12s; }
+.nav-links a:hover::before, .nav-links a.tap::before { transform: scaleX(1); }
 .nav-links a.active { color: var(--text); }
+.nav-links a:hover, .nav-links a.tap { color: var(--on-sweep); }
+/* Current section: accent line along the bottom of its segment */
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--accent);
+  transform: scaleX(0); transition: transform .3s var(--ease);
+}
+.nav-links a.active::after { transform: scaleX(1); }
+.nav-links a:hover::after, .nav-links a.tap::after { transform: scaleX(0); }
 
-/* Menu button is hidden on wide screens */
-.menu-toggle { display: none; }
-/* Two-line menu icon; lines rotate into an X when open */
-.menu-lines { position: relative; width: 16px; height: 8px; display: block; }
-.menu-lines span {
+.theme-toggle {
+  display: grid; place-items: center;
+  width: 36px; height: 36px; padding: 0;
+  background: var(--surface); border: 0; border-radius: 50%;
+  color: var(--muted); cursor: pointer; transition: color .15s, background-color .15s;
+}
+.theme-toggle:hover { color: var(--accent); background: var(--accent-soft); }
+.theme-icon {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1.5px solid currentColor;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+
+/* Menu button: phones only. Two lines that turn into an X when open. */
+.menu-toggle {
+  display: none; place-items: center;
+  width: 36px; height: 36px; padding: 0;
+  background: var(--surface); border: 0; border-radius: 50%;
+  color: var(--text); cursor: pointer;
+}
+.menu-lines { position: relative; width: 16px; height: 10px; }
+.menu-lines i {
   position: absolute; left: 0; width: 100%; height: 1.5px; border-radius: 2px;
-  background: currentColor; transition: transform .2s ease, top .2s ease;
+  background: currentColor;
+  transition: transform .3s var(--ease), top .3s var(--ease);
 }
-.menu-lines span:first-child { top: 0; }
-.menu-lines span:last-child { top: calc(100% - 1.5px); }
-.nav.open .menu-lines span:first-child { top: calc(50% - 0.75px); transform: rotate(45deg); }
-.nav.open .menu-lines span:last-child { top: calc(50% - 0.75px); transform: rotate(-45deg); }
+.menu-lines i:first-child { top: 0; }
+.menu-lines i:last-child { top: 8.5px; }
+.nav-open .menu-lines i:first-child { top: 4.25px; transform: rotate(45deg); }
+.nav-open .menu-lines i:last-child { top: 4.25px; transform: rotate(-45deg); }
 
-/* Narrow screens: fold section links into a dropdown action menu */
-@media (max-width: 820px) {
-  .nav { position: relative; }
-  .menu-toggle { display: inline-flex; }
-  .theme-toggle { margin-left: auto; }
-  .nav-links {
-    display: none;
-    position: absolute; top: calc(100% + var(--space-3)); right: 0;
-    min-width: 220px; margin: 0; padding: var(--space-3);
-    flex-direction: column; gap: var(--space-1);
-    border-radius: var(--radius-xl);
-    --lg-tint: color-mix(in srgb, var(--bg) 55%, transparent); /* a little denser so links stay readable */
-  }
-  .nav.open .nav-links { display: flex; animation: menu-in .4s var(--spring); transform-origin: top right; }
-  .nav-links a { padding: 10px 14px; border-radius: var(--radius-md); font-size: 15px; }
-  .nav-indicator { border-radius: var(--radius-md); }
-  .nav-links a.nav-resume { margin: var(--space-2) 0 0; }
+/* ---------- 4. Side dots ---------- */
+.dots {
+  position: fixed; right: 28px; top: 50%; transform: translateY(-50%); z-index: 40;
+  display: flex; flex-direction: column; gap: 14px;
 }
-@media (max-width: 420px) { .brand-name { display: none; } }
-/* Scale only: fading opacity would briefly cut the menu's blur off from the page */
-@keyframes menu-in { from { transform: scale(.85); } to { transform: none; } }
-
-/* ---------- 7. Sections ---------- */
-/* Each section fills one screen, content centred vertically.
-   Top padding clears the fixed nav; taller content just grows the section. */
-section, .hero {
-  min-height: 100vh; min-height: 100svh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 96px 0 var(--space-16);
+.dots a {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border);
+  transition: background .2s, transform .2s;
 }
-.section-head { display: grid; gap: var(--space-3); margin-bottom: var(--space-12); max-width: 620px; }
-.kicker { font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-text); display: flex; align-items: center; gap: var(--space-3); }
-.kicker::before { content: ""; width: 18px; height: 1px; background: var(--accent); } /* short accent mark stays solid */
-.section-head h2 { font-size: clamp(28px, 4vw, 38px); }
-/* Nocturne rule: fades to transparent at both ends */
-.rule { height: 1px; border: 0; margin: 0; background: linear-gradient(to right, transparent, var(--divider) 48px, var(--divider) calc(100% - 48px), transparent); }
+.dots a:hover { background: var(--muted); }
+.dots a.active { background: var(--accent); transform: scale(1.4); }
 
-/* ---------- 8. Hero ---------- */
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--space-16); align-items: center; }
-.hero h1 { font-size: clamp(44px, 7.5vw, 84px); letter-spacing: -0.035em; margin: var(--space-6) 0 var(--space-6); }
-.hero .school { font-size: 17px; color: var(--text-muted); }
-/* Even line lengths without splitting words: balance spreads the words so
-   every line, including the last, is about the same length */
-.hero .intro { font-size: clamp(16px, 1.6vw, 18px); margin: var(--space-8) 0 var(--space-12); max-width: 62ch; text-wrap: balance; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-4); }
-.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #7fd3a8; box-shadow: 0 0 0 4px color-mix(in srgb, #7fd3a8 20%, transparent); }
-
-/* Terminal: "Looking for" details as a shell session, lines appear one by one */
-.terminal {
-  font-family: var(--mono); font-size: 14px; line-height: 1.7;
-  display: grid; gap: var(--space-1);
-  padding: var(--space-6) var(--space-8) var(--space-8);
-  border-radius: var(--radius-xl);
-}
-.term-dots { display: flex; gap: 6px; margin-right: var(--space-3); }
-.term-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--lg-rim-mid); box-shadow: inset 0 0 0 .5px var(--divider); }
-.terminal > * { opacity: 0; animation: line-in .35s ease forwards; animation-delay: calc(var(--d, 0) * 280ms + 200ms); }
-.term-title { display: flex; align-items: center; gap: var(--space-3); font-size: 12px; color: var(--text-muted); margin-bottom: var(--space-4); }
-.prompt { color: var(--accent-text); margin-right: 1ch; }
-.term-out { color: var(--text-muted); margin: 0 0 var(--space-4); }
-.term-out div { display: grid; grid-template-columns: 10ch minmax(0, 1fr); gap: var(--space-3); }
-.term-out dt { color: var(--accent-text); }
-.term-out dd { margin: 0; color: var(--text); }
-.cursor { display: inline-block; width: .6em; height: 1.15em; vertical-align: text-bottom; background: var(--accent); animation: blink 1.1s steps(1) infinite; }
-@keyframes line-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-@keyframes blink { 50% { opacity: 0; } }
-
-@media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: var(--space-12); } }
-
-/* ---------- 9. Projects ---------- */
-/* Numbered rows separated by hairlines; the whole row is clickable */
-.project-list { border-bottom: 1px solid var(--divider); }
-.project-row {
+/* ---------- 5. Screens ---------- */
+.screen {
   position: relative;
-  display: grid; grid-template-columns: 80px minmax(0, 1fr) auto; gap: var(--space-8); align-items: start;
-  padding: var(--space-12) var(--space-4);
-  border-top: 1px solid var(--divider);
-  transition: background-color .2s ease;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--topbar) + 40px) 0 64px;
+  scroll-snap-align: start;
 }
-.project-row:hover { background: linear-gradient(to right, var(--accent-hover), transparent 75%); }
-.project-row .num {
-  font-size: clamp(28px, 4vw, 44px); font-weight: 500; line-height: 1; letter-spacing: -0.03em;
-  color: color-mix(in srgb, var(--accent-text) 45%, transparent);
-  font-variant-numeric: tabular-nums;
+.screen:nth-of-type(even) { background: var(--bg-alt); }
+
+/* Soft accent light behind each screen, alternating corners */
+.screen { isolation: isolate; }
+.screen::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(55% 60% at 12% 22%, var(--glow), transparent 70%);
 }
-.project-main { display: grid; gap: var(--space-4); max-width: 68ch; justify-items: start; }
-.project-main h3 { font-size: clamp(20px, 2.4vw, 26px); }
-.project-row.featured h3 { font-size: clamp(28px, 4vw, 40px); }
-.project-main p { color: var(--text-muted); }
-.project-main .tags { margin-top: var(--space-2); }
-.project-link {
-  display: inline-flex; align-items: center; gap: var(--space-2); padding-top: 6px;
-  font-size: 14px; color: var(--text-muted); text-decoration: none; white-space: nowrap;
-  transition: color .2s ease;
-}
-.project-link::after { content: ""; position: absolute; inset: 0; } /* stretch link over the row */
-.project-link .ph-arrow-up-right { transition: transform .2s ease; }
-.project-row:hover .project-link { color: var(--accent-text); }
-.project-row:hover .ph-arrow-up-right { transform: translate(3px, -3px); }
-@media (max-width: 620px) {
-  .project-row { grid-template-columns: 40px minmax(0, 1fr) auto; gap: var(--space-4); padding: var(--space-8) 0; }
-  .project-link .link-text { display: none; }
+.screen:nth-of-type(even)::before {
+  background: radial-gradient(55% 60% at 88% 78%, var(--glow), transparent 70%);
 }
 
-/* ---------- 10. Skills ---------- */
-/* Infrastructure stack: layers narrow towards the top and deepen towards the metal.
-   Each layer sets --w (inset step) and --tint (accent strength) inline. */
-.stack { display: grid; gap: var(--space-2); }
-.layer {
-  display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: var(--space-8); align-items: center;
-  padding: var(--space-6) var(--space-8);
-  margin-inline: calc(var(--w, 0) * 3%);
-  border-radius: var(--radius-lg);
-  --lg-tint: color-mix(in srgb, var(--accent) var(--tint, 8%), transparent); /* accent-tinted glass */
-  --lg-shadow: var(--lg-shadow-sm);
-}
-.layer-name { display: flex; align-items: center; gap: var(--space-3); font-weight: 500; }
-.layer-name i { color: var(--accent-text); font-size: 20px; }
-.layer-name .idx { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--text-muted); width: 2.5ch; }
-.layer-items { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); font-size: 14px; color: var(--text-muted); }
-.stack-caption {
-  display: flex; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-4);
-  font-family: var(--mono); font-size: 12px; color: var(--text-muted);
-}
-.certs { margin-top: var(--space-12); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); font-size: 14px; }
-.certs .muted { margin-right: var(--space-2); }
-@media (max-width: 720px) {
-  .layer { grid-template-columns: 1fr; gap: var(--space-3); margin-inline: 0; padding: var(--space-6); }
+/* Faint film grain over the whole page, so flat colours feel less digital */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ---------- 11. Education ---------- */
-/* Vertical timeline: a line down the left with a ring on each entry */
-.timeline { position: relative; display: grid; gap: var(--space-16); padding-left: var(--space-16); max-width: 760px; }
+.kicker { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 12px; }
+h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 48px; }
+h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags span {
+  font-family: var(--mono); font-size: 12px;
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent-strong);
+}
+
+/* Buttons */
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 10px;
+  font-weight: 500; font-size: 15px;
+  border: 0; background: var(--surface); color: var(--text);
+  transition: background-color .35s var(--ease), color .35s var(--ease), transform .35s var(--ease);
+}
+/* Secondary buttons fill with the accent on hover */
+.btn:hover { background: var(--accent); color: var(--on-accent); transform: translateY(-2px); }
+.btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: 0 10px 30px -12px var(--accent); }
+.btn-primary:hover { background: var(--accent-strong); color: var(--on-accent); }
+
+/* ---------- 6. Home ---------- */
+.hero { display: grid; grid-template-columns: 1.25fr 1fr; gap: 64px; align-items: center; }
+.status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--muted);
+  padding: 6px 14px; background: var(--surface); border-radius: 999px;
+}
+.status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: pulse 2.4s var(--ease) infinite; }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 45%, transparent); }
+  100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--ok) 0%, transparent); }
+}
+h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; margin-top: 28px; }
+.role { font-size: clamp(18px, 2vw, 22px); color: var(--accent); font-weight: 500; margin-top: 12px; }
+.lead { color: var(--muted); font-size: 17px; line-height: 1.7; margin-top: 24px; max-width: 560px; }
+
+/* Small avatar beside the status pill (grayscale; colour on hover) */
+.hero-top { display: flex; align-items: center; gap: 14px; }
+.avatar {
+  width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: none;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter .6s var(--ease);
+}
+.avatar:hover, .avatar.tap { filter: grayscale(0); }
+
+/* Terminal window. Always dark, in both themes, in classic Linux-shell colours
+   (bold green prompt + cursor). Lifted slightly above the black page.
+   Change the --t-* values to retheme it. */
+.terminal {
+  --t-bg: #111111; --t-bar: #1c1c1c; --t-dot: #3a3a3a;
+  --t-prompt: #4ade80; --t-key: #86efac;
+  --t-text: #e8e8e8; --t-dim: #8a8a8a; --t-faint: #5c5c5c;
+  width: 100%; max-width: 480px; justify-self: end;
+  background: var(--t-bg);
+  border-radius: 12px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6), 0 0 60px -20px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  font-family: var(--mono); font-size: 13.5px; line-height: 1.75;
+  color: var(--t-text);
+}
+.term-bar {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  height: 36px; background: var(--t-bar);
+}
+.term-dots { position: absolute; left: 14px; display: flex; gap: 7px; }
+.term-dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--t-dot); }
+.term-title { font-size: 12px; color: var(--t-dim); }
+.term-body { padding: 16px 18px 18px; min-height: 290px; }
+.term-body p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* Classic Linux shell: bold green prompt and cursor, light-green YAML keys */
+.t-ps { color: var(--t-prompt); font-weight: 600; }
+.t-text { color: var(--t-text); }
+.t-out { color: var(--t-dim); }
+.t-key { color: var(--t-key); }
+.t-ls { display: flex; flex-wrap: wrap; column-gap: 18px; }
+.t-cursor {
+  display: inline-block; width: 8px; height: 1.1em; margin-left: 1px; vertical-align: -0.2em;
+  background: var(--t-prompt);
+  animation: t-blink 1.1s steps(1) infinite;
+}
+@keyframes t-blink { 50% { opacity: 0; } }
+/* While typing, hidden lines take no space (script.js toggles .t-hide) */
+.t-hide { display: none; }
+
+.scroll-hint {
+  position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+  font-size: 13px; color: var(--faint); transition: color .15s;
+}
+.scroll-hint:hover { color: var(--accent); }
+
+/* ---------- 7. Skills: icon tiles ---------- */
+.skills-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 32px; }
+.skills-head h2 { margin-bottom: 0; }
+.skills-head .lead { margin: 0; max-width: 340px; font-size: 15px; text-align: right; }
+
+.tiles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; }
+.tile {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  min-height: 104px; padding: 14px 8px;
+  text-align: center;
+  transition: transform .35s var(--ease);
+}
+.tile-name { font-size: 12.5px; font-weight: 500; line-height: 1.3; color: var(--muted); transition: color .35s var(--ease); }
+/* Hover: no box; the tile lifts, the icon grows and the name brightens */
+.tile:hover, .tile.tap { transform: translateY(-4px); }
+.tile:hover .tile-name, .tile.tap .tile-name { color: var(--text); }
+.tile:hover .ico, .tile.tap .ico { transform: scale(1.18); }
+
+/* "Studying" tiles: small label above the icon */
+.tile-note {
+  position: absolute; top: 4px; left: 0; right: 0;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* Icons: SVGs used as masks. Brand logos use their official colour (--brand,
+   from simple-icons.org); near-black brands and generic symbols follow the theme.
+   Brand logos: Simple Icons; generic ones: Phosphor. Both from jsDelivr. */
+.ico {
+  width: 30px; height: 30px; flex: none;
+  background: var(--brand, currentColor); /* brand colour if set, else follows the theme */
+  -webkit-mask: var(--icon) center / contain no-repeat;
+          mask: var(--icon) center / contain no-repeat;
+  transition: transform .35s var(--ease);
+}
+.i-proxmox   { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/proxmox.svg"); --brand: #E57000; }
+.i-qemu      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/qemu.svg"); --brand: #FF6600; }
+.i-lxc       { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linuxcontainers.svg"); }
+.i-debian    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/debian.svg"); --brand: #A81D33; }
+.i-ubuntu    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/ubuntu.svg"); --brand: #E95420; }
+.i-bash      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/gnubash.svg"); --brand: #4EAA25; }
+.i-tailscale { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/tailscale.svg"); }
+.i-wireguard { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/wireguard.svg"); --brand: #88171A; }
+.i-git       { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/git.svg"); --brand: #F05032; }
+.i-github    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/github.svg"); }
+.i-ghpages   { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/browser.svg"); }
+.i-mqtt      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/mqtt.svg"); --brand: #660066; }
+.i-cisco     { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/cisco.svg"); --brand: #1BA0D7; }
+.i-redhat    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/redhat.svg"); --brand: #EE0000; }
+.i-vnet      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/share-network.svg"); }
+.i-ssh       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/key.svg"); }
+.i-systemd   { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/gear-six.svg"); }
+.i-tcpip     { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/tree-structure.svg"); }
+.i-vlan      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/network.svg"); }
+.i-dns       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/globe.svg"); }
+.i-rtsp      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/video-camera.svg"); }
+.i-code      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/code.svg"); --brand: #007ACC; }
+.i-cpu       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/cpu.svg"); }
+/* Contact row icons (filled, like the Skills brand logos) */
+.i-mail      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/gmail.svg"); --brand: #EA4335; }
+.i-linkedin  { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linkedin.svg"); --brand: #0A66C2; }
+.i-doc       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/fill/file-text-fill.svg"); }
+
+/* ---------- 7b. Project screens (one project per screen) ---------- */
+.project-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+.project-label {
+  display: inline-block; margin-top: 4px;
+  font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); padding: 4px 10px; background: var(--surface); border-radius: 999px;
+}
+.project h2 { font-size: clamp(40px, 5.2vw, 68px); letter-spacing: -0.035em; line-height: 1.05; margin: 20px 0 0; }
+.project .lead { margin-top: 20px; max-width: 520px; }
+.project .tags { margin-top: 24px; }
+.project .actions { margin-top: 32px; }
+
+/* Giant outlined index number */
+.project-index { justify-self: end; display: flex; align-items: baseline; gap: 6px; line-height: 0.8; user-select: none; }
+.project-index .num {
+  font-size: clamp(140px, 19vw, 280px); font-weight: 700; letter-spacing: -0.06em;
+  color: transparent; -webkit-text-stroke: 1.5px var(--accent);
+}
+.project-index .of { font-family: var(--mono); font-size: 16px; color: var(--faint); }
+
+/* ---------- 8. Education ---------- */
+/* Roadmap: a vertical track with a dot for each milestone */
+.timeline { list-style: none; padding: 0; max-width: 760px; position: relative; }
 .timeline::before {
-  content: ""; position: absolute; left: 6px; top: 10px; bottom: 10px; width: 1px;
-  background: linear-gradient(to bottom, var(--accent), var(--divider));
+  content: ""; position: absolute; left: 4px; top: 8px; bottom: 0; width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, var(--accent), color-mix(in srgb, var(--accent) 15%, transparent));
 }
-.timeline li { position: relative; display: grid; gap: var(--space-2); justify-items: start; }
+.timeline li { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 0 0 48px 32px; position: relative; }
+.timeline li:last-child { padding-bottom: 0; }
 .timeline li::before {
-  content: ""; position: absolute; left: calc(-1 * var(--space-16)); top: 5px;
-  width: 13px; height: 13px; border-radius: 50%;
-  background: var(--bg); border: 2px solid var(--accent);
+  content: ""; position: absolute; left: 0; top: 8px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--bg-alt), 0 0 14px 5px var(--accent-soft); /* gap ring + soft glow */
 }
-.timeline .years { font-family: var(--mono); font-size: 13px; color: var(--accent-text); }
-.timeline h3 { font-size: clamp(20px, 2.4vw, 26px); }
-.timeline p { color: var(--text-muted); }
-.timeline .tags { margin-top: var(--space-4); }
+.years { font-family: var(--mono); font-size: 14px; color: var(--accent); padding-top: 3px; }
+.timeline h3 { font-size: 20px; }
+.timeline p { color: var(--muted); margin-top: 6px; }
+.timeline .tags { margin-top: 14px; }
 
-/* ---------- 12. Contact & resume ---------- */
-/* Three liquid glass cards: round glass icon, label, address; lifts on hover */
-.contact-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
-.contact-card {
-  display: grid; gap: var(--space-2); align-content: start;
-  padding: var(--space-8); border-radius: var(--radius-xl);
-  color: var(--text); text-decoration: none;
-  transition: transform .45s var(--spring);
+/* ---------- 9. Contact ---------- */
+.contact { display: grid; grid-template-columns: 0.85fr 1.35fr; gap: 56px; align-items: center; }
+.contact h2 { margin-bottom: 0; }
+.contact .lead { margin-top: 20px; max-width: 440px; }
+
+/* Availability details */
+.contact-facts { margin: 36px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; max-width: 440px; }
+.contact-facts dt { font-family: var(--mono); font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; }
+.contact-facts dd { margin: 4px 0 0; font-weight: 500; }
+
+/* Contact rows: full-width lines; a solid black fill sweeps in on hover */
+.contact-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+.contact-row {
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  border-bottom: 1px solid var(--border);
 }
-.contact-card:hover { color: var(--text); transform: translateY(-4px); --lg-tint: var(--lg-tint-hover); }
-.contact-card:active { transform: scale(.97); transition-duration: .12s; }
-.contact-icon {
-  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
-  margin-bottom: var(--space-6);
-  --lg-tint: color-mix(in srgb, var(--accent) 28%, transparent);
-  --lg-shadow: var(--lg-shadow-sm);
+/* Fill sweeps in from the left and back out to the left. The origin stays
+   fixed: swapping it on hover-out made a half-finished sweep jump sides. */
+.contact-row::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--sweep);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .4s var(--ease);
+  will-change: transform;
 }
-.contact-icon i { font-size: 22px; color: var(--text); }
-.contact-card .label { font-size: 13px; color: var(--text-muted); }
-.contact-card .value { font-size: 15px; font-weight: 500; overflow-wrap: anywhere; }
-.contact-card .arrow {
-  position: absolute; top: var(--space-8); right: var(--space-8);
-  font-size: 18px; color: var(--text-muted); transition: transform .25s ease, color .2s ease;
+.contact-row:hover::before, .contact-row.tap::before { transform: scaleX(1); }
+
+.row-link {
+  display: grid; grid-template-columns: 24px 68px 1fr auto; align-items: center; gap: 14px;
+  padding: 26px 20px;
+  color: var(--text);
+  transition: color .4s var(--ease), padding .4s var(--ease);
 }
-.contact-card:hover .arrow { color: var(--accent-text); transform: translate(3px, -3px); }
-@media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
+.row-link:focus-visible { outline: none; }
+.row-label { font-family: var(--mono); font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; transition: color .4s var(--ease), opacity .4s var(--ease); }
+.row-value { font-size: clamp(17px, 1.6vw, 21px); font-weight: 600; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.row-arrow { font-size: 20px; transition: transform .5s var(--ease); }
+.row-ico { width: 24px; height: 24px; color: var(--text); transition: color .4s var(--ease); }
 
-.resume-cta { margin-top: var(--space-16); padding-top: var(--space-12); border-top: 1px solid var(--divider); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-6); scroll-margin-top: 110px; }
-.resume-cta h3 { font-size: clamp(22px, 2.6vw, 28px); margin-bottom: var(--space-2); }
+.contact-row:hover .row-link, .contact-row.tap .row-link { color: var(--on-sweep); padding-left: 28px; }
+.contact-row:hover .row-label, .contact-row.tap .row-label { color: var(--on-sweep); opacity: .6; }
+.contact-row:hover .row-arrow, .contact-row.tap .row-arrow { transform: translate(3px, -3px); }
+.contact-row:hover .row-ico, .contact-row.tap .row-ico { color: var(--on-sweep); }
 
-/* ---------- 13. Footer ---------- */
-footer { padding: 0 0 var(--space-12); font-size: 13px; color: var(--text-muted); }
-footer .container { display: grid; gap: var(--space-8); }
-footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-4); }
+.copy-btn {
+  margin-right: 20px;
+  padding: 7px 14px; border-radius: 999px;
+  font: 500 13px var(--font);
+  background: var(--accent-soft); color: var(--text);
+  border: 0; cursor: pointer;
+  transition: color .35s var(--ease), background-color .35s var(--ease);
+}
+.contact-row:hover .copy-btn, .contact-row.tap .copy-btn { color: var(--on-sweep); background: color-mix(in srgb, var(--on-sweep) 14%, transparent); }
+.contact-row .copy-btn:hover { background: var(--on-sweep); color: var(--sweep); }
+.copy-btn.copied { background: var(--on-sweep); color: var(--sweep); }
 
-/* ---------- 14. Reduced motion: stop blobs ---------- */
+/* Keyboard (Tab) focus shows the same fill. Kept in separate rules so a
+   browser without :has() still gets the hover effect above. Mouse clicks
+   don't trigger it, so a clicked row doesn't stay filled. */
+.contact-row:has(:focus-visible)::before { transform: scaleX(1); }
+.contact-row:has(:focus-visible) .row-link { color: var(--on-sweep); padding-left: 28px; }
+.contact-row:has(:focus-visible) .row-label { color: var(--on-sweep); opacity: .6; }
+.contact-row:has(:focus-visible) .row-ico { color: var(--on-sweep); }
+.contact-row:has(:focus-visible) .copy-btn { color: var(--on-sweep); background: color-mix(in srgb, var(--on-sweep) 14%, transparent); }
+
+footer {
+  position: absolute; left: 0; right: 0; bottom: 24px;
+  max-width: var(--container); margin: 0 auto; padding: 0 32px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  font-size: 13px; color: var(--faint);
+}
+.back-top { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 500; transition: color .3s var(--ease); }
+.back-top-arrow { display: inline-block; transition: transform .3s var(--ease); }
+.back-top:hover { color: var(--accent); }
+.back-top:hover .back-top-arrow { transform: translateY(-3px); }
+
+/* ---------- 10. Scroll reveal ---------- */
+/* Only hidden when JS runs (html.js), so the page still shows without it.
+   script.js adds .in when a screen scrolls into view; --i staggers items. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  /* Hiding (screen left the window) is instant, so it's ready to replay */
+  transition: opacity 0s, transform 0s;
+}
+.js .screen.in .reveal {
+  opacity: 1; transform: none;
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+/* Skill rows keep their own hover transition once revealed */
+.js .screen.in .tile.reveal { transition: opacity .5s var(--ease) calc(var(--i, 0) * 25ms), transform .5s var(--ease); }
+.js .screen.in .tile.reveal:hover, .js .screen.in .tile.reveal.tap { transform: translateY(-4px); }
+
+/* Desktop blur through (script.js adds .paging): JS moves between screens and
+   animates the two screens' blur/opacity inline, so native snap is off */
+html.paging { scroll-snap-type: none; scroll-behavior: auto; }
+
+/* ---------- 11. Smaller screens ---------- */
+/* Shorter laptop windows: tighten spacing so every section fits one screen */
+@media (min-width: 761px) and (max-height: 900px) {
+  .screen { padding: calc(var(--topbar) + 20px) 0 36px; }
+  h2 { font-size: clamp(28px, 3.4vw, 38px); margin-bottom: 28px; }
+  .skills-head { margin-bottom: 24px; }
+  .tile { min-height: 90px; padding: 12px 8px; gap: 8px; }
+  .ico { width: 26px; height: 26px; }
+  .timeline li { padding-bottom: 32px; }
+}
+/* Side dots need a free margin beside the content */
+@media (max-width: 1200px) {
+  .dots { display: none; }
+}
+
+/* Tablets (portrait iPad etc.): give the terminal more room and smaller text */
+@media (min-width: 761px) and (max-width: 1023px) {
+  .hero { grid-template-columns: 1.1fr 1fr; gap: 32px; }
+  .terminal { font-size: 12px; line-height: 1.7; }
+  .term-body { padding: 14px 14px 16px; min-height: 0; }
+}
+
+@media (max-width: 960px) {
+  .contact { grid-template-columns: 1fr; gap: 48px; }
+  .tiles { grid-template-columns: repeat(6, 1fr); }
+  /* Project screens: number moves above the text */
+  .project-grid { grid-template-columns: 1fr; gap: 16px; }
+  .project-index { order: -1; justify-self: start; }
+  .project-index .num { font-size: clamp(88px, 18vw, 140px); }
+}
+
+@media (max-width: 760px) {
+  :root { --topbar: 60px; }
+  .container, .topbar-inner, footer { padding: 0 20px; }
+  .topbar-inner { gap: 10px; }
+  /* Section links become a side drawer that slides in from the right.
+     Note: the top bar's backdrop-filter makes it the containing block for
+     fixed children, so sizes use 100vw / 100dvh instead of inset: 0.
+     script.js (1b) drives the swipe-to-open / swipe-to-close gestures. */
+  .menu-toggle, .theme-toggle { position: relative; z-index: 3; } /* stay above the drawer */
+  .menu-toggle { display: grid; }
+  .topbar::before { /* dimmed page behind the drawer */
+    content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; z-index: 1;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0; visibility: hidden;
+    transition: opacity .35s var(--ease), visibility .35s;
+  }
+  .nav-open::before { opacity: 1; visibility: visible; }
+  .nav-links {
+    position: fixed; top: 0; right: 0; z-index: 2;
+    width: min(80vw, 320px); height: 100dvh;
+    flex-direction: column; gap: 0;
+    padding: calc(var(--topbar) + 24px) 0 32px;
+    background: var(--bg-alt);
+    box-shadow: -24px 0 60px -20px rgba(0, 0, 0, 0.6);
+    transform: translateX(100%); visibility: hidden;
+    transition: transform .35s var(--ease), visibility .35s;
+    touch-action: pan-y;
+  }
+  .nav-open .nav-links { transform: none; visibility: visible; }
+  .nav-links.dragging { transition: none; } /* follows the finger while swiping */
+  /* Drawer rows: full width, separated by lines, square fill like the contact rows */
+  .nav-links a { padding: 18px 28px; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); border-bottom: 1px solid var(--border); }
+  .nav-links a:first-child { border-top: 1px solid var(--border); }
+  .nav-links a + a { border-left: 0; }
+  .nav-links a::after { display: none; } /* drawer shows the current section by colour instead */
+  .nav-links a.active { color: var(--accent); }
+  .nav-links a.active:hover, .nav-links a.active.tap { color: var(--on-sweep); }
+  .screen { padding: calc(var(--topbar) + 32px) 0 72px; }
+  .hero { grid-template-columns: 1fr; gap: 32px; }
+  .terminal { justify-self: stretch; max-width: none; }
+  h1 { margin-top: 20px; }
+  .scroll-hint { display: none; }
+  .skills-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .skills-head .lead { text-align: left; }
+  .tiles { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  h2 { margin-bottom: 32px; }
+  .timeline li { grid-template-columns: 1fr; gap: 4px; padding-left: 24px; }
+  .row-link { grid-template-columns: auto 1fr auto; gap: 4px 12px; padding: 18px 12px; }
+  .row-ico { grid-row: 1 / span 2; }
+  .contact-row:hover .row-link, .contact-row.tap .row-link { padding-left: 16px; }
+  .copy-btn { margin-right: 12px; }
+  .row-label { grid-column: 2 / -1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .blob { animation: none; will-change: auto; }
-  .terminal > * { animation: none; opacity: 1; }
-  .cursor { animation: none; }
-  *, *::before, *::after { transition-duration: 0.01ms !important; }
+  .btn:hover { transition: none; transform: none; }
+  .t-cursor { animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .status .dot { animation: none; }
 }
