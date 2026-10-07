@@ -362,9 +362,9 @@ h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035
 .i-rtsp      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/video-camera.svg"); }
 .i-code      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/code.svg"); --brand: #007ACC; }
 .i-cpu       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/cpu.svg"); }
-/* Contact row icons (filled, like the Skills brand logos) */
-.i-mail      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/gmail.svg"); --brand: #EA4335; }
-.i-linkedin  { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linkedin.svg"); --brand: #0A66C2; }
+/* Contact row icons (filled logos, no brand colour: they follow the text colour) */
+.i-mail      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/gmail.svg"); }
+.i-linkedin  { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linkedin.svg"); }
 .i-doc       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/fill/file-text-fill.svg"); }
 
 /* ---------- 7b. Project screens (one project per screen) ---------- */
