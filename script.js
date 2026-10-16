@@ -9,7 +9,8 @@
    5. Copy email button
    6. Tap effects on touch screens
    7. Footer year
-   8. Project pages: click a screenshot to enlarge it
+   8. Home headline: typed words
+   9. Project pages: click a screenshot to enlarge it
    Sections 2-4b only run on the home page (the pages with .screen sections).
    ===================================================================== */
 
@@ -493,7 +494,25 @@
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
-  /* ---------- 8. Screenshot lightbox ---------- */
+  /* ---------- 8. Home headline: typed words ---------- */
+  // Types each word in data-words, pauses, deletes it, then types the next.
+  // With reduced motion the first word just stays as written.
+  const typer = document.querySelector('.type-words');
+  if (typer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const words = typer.getAttribute('data-words').split('|');
+    let w = 0, n = words[0].length, deleting = false;
+    (function tick() {
+      const word = words[w];
+      typer.textContent = word.slice(0, n);
+      let wait = deleting ? 45 : 90;
+      if (!deleting && n === word.length) { deleting = true; wait = 1800; }   // hold the full word
+      else if (deleting && n === 0) { deleting = false; w = (w + 1) % words.length; wait = 350; }
+      else n += deleting ? -1 : 1;
+      setTimeout(tick, wait);
+    })();
+  }
+
+  /* ---------- 9. Screenshot lightbox ---------- */
   // Clicking a screenshot (.shot img) opens it full size in a <dialog> with
   // its caption. Click anywhere or press Escape to close.
   const shots = document.querySelectorAll('.shot img');

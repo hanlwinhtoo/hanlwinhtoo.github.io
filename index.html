@@ -30,7 +30,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- ?v=… makes browsers fetch the new file after an update: bump it whenever style.css or script.js change -->
-  <link rel="stylesheet" href="style.css?v=2026-10-17">
+  <link rel="stylesheet" href="style.css?v=2026-10-17g">
 </head>
 <body>
   <a class="skip-link" href="#projects">Skip to content</a>
@@ -76,9 +76,12 @@
             <img class="avatar" src="assets/images/me-cartoon-avatar.png" alt="Cartoon portrait of Han Lwin Htoo" width="88" height="88">
             <p class="status"><span class="dot" aria-hidden="true"></span> Open to internships · March 2027</p>
           </div>
-          <h1>Han Lwin Htoo</h1>
-          <p class="role">DevOps &amp; Cloud Infrastructure</p>
-          <p class="lead">I'm a Computer Engineering student at Singapore Polytechnic, specialising in Cloud Systems. Most of what I know about infrastructure comes from running my own Proxmox homelab: building it, breaking it and rebuilding it. I want to work in DevOps, cloud and infrastructure, and I'm looking for an internship where I can work on real systems with an experienced team.</p>
+          <h1 class="hero-title">Hi, I'm Han.<span class="hero-sub">I build, break and rebuild <span class="sr-only">cloud infrastructure, networks and linux servers.</span><!--
+            script.js (section 8) types these words in turn; edit the list in data-words
+            --><span class="type-words" aria-hidden="true" data-words="cloud infrastructure.|networks.|linux servers.">cloud infrastructure.</span></span></h1>
+          <!-- SP logo: dark text in light mode, white text in dark mode (transparent PNGs) -->
+          <p class="hero-meta">Computer Engineering, Cloud Systems&nbsp;<span class="sep" aria-hidden="true">@</span>
+            <img class="sp-logo sp-logo--light" src="assets/images/sp-logo.png" alt="Singapore Polytechnic" width="423" height="96"><img class="sp-logo sp-logo--dark" src="assets/images/sp-logo-white.png" alt="Singapore Polytechnic" width="423" height="96"></p>
           <div class="actions">
             <a class="btn btn-primary" href="resume.pdf" download>Download Resume</a>
             <a class="btn" href="#contact">Get in touch</a>
@@ -268,6 +271,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=2026-10-17"></script>
+  <script src="script.js?v=2026-10-17g"></script>
 </body>
 </html>
