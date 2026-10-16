@@ -681,7 +681,7 @@ html.paging { scroll-snap-type: none; scroll-behavior: auto; }
 /* Text inside a section */
 .cs-section h2, .cs-block h2 { margin-bottom: 20px; font-size: clamp(28px, 3.2vw, 40px); }
 .cs-section p, .cs-section li, .cs-block > p { color: var(--muted); line-height: 1.75; }
-.cs-section p + p { margin-top: 16px; }
+.cs-section p + p, .cs-section ul + p, .cs-section ol + p { margin-top: 16px; }
 .cs-section ul, .cs-section ol { padding-left: 22px; margin-top: 16px; }
 .cs-section li + li { margin-top: 8px; }
 .cs-section strong { color: var(--text); font-weight: 600; }
