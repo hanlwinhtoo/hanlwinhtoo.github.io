@@ -9,18 +9,19 @@
   <meta name="description" content="Han Lwin Htoo, Computer Engineering (Cloud Systems) student at Singapore Polytechnic. Seeking a year-long industrial attachment in DevOps / cloud infrastructure from March 2027.">
   <meta name="author" content="Han Lwin Htoo">
   <meta name="keywords" content="Han Lwin Htoo, DevOps, cloud infrastructure, Proxmox, homelab, Linux, networking, internship, industrial attachment, Singapore Polytechnic">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://hanlwinhtoo.github.io/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Han Lwin Htoo — DevOps & Cloud Infrastructure">
   <meta property="og:description" content="I run a Proxmox homelab to learn infrastructure hands-on.">
   <meta property="og:url" content="https://hanlwinhtoo.github.io/">
-  <meta property="og:image" content="https://hanlwinhtoo.github.io/me.jpg">
+  <meta property="og:image" content="https://hanlwinhtoo.github.io/assets/images/me.jpg">
   <meta name="twitter:card" content="summary">
 
-  <!-- Apply a saved theme before paint (default: black); .js enables the scroll fade-ins -->
+  <!-- Apply a saved theme before paint (default: light); .js enables the scroll fade-ins -->
   <script>
     document.documentElement.classList.add('js');
+    document.documentElement.setAttribute('data-theme', 'light'); // light by default
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
 
@@ -57,8 +58,7 @@
   <nav class="dots" aria-label="Sections">
     <a href="#home" aria-label="Home"></a>
     <a href="#projects" aria-label="Project 1: Proxmox Homelab"></a>
-    <a href="#project-bustech" aria-label="Project 2: BusTech Grand Challenge"></a>
-    <a href="#project-portfolio" aria-label="Project 3: Portfolio Site"></a>
+    <a href="#project-bustech" aria-label="Project 2: BusGuard"></a>
     <a href="#skills" aria-label="Skills"></a>
     <a href="#education" aria-label="Education"></a>
     <a href="#contact" aria-label="Contact"></a>
@@ -71,8 +71,8 @@
       <div class="container hero">
         <div class="hero-text">
           <div class="hero-top">
-            <!-- me-avatar.jpg is a 360px copy of me.jpg -->
-            <img class="avatar" src="me-avatar.jpg" alt="Portrait of Han Lwin Htoo" width="56" height="56">
+            <!-- 360px face crop of me_cartoon.png (original kept in Documents/portfolio-source/images) -->
+            <img class="avatar" src="assets/images/me-cartoon-avatar.png" alt="Cartoon portrait of Han Lwin Htoo" width="88" height="88">
             <p class="status"><span class="dot" aria-hidden="true"></span> Open to internships · March 2027</p>
           </div>
           <h1>Han Lwin Htoo</h1>
@@ -85,7 +85,7 @@
         </div>
         <!-- Terminal window. script.js types the .t-cmd lines out each time Home
              appears; without JS (or with reduced motion) it shows as written. -->
-        <div class="terminal" role="img" aria-label="Terminal: whoami returns han-lwin-htoo; looking for a year-long DevOps / Cloud Infrastructure attachment in Singapore from March 2027; projects: proxmox-homelab, bustech-grand-challenge, hanlwinhtoo.github.io">
+        <div class="terminal" role="img" aria-label="Terminal: whoami returns han-lwin-htoo; looking for a year-long DevOps / Cloud Infrastructure attachment in Singapore from March 2027; projects: proxmox-homelab, bustech-grand-challenge">
           <div class="term-bar" aria-hidden="true">
             <span class="term-dots"><i></i><i></i><i></i></span>
             <span class="term-title">han@portfolio: ~</span>
@@ -99,7 +99,7 @@
             <p class="t-out"><span class="t-key">start:</span> March 2027</p>
             <p class="t-out"><span class="t-key">based_in:</span> Singapore</p>
             <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">ls ~/projects</span></p>
-            <p class="t-out t-ls"><span>proxmox-homelab</span><span>bustech-grand-challenge</span><span>hanlwinhtoo.github.io</span></p>
+            <p class="t-out t-ls"><span>proxmox-homelab</span><span>bustech-grand-challenge</span></p>
             <p class="t-cmd t-last"><span class="t-ps">han@portfolio:~$</span> <span class="t-text"></span><span class="t-cursor"></span></p>
           </div>
         </div>
@@ -108,53 +108,38 @@
     </section>
 
     <!-- ===== 2. Projects: one full screen per project =====
-         data-nav keeps the "Projects" menu link highlighted on all three -->
+         data-nav keeps the "Projects" menu link highlighted on both -->
     <section class="screen project" id="projects" data-nav="projects">
       <div class="container project-grid">
         <div class="project-info">
-          <p class="kicker">Projects · 1 of 3</p>
-          <span class="project-label">Featured</span>
+          <p class="kicker">Projects · 1 of 2</p>
+          <!-- Project type: Side project / School project / Hackathon / Competition -->
+          <p class="project-labels"><span class="project-label project-type">Side project</span></p>
           <h2>Proxmox Homelab</h2>
           <p class="lead">Self-hosted Proxmox VE 9.2 on a mini PC with Tailscale remote access and an isolated security lab.</p>
           <p class="tags"><span>Proxmox</span><span>Linux</span><span>Networking</span><span>Tailscale</span></p>
           <div class="actions">
-            <a class="btn btn-primary" href="https://github.com/hanlwinhtoo/proxmox-homelab" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-primary" href="projects/proxmox-homelab.html">Read case study <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        <div class="project-index" aria-hidden="true"><span class="num">01</span><span class="of">/03</span></div>
+        <div class="project-index" aria-hidden="true"><span class="num">01</span><span class="of">/02</span></div>
       </div>
     </section>
 
     <section class="screen project" id="project-bustech" data-nav="projects">
       <div class="container project-grid">
         <div class="project-info">
-          <p class="kicker">Projects · 2 of 3</p>
-          <span class="project-label">LTA</span>
-          <h2>BusTech Grand Challenge</h2>
-          <!-- TODO: replace the highlighted text with your actual role -->
-          <p class="lead">AI-assisted smart-bus prototype for passengers with special needs.</p>
-          <p class="tags"><span>Computer Vision</span><span>MQTT</span><span>RTSP</span><span>Three.js</span></p>
+          <p class="kicker">Projects · 2 of 2</p>
+          <!-- TODO after the Grand Final: update "Top 5 finalist" with the final placing -->
+          <p class="project-labels"><span class="project-label project-type">Competition</span><span class="project-label">Top 5 finalist</span></p>
+          <h2>BusGuard</h2>
+          <p class="lead">Passenger assistance for autonomous vehicles, built for the Singapore BusTech Grand Challenge 2026. I handled the networking: local MQTT and RTSP camera streaming to the operator console.</p>
+          <p class="tags"><span>Computer Vision</span><span>MQTT</span><span>RTSP</span></p>
           <div class="actions">
-            <a class="btn btn-primary" href="https://github.com/hanlwinhtoo/bustech-grand-challenge" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-primary" href="projects/bustech.html">Read case study <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        <div class="project-index" aria-hidden="true"><span class="num">02</span><span class="of">/03</span></div>
-      </div>
-    </section>
-
-    <section class="screen project" id="project-portfolio" data-nav="projects">
-      <div class="container project-grid">
-        <div class="project-info">
-          <p class="kicker">Projects · 3 of 3</p>
-          <span class="project-label">Web</span>
-          <h2>Portfolio Site</h2>
-          <p class="lead">This site, built and hosted on GitHub Pages.</p>
-          <p class="tags"><span>HTML</span><span>CSS</span><span>GitHub Pages</span></p>
-          <div class="actions">
-            <a class="btn btn-primary" href="https://github.com/hanlwinhtoo/hanlwinhtoo.github.io" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-        <div class="project-index" aria-hidden="true"><span class="num">03</span><span class="of">/03</span></div>
+        <div class="project-index" aria-hidden="true"><span class="num">02</span><span class="of">/02</span></div>
       </div>
     </section>
 
@@ -171,12 +156,11 @@
         </div>
 
         <!-- One tile per tool. The icon comes from the i-* class (see style.css, section 7).
-             Order: virtualisation, Linux, networking, tools, hardware, then studying. -->
+             Order: virtualisation, Linux, networking, tools, then studying.
+             16 tiles = two full rows of 8 on desktop. -->
         <ul class="tiles">
           <li class="tile"><span class="ico i-proxmox"></span><span class="tile-name">Proxmox VE</span></li>
-          <li class="tile"><span class="ico i-qemu"></span><span class="tile-name">KVM VMs</span></li>
           <li class="tile"><span class="ico i-lxc"></span><span class="tile-name">LXC</span></li>
-          <li class="tile"><span class="ico i-vnet"></span><span class="tile-name">Virtual networking</span></li>
           <li class="tile"><span class="ico i-debian"></span><span class="tile-name">Debian</span></li>
           <li class="tile"><span class="ico i-ubuntu"></span><span class="tile-name">Ubuntu</span></li>
           <li class="tile"><span class="ico i-bash"></span><span class="tile-name">Bash scripting</span></li>
@@ -186,14 +170,9 @@
           <li class="tile"><span class="ico i-vlan"></span><span class="tile-name">VLANs &amp; isolation</span></li>
           <li class="tile"><span class="ico i-dns"></span><span class="tile-name">DNS / DHCP</span></li>
           <li class="tile"><span class="ico i-tailscale"></span><span class="tile-name">Tailscale</span></li>
-          <li class="tile"><span class="ico i-wireguard"></span><span class="tile-name">WireGuard</span></li>
           <li class="tile"><span class="ico i-git"></span><span class="tile-name">Git</span></li>
-          <li class="tile"><span class="ico i-github"></span><span class="tile-name">GitHub</span></li>
-          <li class="tile"><span class="ico i-ghpages"></span><span class="tile-name">GitHub Pages</span></li>
           <li class="tile"><span class="ico i-mqtt"></span><span class="tile-name">MQTT</span></li>
           <li class="tile"><span class="ico i-rtsp"></span><span class="tile-name">RTSP streams</span></li>
-          <li class="tile"><span class="ico i-code"></span><span class="tile-name">VS Code</span></li>
-          <li class="tile"><span class="ico i-cpu"></span><span class="tile-name">Mini PC homelab</span></li>
           <!-- Certifications: keep only the ones you're actively studying -->
           <li class="tile studying"><span class="ico i-cisco"></span><span class="tile-name"><mark class="todo">CCNA</mark></span><span class="tile-note">Studying</span></li>
           <li class="tile studying"><span class="ico i-redhat"></span><span class="tile-name"><mark class="todo">RHCSA</mark></span><span class="tile-note">Studying</span></li>
@@ -205,7 +184,7 @@
     <section class="screen" id="education">
       <div class="container">
         <p class="kicker">Education</p>
-        <h2>Education</h2>
+        <h2>Where I study</h2>
 
         <ol class="timeline">
           <li>
@@ -213,14 +192,16 @@
             <div>
               <h3>Singapore Polytechnic</h3>
               <p>Diploma in Computer Engineering, Specialisation in Cloud Systems</p>
+              <!-- TODO: replace with your relevant modules -->
+              <p class="tags"><span>[Module 1]</span><span>[Module 2]</span><span>[Module 3]</span><span>[Module 4]</span></p>
             </div>
           </li>
           <li>
             <span class="years">2023 – 2024</span>
             <div>
               <h3>Guarantee International College</h3>
-              <p>IGCSE</p>
-              <p class="tags"><span>A* Computer Science</span><span>A* ICT</span><span>A* Mathematics</span><span>A* Physics</span><span>A Additional Mathematics</span></p>
+              <p>Cambridge International General Certificate of Secondary Education (CAIE)</p>
+              <p class="tags"><span>A* · Computer Science</span><span>A* · ICT</span><span>A* · Mathematics</span><span>A* · Physics</span><span>A · Additional Mathematics</span></p>
             </div>
           </li>
         </ol>

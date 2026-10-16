@@ -14,7 +14,7 @@
   --topbar: 68px;
   --ease: cubic-bezier(.22, .61, .36, 1);   /* smooth ease-out */
 
-  /* Dark (default): black */
+  /* Dark: black (pages switch to the light theme below by default, see the <head> script) */
   --bg: #000000;
   --bg-alt: #0a0a0a;         /* every other screen */
   --surface: #141414;        /* tiles, panels */
@@ -28,7 +28,7 @@
   --accent-soft: rgba(255, 255, 255, 0.08);
   --glow: rgba(255, 255, 255, 0.045); /* soft light behind each screen */
   --grain: 0.05;             /* film-grain strength */
-  --ok: #ffffff;             /* status dot */
+  --ok: #4ade80;             /* status dot: terminal prompt green */
   --mark: rgba(255, 255, 255, 0.18);
   --sweep: #ffffff;          /* hover fill: menu, contact rows, skill tiles */
   --on-sweep: #000000;       /* text on that fill */
@@ -49,7 +49,7 @@
   --accent-soft: rgba(0, 0, 0, 0.05);
   --glow: rgba(0, 0, 0, 0.03);
   --grain: 0.035;
-  --ok: #000000;
+  --ok: #22c55e;             /* status dot: slightly deeper green for white */
   --mark: rgba(0, 0, 0, 0.1);
   --sweep: #000000;          /* black in light mode */
   --on-sweep: #ffffff;
@@ -249,14 +249,20 @@ h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035
 .role { font-size: clamp(18px, 2vw, 22px); color: var(--accent); font-weight: 500; margin-top: 12px; }
 .lead { color: var(--muted); font-size: 17px; line-height: 1.7; margin-top: 24px; max-width: 560px; }
 
-/* Small avatar beside the status pill (grayscale; colour on hover) */
-.hero-top { display: flex; align-items: center; gap: 14px; }
+/* Cartoon avatar beside the status pill. A ring with a page-coloured gap
+   frames the white drawing on the dark theme; on hover the ring turns
+   accent and the avatar lifts slightly. */
+.hero-top { display: flex; align-items: center; gap: 18px; }
 .avatar {
-  width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: none;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter .6s var(--ease);
+  width: 88px; height: 88px; border-radius: 50%; object-fit: cover; flex: none;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--border);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
-.avatar:hover, .avatar.tap { filter: grayscale(0); }
+.avatar:hover, .avatar.tap {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
+}
 
 /* Terminal window. Always dark, in both themes, in classic Linux-shell colours
    (bold green prompt + cursor). Lifted slightly above the black page.
@@ -340,28 +346,22 @@ h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035
   transition: transform .35s var(--ease);
 }
 .i-proxmox   { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/proxmox.svg"); --brand: #E57000; }
-.i-qemu      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/qemu.svg"); --brand: #FF6600; }
 .i-lxc       { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linuxcontainers.svg"); }
 .i-debian    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/debian.svg"); --brand: #A81D33; }
 .i-ubuntu    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/ubuntu.svg"); --brand: #E95420; }
 .i-bash      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/gnubash.svg"); --brand: #4EAA25; }
 .i-tailscale { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/tailscale.svg"); }
-.i-wireguard { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/wireguard.svg"); --brand: #88171A; }
 .i-git       { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/git.svg"); --brand: #F05032; }
 .i-github    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/github.svg"); }
-.i-ghpages   { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/browser.svg"); }
 .i-mqtt      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/mqtt.svg"); --brand: #660066; }
 .i-cisco     { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/cisco.svg"); --brand: #1BA0D7; }
 .i-redhat    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/redhat.svg"); --brand: #EE0000; }
-.i-vnet      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/share-network.svg"); }
 .i-ssh       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/key.svg"); }
 .i-systemd   { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/gear-six.svg"); }
 .i-tcpip     { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/tree-structure.svg"); }
 .i-vlan      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/network.svg"); }
 .i-dns       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/globe.svg"); }
 .i-rtsp      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/video-camera.svg"); }
-.i-code      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/code.svg"); --brand: #007ACC; }
-.i-cpu       { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/cpu.svg"); }
 /* Contact row icons (filled logos, no brand colour: they follow the text colour) */
 .i-mail      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/gmail.svg"); }
 .i-linkedin  { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linkedin.svg"); }
@@ -369,12 +369,16 @@ h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035
 
 /* ---------- 7b. Project screens (one project per screen) ---------- */
 .project-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+/* Labels above a project title: the project type first, then extras (e.g. a result) */
+.project-labels { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .project-label {
-  display: inline-block; margin-top: 4px;
+  display: inline-block;
   font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
   color: var(--muted); padding: 4px 10px; background: var(--surface); border-radius: 999px;
 }
-.project h2 { font-size: clamp(40px, 5.2vw, 68px); letter-spacing: -0.035em; line-height: 1.05; margin: 20px 0 0; }
+/* Project type: outlined in the text colour so it reads first */
+.project-type { color: var(--text); background: transparent; box-shadow: inset 0 0 0 1px var(--border); }
+.project h2 { font-size: clamp(40px, 5.2vw, 68px); letter-spacing: -0.035em; line-height: 1.05; margin: 4px 0 0; }
 .project .lead { margin-top: 20px; max-width: 520px; }
 .project .tags { margin-top: 24px; }
 .project .actions { margin-top: 32px; }
@@ -389,19 +393,21 @@ h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035
 
 /* ---------- 8. Education ---------- */
 /* Roadmap: a vertical track with a dot for each milestone */
-.timeline { list-style: none; padding: 0; max-width: 760px; position: relative; }
-.timeline::before {
-  content: ""; position: absolute; left: 4px; top: 8px; bottom: 0; width: 2px;
+.timeline { list-style: none; padding: 0; max-width: 860px; position: relative; }
+.timeline li { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 0 0 48px 32px; position: relative; }
+.timeline li:last-child { padding-bottom: 0; }
+/* Track: one segment per entry, running from its dot's centre (13px) to the
+   next entry's dot centre, so the line stops at the last dot */
+.timeline li:not(:last-child)::after {
+  content: ""; position: absolute; left: 4px; top: 13px; bottom: -13px; width: 2px;
   border-radius: 2px;
   background: linear-gradient(to bottom, var(--accent), color-mix(in srgb, var(--accent) 15%, transparent));
 }
-.timeline li { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 0 0 48px 32px; position: relative; }
-.timeline li:last-child { padding-bottom: 0; }
 .timeline li::before {
-  content: ""; position: absolute; left: 0; top: 8px;
+  content: ""; position: absolute; left: 0; top: 8px; z-index: 1;
   width: 10px; height: 10px; border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 0 5px var(--bg-alt), 0 0 14px 5px var(--accent-soft); /* gap ring + soft glow */
+  box-shadow: 0 0 0 5px var(--bg), 0 0 14px 5px var(--accent-soft); /* gap ring + soft glow */
 }
 .years { font-family: var(--mono); font-size: 14px; color: var(--accent); padding-top: 3px; }
 .timeline h3 { font-size: 20px; }
@@ -584,12 +590,18 @@ html.paging { scroll-snap-type: none; scroll-behavior: auto; }
   .skills-head .lead { text-align: left; }
   .tiles { grid-template-columns: repeat(3, 1fr); gap: 10px; }
   h2 { margin-bottom: 32px; }
-  .timeline li { grid-template-columns: 1fr; gap: 4px; padding-left: 24px; }
   .row-link { grid-template-columns: auto 1fr auto; gap: 4px 12px; padding: 18px 12px; }
   .row-ico { grid-row: 1 / span 2; }
   .contact-row:hover .row-link, .contact-row.tap .row-link { padding-left: 16px; }
   .copy-btn { margin-right: 12px; }
   .row-label { grid-column: 2 / -1; }
+  .avatar { width: 72px; height: 72px; }
+  .hero-top { gap: 14px; }
+}
+
+/* Education timeline: date stacks above the entry; the track stays on the left */
+@media (max-width: 767px) {
+  .timeline li { grid-template-columns: 1fr; gap: 4px; padding-left: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -598,4 +610,130 @@ html.paging { scroll-snap-type: none; scroll-behavior: auto; }
   .t-cursor { animation: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .status .dot { animation: none; }
+  .avatar:hover, .avatar.tap { transform: none; }
+}
+
+/* ---------- 12. Project pages (projects/*.html) ----------
+   Normal scrolling pages (no screens), sharing the tokens and components above. */
+.page { padding: calc(var(--topbar) + 40px) 0 56px; }
+.page h1 { margin-top: 0; }
+.page-head .lead { max-width: 640px; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px;
+  font-family: var(--mono); font-size: 13px; color: var(--muted);
+  transition: color .3s var(--ease);
+}
+.back-link:hover { color: var(--accent); }
+.page-footer {
+  position: static; display: flex; justify-content: space-between; align-items: center;
+  max-width: var(--container); margin: 0 auto; padding: 24px 32px 32px;
+  border-top: 1px solid var(--border);
+  font-size: 14px; color: var(--muted);
+}
+
+/* Case study header: title, summary and facts on the left, hero image on the right */
+.cs-head { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: center; }
+.cs-head h1 { font-size: clamp(38px, 5vw, 64px); letter-spacing: -0.035em; line-height: 1.05; }
+.facts {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 24px;
+  margin: 32px 0 0; padding-top: 24px; border-top: 1px solid var(--border);
+}
+.facts > div:last-child:nth-child(odd) { grid-column: 1 / -1; } /* odd count: last item spans the row */
+.facts dt { font-family: var(--mono); font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.1em; }
+.facts dd { margin: 3px 0 0; font-weight: 500; }
+.facts a { border-bottom: 1px solid var(--border); transition: border-color .3s var(--ease); }
+.facts a:hover { border-color: var(--text); }
+
+/* Images: <figure class="shot"> > <div class="media"> > <img> (or a placeholder) + caption.
+   .media crops every image to the same shape, so rows and the gallery line up. */
+.shot { margin: 0; }
+.media { position: relative; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background: var(--surface); }
+.media img, .media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.media img { cursor: zoom-in; transition: transform .6s var(--ease); }
+.media img:hover { transform: scale(1.02); }
+/* .media--natural: show the whole image at its own shape (wide screenshots) */
+.media--natural { aspect-ratio: auto; }
+.media--natural img { height: auto; }
+.shot figcaption { margin-top: 12px; font-size: 14px; color: var(--faint); text-align: center; }
+.shot-placeholder {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center;
+  font-family: var(--mono); font-size: 13px; color: var(--faint);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Hero image beside the title */
+.cs-hero .media { aspect-ratio: 4 / 3; border-radius: 20px; }
+/* Portrait hero (e.g. a poster): shown whole, in a narrower column */
+.cs-head:has(.cs-hero--portrait) { grid-template-columns: 1.4fr 1fr; }
+.cs-hero--portrait { justify-self: end; width: 100%; max-width: 440px; }
+.cs-hero--portrait .media { aspect-ratio: auto; border-radius: 14px; }
+.cs-hero--portrait .media img { height: auto; }
+
+/* Feature rows: text beside an image; .flip puts the image on the left */
+.cs-row { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: center; margin-top: 80px; }
+.cs-row.flip { grid-template-columns: 1.15fr 1fr; }
+.cs-row.flip .cs-section { order: 2; }
+.cs-block { margin-top: 80px; }
+
+/* Text inside a section */
+.cs-section h2, .cs-block h2 { margin-bottom: 20px; font-size: clamp(28px, 3.2vw, 40px); }
+.cs-section p, .cs-section li, .cs-block > p { color: var(--muted); line-height: 1.75; }
+.cs-section p + p { margin-top: 16px; }
+.cs-section ul, .cs-section ol { padding-left: 22px; margin-top: 16px; }
+.cs-section li + li { margin-top: 8px; }
+.cs-section strong { color: var(--text); font-weight: 600; }
+.cs-narrow { max-width: 720px; }
+
+/* Gallery: the first image spans the full width, the rest sit two per row */
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; }
+.gallery .shot:first-child { grid-column: 1 / -1; }
+.gallery .shot:first-child .media { aspect-ratio: 16 / 9; }
+
+/* Next project: a large link card at the end of the page */
+.next-project {
+  display: grid; grid-template-columns: 1fr 280px; gap: 32px; align-items: center;
+  margin-top: 80px; padding: 32px; border-radius: 20px; background: var(--surface);
+  transition: transform .35s var(--ease);
+}
+.next-project:hover { transform: translateY(-4px); }
+.next-label { font-family: var(--mono); font-size: 13px; color: var(--faint); }
+.next-title { display: block; margin-top: 8px; font-size: clamp(26px, 3.4vw, 40px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+.next-arrow { display: inline-block; transition: transform .35s var(--ease); }
+.next-project:hover .next-arrow { transform: translateX(6px); }
+.next-project .media img { cursor: pointer; }
+.next-project .media { display: block; aspect-ratio: 16 / 10; border-radius: 12px; background: var(--bg-alt); }
+.cs-links { margin-top: 32px; }
+
+/* Commands / config snippets: always dark, like the Home terminal */
+.code {
+  margin: 20px 0 0; padding: 18px 20px; border-radius: 12px; overflow-x: auto;
+  background: #0d0d0d; color: #e5e5e5; border: 1px solid #262626;
+  font: 13px/1.7 var(--mono);
+}
+
+/* Full-size screenshot viewer (script.js, section 8) */
+.lightbox { border: 0; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; overflow: visible; cursor: zoom-out; }
+.lightbox::backdrop { background: rgba(0, 0, 0, 0.88); }
+.lightbox img { display: block; max-width: 94vw; max-height: 86vh; border-radius: 8px; }
+.lightbox-caption { margin-top: 12px; color: #d4d4d4; font-size: 14px; text-align: center; }
+
+@media (max-width: 900px) {
+  .cs-head, .cs-head:has(.cs-hero--portrait) { grid-template-columns: 1fr; gap: 36px; }
+  .cs-hero--portrait { justify-self: center; }
+  .cs-row, .cs-row.flip { grid-template-columns: 1fr; gap: 24px; margin-top: 56px; }
+  .cs-row.flip .cs-section { order: 0; }
+  .cs-block, .next-project { margin-top: 56px; }
+}
+@media (max-width: 760px) {
+  .page { padding-top: calc(var(--topbar) + 32px); }
+  .page-footer { padding: 20px; }
+  .cs-hero .media { border-radius: 14px; }
+  .gallery { grid-template-columns: 1fr; gap: 28px; }
+  .next-project { grid-template-columns: 1fr; padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .media img:hover, .next-project:hover, .next-project:hover .next-arrow { transform: none; }
 }

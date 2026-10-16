@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proxmox Homelab — Han Lwin Htoo</title>
+  <meta name="description" content="Case study: a self-hosted Proxmox VE 9.2 homelab on a mini PC with Tailscale remote access and an isolated security lab.">
+  <meta name="author" content="Han Lwin Htoo">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://hanlwinhtoo.github.io/projects/proxmox-homelab.html">
+
+  <script>
+    document.documentElement.classList.add('js');
+    document.documentElement.setAttribute('data-theme', 'light'); // light by default
+    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <nav class="topbar-inner" aria-label="Main">
+      <a class="brand" href="../index.html">Han Lwin Htoo</a>
+      <div class="nav-links" id="nav-links">
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Toggle light mode">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== Project page template =====
+       Reuse for other projects: copy this file, rename it, and change the text.
+
+       Placeholders: highlighted text (<mark class="todo">) is for you to replace.
+       Search the file for "todo" to find them all, and remove the <mark> tags.
+
+       Images: store them in /assets/projects/proxmox-homelab/ as compressed .webp,
+       max ~1600px wide. Hide IP addresses, hostnames, Tailscale machine names and
+       tokens before uploading. To add one, replace a <div class="shot-placeholder">…</div>
+       (inside <div class="media">) with an <img>, always with loading="lazy" and
+       descriptive alt text:
+         <img src="../assets/projects/proxmox-homelab/dashboard.webp"
+              alt="Proxmox web dashboard listing six running VMs and containers"
+              loading="lazy" width="1600" height="900">
+       Images are cropped to fit their frame; clicking one opens it full size
+       (script.js, section 8). -->
+  <main id="main" class="page">
+    <div class="container">
+      <a class="back-link" href="../index.html#projects"><span aria-hidden="true">←</span> Back to home</a>
+
+      <header class="cs-head">
+        <div class="cs-intro">
+          <!-- Project type: Side project / School project / Hackathon / Competition -->
+          <p class="project-labels"><span class="project-label project-type">Side project</span></p>
+          <h1>Proxmox Homelab</h1>
+          <p class="lead">Self-hosted Proxmox VE 9.2 on a mini PC with Tailscale remote access and an isolated security lab.</p>
+          <dl class="facts">
+            <div><dt>Role</dt><dd>Solo: design, build, maintain</dd></div>
+            <div><dt>Timeline</dt><dd><mark class="todo">Month Year – present</mark></dd></div>
+            <div><dt>Hardware</dt><dd><mark class="todo">Mini PC model, CPU / RAM</mark></dd></div>
+            <div><dt>Stack</dt><dd>Proxmox VE, Linux, Tailscale</dd></div>
+          </dl>
+        </div>
+        <figure class="shot cs-hero">
+          <div class="media"><div class="shot-placeholder">Hero image: e.g. Proxmox dashboard or the homelab hardware</div></div>
+          <figcaption><mark class="todo">Caption: what the hero image shows.</mark></figcaption>
+        </figure>
+      </header>
+
+      <section class="cs-row">
+        <div class="cs-section">
+          <h2>Overview</h2>
+          <p><mark class="todo">Why you built it: e.g. wanting hands-on practice with virtualisation and networking beyond what the course covers, and a safe place to break things.</mark></p>
+          <ul>
+            <li><strong>Proxmox VE 9.2 host</strong> on a mini PC. <mark class="todo">Storage setup, what runs on it.</mark></li>
+            <li><strong>Remote access with Tailscale</strong>, so I can manage the lab from anywhere without opening ports to the internet.</li>
+            <li><strong>Isolated security lab.</strong> <mark class="todo">How it's isolated and what you practise in it.</mark></li>
+          </ul>
+        </div>
+        <figure class="shot">
+          <div class="media"><div class="shot-placeholder">Photo: the mini PC</div></div>
+          <figcaption><mark class="todo">e.g. The mini PC that runs everything.</mark></figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip">
+        <div class="cs-section">
+          <h2>How it works</h2>
+          <p><mark class="todo">The overall layout: the host, the VMs and containers, how the networks are split, and how you reach it remotely. Include why you chose this design (e.g. Tailscale instead of port forwarding).</mark></p>
+        </div>
+        <figure class="shot">
+          <div class="media"><div class="shot-placeholder">Diagram: mini PC → Proxmox → VMs / LXC → networks → Tailscale</div></div>
+          <figcaption>Overall layout of the homelab.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row">
+        <div class="cs-section">
+          <h2>Challenges</h2>
+          <p><mark class="todo">A real problem you hit: what happened, how you worked out the cause, and the fix.</mark></p>
+          <!-- Paste real commands or output here (remove anything private) -->
+          <pre class="code"><code>$ <mark class="todo">command you ran to diagnose it</mark></code></pre>
+        </div>
+        <figure class="shot">
+          <div class="media"><div class="shot-placeholder">Screenshot: the problem, or the fix working</div></div>
+          <figcaption><mark class="todo">Caption: what this shows.</mark></figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-block">
+        <h2>Gallery</h2>
+        <!-- The first image is shown full width; the rest sit two per row -->
+        <div class="gallery">
+          <figure class="shot">
+            <div class="media"><div class="shot-placeholder">Screenshot: Proxmox dashboard</div></div>
+            <figcaption><mark class="todo">e.g. Proxmox dashboard with N VMs and containers running.</mark></figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><div class="shot-placeholder">Screenshot: Tailscale admin console</div></div>
+            <figcaption><mark class="todo">e.g. The lab reachable over Tailscale from my laptop.</mark></figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><div class="shot-placeholder">Screenshot: network / firewall setup</div></div>
+            <figcaption><mark class="todo">e.g. Security lab bridge with no route to the home network.</mark></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-block cs-narrow cs-section">
+        <h2>What I learned</h2>
+        <p><mark class="todo">Two or three things you understand now that you didn't before, and what you plan to add next.</mark></p>
+      </section>
+
+      <a class="next-project" href="bustech.html">
+        <span>
+          <span class="next-label">Next project</span>
+          <span class="next-title">BusGuard <span class="next-arrow" aria-hidden="true">→</span></span>
+        </span>
+        <span class="media"><img src="../assets/projects/bustech/exterior.webp" alt="" loading="lazy" width="1200" height="675"></span>
+      </a>
+
+      <div class="actions cs-links">
+        <a class="btn" href="../index.html#projects"><span aria-hidden="true">←</span> Back to home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <span>© <span id="year">2026</span> Han Lwin Htoo</span>
+    <a class="back-top" href="#main">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

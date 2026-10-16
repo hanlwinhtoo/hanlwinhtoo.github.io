@@ -1,0 +1,12 @@
+# Originals live outside the website in Documents/portfolio-source/. These rules
+# are a safety net in case one gets copied back in: only web-sized .webp copies
+# in assets/projects/ should be published (some originals are over GitHub's
+# 100 MB limit, and the documents aren't meant to be public).
+assets/projects/**/*.png
+assets/projects/**/*.jpg
+assets/projects/**/*.jpeg
+assets/projects/**/*.heif
+assets/projects/**/*.heic
+assets/projects/**/*.pdf
+assets/projects/**/*.pptx
+assets/projects/**/*.docx

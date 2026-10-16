@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BusGuard — Han Lwin Htoo</title>
+  <meta name="description" content="BusGuard: passenger assistance for autonomous vehicles, built by Team NEW-ACTY from Singapore Polytechnic for the Singapore BusTech Grand Challenge 2026 (top 5 finalist).">
+  <meta name="author" content="Han Lwin Htoo">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://hanlwinhtoo.github.io/projects/bustech.html">
+  <meta property="og:title" content="BusGuard — Singapore BusTech Grand Challenge 2026">
+  <meta property="og:image" content="https://hanlwinhtoo.github.io/assets/projects/bustech/poster-crop.webp">
+
+  <script>
+    document.documentElement.classList.add('js');
+    document.documentElement.setAttribute('data-theme', 'light'); // light by default
+    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <nav class="topbar-inner" aria-label="Main">
+      <a class="brand" href="../index.html">Han Lwin Htoo</a>
+      <div class="nav-links" id="nav-links">
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Toggle light mode">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== BusGuard (Singapore BusTech Grand Challenge 2026) =====
+       Facts come from the team's technical report (30 Sep 2026) and Grand Final deck.
+
+       Images: web-sized .webp copies live in /assets/projects/bustech/. The originals
+       (PNGs, poster, PDFs, slides) are kept outside the website in
+       Documents/portfolio-source/bustech/.
+
+       TODO after the Grand Final: update the result in the kicker, the facts list
+       and the Overview (search for "Top 5"). -->
+  <main id="main" class="page">
+    <div class="container">
+      <a class="back-link" href="../index.html#project-bustech"><span aria-hidden="true">←</span> Back to home</a>
+
+      <header class="cs-head">
+        <div class="cs-intro">
+          <!-- Project type: Side project / School project / Hackathon / Competition -->
+          <p class="project-labels"><span class="project-label project-type">Competition</span><span class="project-label">Top 5 finalist</span></p>
+          <p class="kicker">Singapore BusTech Grand Challenge 2026</p>
+          <h1>BusGuard</h1>
+          <p class="lead">Passenger assistance for autonomous vehicles. Cameras, a passenger app and a 3D model of the bus work together so that wheelchair users, seniors, parents with strollers and people with vision or hearing difficulties can still get help when there's no driver on board.</p>
+          <dl class="facts">
+            <div><dt>My role</dt><dd>Networking and System Integration</dd></div>
+            <div><dt>Team</dt><dd>NEW-ACTY · Singapore Polytechnic</dd></div>
+            <div><dt>Timeline</dt><dd>June – October 2026</dd></div>
+            <div><dt>Result</dt><dd>Top 5, Grand Final</dd></div>
+            <div><dt>Tools</dt><dd>YOLOE, Python FastAPI, MQTT, RTSP</dd></div>
+          </dl>
+        </div>
+        <!-- cs-hero--portrait: shows a tall image (the poster) uncropped -->
+        <figure class="shot cs-hero cs-hero--portrait">
+          <div class="media"><img src="../assets/projects/bustech/poster.webp" alt="Team NEW-ACTY's BusGuard Grand Final poster: Singapore Polytechnic, team names, 'Your journey. Your pace.' with the 3D bus and passengers using wheelchairs, canes and strollers, and the three features: AI voice assistant, computer vision and passenger app" width="1100" height="1555"></div>
+          <figcaption>Our Grand Final poster.</figcaption>
+        </figure>
+      </header>
+
+      <section class="cs-row">
+        <div class="cs-section">
+          <h2>Overview</h2>
+          <p>On an autonomous vehicle there's no driver to ask for help. A wheelchair user may need the ramp, a senior may need more time to board, and someone with poor eyesight may need the next stop read out. BusGuard makes sure they still get that help.</p>
+          <ul>
+            <li><strong>Cameras</strong> spot people who may need help, such as someone in a wheelchair or with a stroller, walking frame or cane.</li>
+            <li><strong>A passenger app, a card tap or a button</strong> lets anyone ask for help directly, including needs a camera can't see.</li>
+            <li><strong>An operator console</strong>, used by the person watching over the bus remotely, shows how full the bus is, who has asked for help, and whether it's safe to leave.</li>
+          </ul>
+          <p>We built it for the Singapore BusTech Grand Challenge 2026, a national competition run by LTA. Our team of five reached the top 5 and the Grand Final.</p>
+          <p><strong>My part was the networking</strong>: making sure every piece could talk to every other piece. I connected the security camera to our system, set up the messaging that carries information between the different parts, and made sure the live video reached the operator console without dropping out. Everything runs on a small private network, with no internet needed.</p>
+        </div>
+        <figure class="shot">
+          <div class="media"><img src="../assets/projects/bustech/physical-inputs.webp" alt="Prototype hardware: a white Bosch bullet camera, a black PoE network switch and a 3D-printed BusGuard box with a card reader and Emergency and Ramp buttons" loading="lazy" width="1600" height="1200"></div>
+          <figcaption>Our real hardware: a Bosch security camera, a network switch that powers it through its cable, and our BusGuard box with a card reader and Emergency and Ramp buttons.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip">
+        <div class="cs-section">
+          <h2>How it works</h2>
+          <ol>
+            <li><strong>The camera watches the door.</strong> It sends live video over a network cable (using RTSP, a standard way to stream camera video).</li>
+            <li><strong>AI looks at the video.</strong> It draws a box around each person and anything like a wheelchair or stroller, so the system knows who might need help.</li>
+            <li><strong>Messages connect everything.</strong> When the AI spots something, or a passenger presses a button or uses the app, a short message is sent to the rest of the system (using MQTT, a lightweight messaging system).</li>
+            <li><strong>One "brain" makes the decisions.</strong> It keeps track of who needs help, how full the bus is, and whether it's safe to leave. If it isn't sure, the bus waits.</li>
+            <li><strong>Three views of the same information:</strong> the passenger app, the operator console, and a 3D model of the bus that shows the doors, ramp and journey.</li>
+          </ol>
+          <p>Our automated tests (over 1,200 checks) all passed, and the prototype cost only about SGD 50 because we reused equipment we already had.</p>
+        </div>
+        <figure class="shot">
+          <div class="media media--natural"><img src="../assets/projects/bustech/detection-console.webp" alt="Operator detection console with two camera panels, outside boarding area and inside passenger cabin, each showing people and strollers outlined with labelled boxes" loading="lazy" width="1600" height="671"></div>
+          <figcaption>The operator console: the AI has boxed and labelled each person and stroller it found, outside the bus and inside.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row">
+        <div class="cs-section">
+          <h2>Challenges</h2>
+          <!-- Written from the technical report and my role. If you have a specific
+               incident (e.g. a stream that kept dropping and how you fixed it), add it here. -->
+          <p><strong>A frozen picture can lie.</strong> If the camera's video freezes, the screen keeps showing the last picture. An empty doorway in an old picture could make the bus think it's safe to close the doors when someone is actually there. So the system always checks how old each picture is. If the video stops or gets stuck, the bus waits instead of guessing.</p>
+          <p><strong>Messages can arrive twice.</strong> If a button press is sent again because the network was slow, the ramp shouldn't go down twice. Every request is confirmed once and repeats are ignored. After a restart, the system waits for fresh information before doing anything.</p>
+          <p><strong>Working without the internet.</strong> Everything runs on a small private network on the bus, so it keeps working with no signal and the video never leaves the bus. The trade-off is that one computer does all the work, so we have to keep an eye on how much it can handle as more cameras are added.</p>
+        </div>
+        <figure class="shot">
+          <div class="media"><img src="../assets/projects/bustech/emergency.webp" alt="Digital twin of the bus stopped in a yellow-hatched refuge area during an emergency" loading="lazy" width="1600" height="900"></div>
+          <figcaption>An emergency in our 3D model: the bus pulls over to a safe spot and alerts the operator.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-block">
+        <h2>Gallery</h2>
+        <!-- The first image is full width, the rest sit two per row: keep an odd
+             total (1 + pairs) so no image ends up alone on the last row -->
+        <div class="gallery">
+          <figure class="shot">
+            <div class="media"><img src="../assets/projects/bustech/cabin-inside.webp" alt="Inside the 3D bus cabin: rows of blue standard seats, yellow priority seats, grab handles and a camera mounted on the ceiling" loading="lazy" width="1920" height="1080"></div>
+            <figcaption>Inside the 3D bus: 20 standard seats, 6 priority seats and a shared wheelchair or stroller bay.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><img src="../assets/projects/bustech/passenger-app.webp" alt="BusGuard passenger app asking 'How can we help?' with options for ramp access, more time, audio guidance, visual guidance and priority seating" loading="lazy" width="1600" height="1200"></div>
+            <figcaption>Passenger app: choose the support you need. No account required.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><img src="../assets/projects/bustech/twin-cabin-ui.webp" alt="Digital twin web interface showing the bus with its roof and sides removed to reveal the cabin, next to a live seat availability panel" loading="lazy" width="1600" height="900"></div>
+            <figcaption>Digital twin web interface in cabin view, with live seat availability.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><img src="../assets/projects/bustech/door-display.webp" alt="Close-up of the bus door with a display above it showing priority seats, standard seats and wheelchair bay availability" loading="lazy" width="1400" height="788"></div>
+            <figcaption>Display above the door showing seat and wheelchair-bay availability before boarding.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><img src="../assets/projects/bustech/cabin-cutaway.webp" alt="Cutaway of the 3D bus showing the chassis, seating layout and handrails from above" loading="lazy" width="1600" height="900"></div>
+            <figcaption>Cutaway of the cabin layout in the 3D model.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><img src="../assets/projects/bustech/hero-ramp.webp" alt="3D digital twin of a green autonomous bus at a stop with its wheelchair ramp deployed onto the pavement" loading="lazy" width="1920" height="1080"></div>
+            <figcaption>Our 3D model of the bus: it has stopped and lowered its ramp so a wheelchair user can get on.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="media"><img src="../assets/projects/bustech/exterior.webp" alt="Exterior of the green 3D autonomous bus model from the front right, on a road beside trees" loading="lazy" width="1200" height="675"></div>
+            <figcaption>Exterior of the 3D bus model.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-block cs-narrow cs-section">
+        <h2>What I learned</h2>
+        <ul>
+          <li><strong>Plan for things going wrong.</strong> Cameras and networks don't always work perfectly. Deciding what the system should do when the video drops out mattered as much as making it work on a good day.</li>
+          <li><strong>Build in separate pieces.</strong> Because each part only had to send and receive simple messages, different teammates could build the camera, AI, app and 3D model on their own, and they still worked together.</li>
+          <li><strong>Agree early on how the pieces talk.</strong> In a team of five, deciding the message formats at the start is what let us put everything together before the deadline.</li>
+        </ul>
+      </section>
+
+      <a class="next-project" href="proxmox-homelab.html">
+        <span>
+          <span class="next-label">Next project</span>
+          <span class="next-title">Proxmox Homelab <span class="next-arrow" aria-hidden="true">→</span></span>
+        </span>
+        <span class="media"><span class="shot-placeholder">Thumbnail</span></span>
+      </a>
+
+      <div class="actions cs-links">
+        <a class="btn" href="../index.html#project-bustech"><span aria-hidden="true">←</span> Back to home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <span>© <span id="year">2026</span> Han Lwin Htoo</span>
+    <a class="back-top" href="#main">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

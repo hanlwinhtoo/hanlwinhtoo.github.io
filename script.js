@@ -1,6 +1,6 @@
 /* =====================================================================
    Portfolio interactions (vanilla JS, no dependencies)
-   1. Theme toggle (dark default, remembered in localStorage, cross-fades)
+   1. Theme toggle (light default, remembered in localStorage, cross-fades)
    1b. Phone menu: swipeable side drawer
    2. Highlight the nav link + side dot for the screen in view
    3. Scroll reveal: each screen's content fades up when it comes into view
@@ -9,6 +9,8 @@
    5. Copy email button
    6. Tap effects on touch screens
    7. Footer year
+   8. Project pages: click a screenshot to enlarge it
+   Sections 2-4b only run on the home page (the pages with .screen sections).
    ===================================================================== */
 
 (function () {
@@ -156,6 +158,7 @@
     const h = window.innerHeight;
     const mid = h / 2;
     let current = screens[0];
+    if (!current) return; // project pages have no screens
     screens.forEach(function (s) {
       const r = s.getBoundingClientRect();
       if (r.top <= mid) current = s;
@@ -167,7 +170,7 @@
     if (current.id !== activeId) {
       activeId = current.id;
       // Side dots match each screen; menu links match its data-nav group
-      // (all three project screens light up "Projects")
+      // (both project screens light up "Projects")
       const navId = current.getAttribute('data-nav') || activeId;
       navLinks.forEach(function (a) {
         const id = a.getAttribute('href').slice(1);
@@ -186,6 +189,8 @@
   // visitors keep normal scrolling.
   const pagingMQ = window.matchMedia('(min-width: 900px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)');
   const screenList = Array.from(screens);
+  // Only page between screens where there are screens (not on project pages)
+  function paging() { return screenList.length > 0 && pagingMQ.matches; }
   const BLUR_OUT = 300;    // ms, current screen blurs away
   const BLUR_IN = 550;     // ms, next screen comes into focus
   const BLUR = 14;         // px of blur at the hidden point
@@ -306,7 +311,7 @@
   let needFreshGesture = false;
 
   window.addEventListener('wheel', function (e) {
-    if (!pagingMQ.matches || e.ctrlKey) return;
+    if (!paging() || e.ctrlKey) return;
     const now = performance.now();
     const gap = now - lastWheel;
     lastWheel = now;
@@ -325,7 +330,7 @@
   const noop = { preventDefault: function () {} };
 
   window.addEventListener('touchstart', function (e) {
-    touchY = pagingMQ.matches && e.touches.length === 1 ? e.touches[0].clientY : null;
+    touchY = paging() && e.touches.length === 1 ? e.touches[0].clientY : null;
   }, { passive: true });
 
   window.addEventListener('touchmove', function (e) {
@@ -343,7 +348,7 @@
   }, { passive: true });
 
   window.addEventListener('keydown', function (e) {
-    if (!pagingMQ.matches || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (!paging() || e.altKey || e.ctrlKey || e.metaKey) return;
     if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(document.activeElement.tagName)) return;
     const k = e.key;
     if (k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) step(1, e);
@@ -355,7 +360,7 @@
   // Menu links, side dots, "Get in touch" etc. use the same blur
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
-      if (!pagingMQ.matches) return;
+      if (!paging()) return;
       const target = document.querySelector(a.getAttribute('href'));
       const i = screenList.indexOf(target);
       if (i === -1) return;
@@ -375,7 +380,7 @@
   }
 
   function syncMode() {
-    root.classList.toggle('paging', pagingMQ.matches);
+    root.classList.toggle('paging', paging());
     requestPaint();
   }
   if (pagingMQ.addEventListener) pagingMQ.addEventListener('change', syncMode);
@@ -487,4 +492,34 @@
   /* ---------- 7. Footer year ---------- */
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
+
+  /* ---------- 8. Screenshot lightbox ---------- */
+  // Clicking a screenshot (.shot img) opens it full size in a <dialog> with
+  // its caption. Click anywhere or press Escape to close.
+  const shots = document.querySelectorAll('.shot img');
+  if (shots.length && typeof HTMLDialogElement === 'function') {
+    const box = document.createElement('dialog');
+    box.className = 'lightbox';
+    box.innerHTML = '<img alt=""><p class="lightbox-caption"></p>';
+    document.body.appendChild(box);
+    const boxImg = box.querySelector('img');
+    const boxCap = box.querySelector('.lightbox-caption');
+    shots.forEach(function (img) {
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', 'Enlarge: ' + img.alt);
+      function open() {
+        const cap = img.closest('figure') && img.closest('figure').querySelector('figcaption');
+        boxImg.src = img.dataset.full || img.currentSrc || img.src; // data-full: a larger or uncropped version
+        boxImg.alt = img.alt;
+        boxCap.textContent = cap ? cap.textContent : '';
+        box.showModal();
+      }
+      img.addEventListener('click', open);
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+    });
+    box.addEventListener('click', function () { box.close(); });
+  }
 })();
