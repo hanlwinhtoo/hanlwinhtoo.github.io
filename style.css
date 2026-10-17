@@ -614,7 +614,11 @@ html.paging { scroll-snap-type: none; scroll-behavior: auto; }
   .copy-btn { margin-right: 12px; }
   .row-label { grid-column: 2 / -1; }
   .avatar { width: 72px; height: 72px; }
-  .hero-top { gap: 14px; }
+  /* Phone hero: avatar on top, everything centred */
+  .hero-text { text-align: center; }
+  .hero-top { flex-direction: column; gap: 16px; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero .actions { justify-content: center; }
 }
 
 /* Education timeline: date stacks above the entry; the track stays on the left */
