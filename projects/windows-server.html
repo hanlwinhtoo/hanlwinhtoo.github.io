@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Windows Server Domain — Han Lwin Htoo</title>
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/images/me.png">
+  <meta name="description" content="Case study: a Windows Server 2025 domain built in VMware by a team of four. I built the file, storage and web server: RAID-5 shares, FSRM quotas and file screens, HTTPS sites on IIS, and Work Folders sync.">
+  <meta name="author" content="Han Lwin Htoo">
+  <meta property="og:site_name" content="Han Lwin Htoo">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://hanlwinhtoo.github.io/projects/windows-server.html">
+
+  <script>
+    document.documentElement.classList.add('js');
+    document.documentElement.setAttribute('data-theme', 'light'); // light by default
+    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- ?v=… makes browsers fetch the new file after an update: bump it whenever style.css or script.js change -->
+  <link rel="stylesheet" href="../style.css?v=2026-10-21n">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <nav class="topbar-inner" aria-label="Main">
+      <a class="brand" href="../index.html">Han Lwin Htoo</a>
+      <div class="nav-links" id="nav-links">
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Toggle light mode">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== Windows Server Domain (ET0015 Server Management mini project) =====
+       Facts come from my DC2 documentation and the group documentation (AY2026/27 Sem 1).
+       Teammates' names, student IDs and test passwords are left out on purpose.
+
+       Images: screenshots taken from the group documentation PDF, stored as .webp in
+       /assets/projects/windows-server/. The originals are kept outside the website in
+       Documents/portfolio-source/windows-server/. The screenshots are small, so they use
+       .media--natural (shown whole, never cropped) inside a .shot--screen frame. -->
+  <main id="main" class="page">
+    <div class="container">
+      <a class="back-link" href="../index.html#project-winserver"><span aria-hidden="true">←</span> Back to home</a>
+
+      <header class="cs-head">
+        <div class="cs-intro">
+          <!-- Project type: Side project / School project / Hackathon / Competition -->
+          <p class="project-labels"><span class="project-label project-type">School project</span></p>
+          <p class="kicker">ET0015 Server Management · Mini project</p>
+          <h1>Windows Server Domain</h1>
+          <p class="lead">A complete office computer network, built from virtual machines by four students. I built the server that stores everyone's files and runs the company websites.</p>
+          <dl class="facts">
+            <div><dt>My role</dt><dd>File, storage and web server (DC2)</dd></div>
+            <div><dt>Team</dt><dd>Four students · Singapore Polytechnic</dd></div>
+            <div><dt>Timeline</dt><dd>AY2026/27, Semester 1</dd></div>
+            <div><dt>Platform</dt><dd>Windows Server 2025, Windows 11, VMware</dd></div>
+            <div><dt>Tools</dt><dd>Active Directory, IIS, FSRM, AD CS, PowerShell</dd></div>
+          </dl>
+        </div>
+        <!-- Network diagram drawn in SVG; colours come from .dg-* classes in style.css (section 12) -->
+        <figure class="shot cs-hero">
+          <div class="media media--natural diagram">
+            <svg viewBox="0 0 720 625" role="img" aria-labelledby="dg-title">
+              <title id="dg-title">Network diagram of the wss07a.sg domain. On the bridged 10.10.0.0/24 network: DC1 at 10.10.0.10 (DNS, DHCP, AD DS, AD CS, Group Policy), DC2 at 10.10.0.20 (file shares, FSRM, IIS, Work Folders, marked as my part), Client01, the router at 10.10.0.1, and three extra servers for RemoteApp with AD FS (ADFS01, RDS01, WAP01). The router and Client02 run on one laptop, joined by the host-only 10.20.0.0/24 network.</title>
+              <defs>
+                <!-- Server rack icon -->
+                <symbol id="dg-srv" viewBox="0 0 110 96">
+                  <path class="dg-ico" d="M14 2h82l12 14H2z"/>
+                  <g class="dg-unit"><rect class="dg-ico" x="2" y="20" width="106" height="24" rx="6"/><path class="dg-ico-line" d="M16 27v10M24 27v10M32 27v10M40 27v10M54 32h22"/><circle class="dg-ico" cx="92" cy="32" r="5"/></g>
+                  <g class="dg-unit"><rect class="dg-ico" x="2" y="46" width="106" height="24" rx="6"/><path class="dg-ico-line" d="M16 53v10M24 53v10M32 53v10M40 53v10M54 58h22"/><circle class="dg-ico" cx="92" cy="58" r="5"/></g>
+                  <g class="dg-unit"><rect class="dg-ico" x="2" y="72" width="106" height="22" rx="6"/><path class="dg-ico-line" d="M16 78v10M24 78v10M32 78v10M40 78v10M54 83h22"/><circle class="dg-ico" cx="92" cy="83" r="5"/></g>
+                </symbol>
+                <!-- Desktop PC icon -->
+                <symbol id="dg-pc" viewBox="0 0 120 96">
+                  <rect class="dg-ico" x="2" y="4" width="80" height="60" rx="6"/>
+                  <path class="dg-ico-line" d="M42 64v12M22 80h40"/>
+                  <rect class="dg-ico-fill" x="90" y="0" width="28" height="96" rx="4"/>
+                  <path class="dg-ico-cut" d="M96 12h16M96 20h16M96 28h16"/>
+                  <circle class="dg-ico-dot" cx="104" cy="74" r="4"/>
+                </symbol>
+              </defs>
+
+              <text class="dg-head" x="360" y="30" text-anchor="middle">wss07a.sg domain</text>
+
+              <!-- Bridged network: one trunk with a branch to each machine -->
+              <path class="dg-line" d="M240 105V495M180 105H330M180 382H240M240 330H340M240 495H605M365 495v15M485 495v15M605 495v15"/>
+              <text class="dg-label" x="232" y="258" text-anchor="end">10.10.0.0/24</text>
+              <text class="dg-label" x="232" y="274" text-anchor="end">bridged</text>
+
+              <!-- DC1 -->
+              <use href="#dg-srv" x="70" y="57" width="110" height="96"/>
+              <text class="dg-name" x="125" y="180" text-anchor="middle">DC1</text>
+              <text class="dg-ip" x="125" y="198" text-anchor="middle">10.10.0.10</text>
+              <text class="dg-role" x="125" y="216" text-anchor="middle">DNS · DHCP · AD DS</text>
+              <text class="dg-role" x="125" y="232" text-anchor="middle">AD CS · Group Policy</text>
+
+              <!-- Client01 -->
+              <use href="#dg-pc" x="330" y="57" width="120" height="96"/>
+              <text class="dg-name" x="380" y="180" text-anchor="middle">Client01</text>
+              <text class="dg-ip" x="380" y="198" text-anchor="middle">DHCP · 10.10.0.151+</text>
+              <text class="dg-role" x="380" y="216" text-anchor="middle">Windows 11</text>
+
+              <!-- DC2: my part -->
+              <rect class="dg-box dg-me" x="40" y="292" width="170" height="236" rx="14"/>
+              <rect class="dg-pill" x="88" y="304" width="74" height="20" rx="10"/>
+              <text class="dg-pill-text" x="125" y="318" text-anchor="middle">MY PART</text>
+              <use href="#dg-srv" x="70" y="334" width="110" height="96"/>
+              <text class="dg-name" x="125" y="452" text-anchor="middle">DC2</text>
+              <text class="dg-ip" x="125" y="470" text-anchor="middle">10.10.0.20</text>
+              <text class="dg-role" x="125" y="488" text-anchor="middle">File shares · FSRM</text>
+              <text class="dg-role" x="125" y="504" text-anchor="middle">IIS · Work Folders</text>
+
+              <!-- Router + Client02 share one laptop -->
+              <rect class="dg-zone" x="305" y="248" width="400" height="216" rx="8"/>
+              <text class="dg-label" x="690" y="268" text-anchor="end">same laptop</text>
+              <use href="#dg-srv" x="340" y="282" width="110" height="96"/>
+              <text class="dg-name" x="395" y="402" text-anchor="middle">Router</text>
+              <text class="dg-ip" x="395" y="420" text-anchor="middle">10.10.0.1 · 10.20.0.1</text>
+              <text class="dg-role" x="395" y="438" text-anchor="middle">RRAS · VPN · DHCP relay</text>
+              <path class="dg-line dg-dash" d="M454 330H546"/>
+              <text class="dg-label" x="500" y="320" text-anchor="middle">host-only</text>
+              <text class="dg-label" x="500" y="350" text-anchor="middle">10.20.0.0/24</text>
+              <use href="#dg-pc" x="550" y="282" width="120" height="96"/>
+              <text class="dg-name" x="600" y="402" text-anchor="middle">Client02</text>
+              <text class="dg-ip" x="600" y="420" text-anchor="middle">DHCP · 10.20.0.100+</text>
+              <text class="dg-role" x="600" y="438" text-anchor="middle">Windows 11 · VPN client</text>
+
+              <!-- Extra feature servers -->
+              <text class="dg-label" x="254" y="486">Extra feature: RemoteApp with AD FS</text>
+              <use href="#dg-srv" x="330" y="510" width="70" height="61"/>
+              <use href="#dg-srv" x="450" y="510" width="70" height="61"/>
+              <use href="#dg-srv" x="570" y="510" width="70" height="61"/>
+              <text class="dg-name dg-sm" x="365" y="592" text-anchor="middle">ADFS01</text>
+              <text class="dg-ip" x="365" y="610" text-anchor="middle">10.10.0.40</text>
+              <text class="dg-name dg-sm" x="485" y="592" text-anchor="middle">RDS01</text>
+              <text class="dg-ip" x="485" y="610" text-anchor="middle">10.10.0.30</text>
+              <text class="dg-name dg-sm" x="605" y="592" text-anchor="middle">WAP01</text>
+              <text class="dg-ip" x="605" y="610" text-anchor="middle">10.10.0.50</text>
+            </svg>
+          </div>
+          <figcaption>Our network. Every machine is a virtual machine. DC2 is the one I built.</figcaption>
+        </figure>
+      </header>
+
+      <!-- Headline numbers -->
+      <div class="cs-stats">
+        <div><span class="stat-num">5</span><span class="stat-label">shared folders, each only for the right team</span></div>
+        <div><span class="stat-num">3</span><span class="stat-label">disks working as one, so a broken disk loses nothing</span></div>
+        <div><span class="stat-num">2</span><span class="stat-label">secure websites with no browser warnings</span></div>
+        <div><span class="stat-num">4/4</span><span class="stat-label">file-sync tests passed</span></div>
+      </div>
+
+      <section class="cs-block cs-narrow cs-section">
+        <h2>Overview</h2>
+        <p>For a school module, four of us set up the computer systems for a pretend office, the way an IT team would for a real company: staff accounts, shared folders, websites and secure access from home. Everything ran as virtual machines (computers simulated in software) on our laptops.</p>
+        <p><strong>My job was DC2</strong>, the server that stores everyone's files and runs the company websites. Staff belong to three teams (Manager, Sales and Remote), and what each person can open or save depends on their team.</p>
+      </section>
+
+      <!-- What I built: one row per feature, text beside the screenshot that shows it -->
+      <section class="cs-block">
+        <h2>What I built</h2>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">01</span>
+          <h3>Files that survive a broken disk</h3>
+          <p>I combined three disks into one drive, with the files spread across all three. If any one disk breaks, nothing is lost. Every shared folder lives on this drive.</p>
+          <p class="card-tags">RAID-5 · NTFS · Disk Management</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/raid5.webp" alt="Disk Management on DC2: a healthy 988 MB RAID-5 volume E: spread across Disk 0, Disk 1 and Disk 2, each 496 MB and dynamic" loading="lazy" width="792" height="640"></div>
+          <figcaption>Disks 0, 1 and 2 working together as one drive (E:), all healthy.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">02</span>
+          <h3>A folder for each team, ready at login</h3>
+          <p>Each team has its own shared folder that other teams can't open: VIP for Managers, Logistics for Sales and IT for the Remote team. There's also Common, which everyone shares.</p>
+          <p>When staff log in, their folders appear as drives automatically. They don't have to set anything up.</p>
+          <p class="card-tags">File shares · NTFS permissions · Group Policy</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/mapped-drives.webp" alt="Network locations on a Remote user's PC: their home folder on H:, the IT share on X: with a 20 MB limit, and Common on Z: with a 10 MB limit" loading="lazy" width="550" height="280"></div>
+          <figcaption>A Remote team member just after logging in: their private folder (H:), the team's IT folder (X:) and the shared Common folder (Z:).</figcaption>
+        </figure>
+      </section>
+
+      <!-- The folder rules in plain words (from the brief's share/NTFS permission table) -->
+      <div class="cs-table-wrap">
+        <table class="cs-table">
+          <caption>The folders, and who can do what</caption>
+          <thead>
+            <tr><th scope="col">Folder</th><th scope="col">Who it's for</th><th scope="col">Shows up as</th><th scope="col">Who can open it</th><th scope="col">Who can save to it</th><th scope="col">What can be saved</th><th scope="col">Size limit</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Common</th><td>Everyone</td><td>Z: drive</td><td>Everyone</td><td>Managers only</td><td>Only text files and web pages</td><td>10 MB</td></tr>
+            <tr><th scope="row">VIP</th><td>Managers</td><td>X: drive</td><td>Managers</td><td>Managers</td><td>Anything except programs and scripts</td><td>20 MB</td></tr>
+            <tr><th scope="row">Logistics</th><td>Sales team</td><td>X: drive</td><td>Sales team</td><td>Sales team</td><td>Anything except programs and scripts</td><td>20 MB</td></tr>
+            <tr><th scope="row">IT</th><td>Remote team</td><td>X: drive</td><td>Remote team</td><td>Remote team</td><td>Anything except programs and scripts</td><td>20 MB</td></tr>
+            <tr><th scope="row">Personal</th><td>Each person</td><td>H: drive</td><td>Only its owner</td><td>Only its owner</td><td>Anything</td><td>None</td></tr>
+          </tbody>
+        </table>
+        <p class="cs-table-note">The IT administrator has full control of every folder. "Programs and scripts" means .exe, .bat and .ps1 files.</p>
+      </div>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">03</span>
+          <h3>A size limit on every folder</h3>
+          <p>Each team folder can hold up to 20 MB, and the shared folder 10 MB. Once a folder is full, nothing more can be saved, so one team can't fill up the whole server.</p>
+          <p class="card-tags">FSRM · Quotas</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/fsrm-quotas.webp" alt="File Server Resource Manager quota list: Logistics, IT and VIP at 20 MB hard quota, Common at 10 MB hard quota" loading="lazy" width="486" height="184"></div>
+          <figcaption>The limits I set: 20 MB for the Logistics, IT and VIP team folders, and 10 MB for Common.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">04</span>
+          <h3>Risky files blocked, and tested</h3>
+          <p>Programs and scripts can carry viruses, so the team folders block them. Common only takes text files and web pages (see the table above).</p>
+          <p>To check the rules, I tried saving different kinds of files into two folders: Logistics (the Sales team's folder) and Common (everyone's folder).</p>
+          <ul class="checks">
+            <li><strong>Saved:</strong> a text file (.txt) in Logistics and in Common</li>
+            <li class="no"><strong>Refused:</strong> a program (.exe) and a script (.ps1) in Logistics</li>
+            <li class="no"><strong>Refused:</strong> a picture (.jpg) in Common, which only takes text and web pages</li>
+          </ul>
+          <p class="card-tags">FSRM · File screens</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/fsrm-test.webp" alt="PowerShell window: saving test.txt to the Logistics share succeeds, saving test.exe and test.ps1 to Logistics and test.jpg to Common fails with 'Access to the path is denied', and saving test.txt to Common succeeds" loading="lazy" width="883" height="733"></div>
+          <figcaption>My test in a command window. Each line tries to save one file: the .txt files saved (✓), and the .exe, .ps1 and .jpg files were refused with "Access denied" (✗).</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">05</span>
+          <h3>A private folder for everyone</h3>
+          <p>A script I wrote creates each person's private folder the first time they log in. The folders are hidden from everyone else, so people only ever see their own.</p>
+          <p class="card-tags">PowerShell · Access-Based Enumeration</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/abe-share.webp" alt="PowerShell output of Get-SmbShare for personal$: path E:\Personal, FolderEnumerationMode AccessBased" loading="lazy" width="852" height="336"></div>
+          <figcaption>The private folders' setting is "AccessBased", which hides other people's folders.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">06</span>
+          <h3>Secure company websites</h3>
+          <p>I set up two company websites. Both open with the padlock in the address bar and no security warning, because they use certificates from our own certificate authority.</p>
+          <p class="card-tags">IIS · AD CS · HTTPS</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/https-sites.webp" alt="Two Edge windows: https://www.wss07a.sg showing 'Welcome to www webpage!' and https://test.wss07a.sg showing 'Welcome to test webpage!', both with the padlock icon and no certificate warning" loading="lazy" width="1008" height="281"></div>
+          <figcaption>Both websites open securely: see the padlock (boxed in red) next to each address.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">07 · Extra feature</span>
+          <h3>Files that sync between laptop and server</h3>
+          <p>I set up Work Folders for the Remote team. It keeps a copy of each person's work files on both their laptop and the server, and syncs changes automatically, a bit like a company-run OneDrive.</p>
+          <p>All four tests passed. Each person's files stay private: even the IT administrator can't open them.</p>
+          <p class="card-tags">Work Folders · HTTPS</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/workfolders-denied.webp" alt="Folder list on DC2 showing user folders rmt-001 and rmt-024, with a dialog: 'You have been denied permission to access this folder'" loading="lazy" width="630" height="310"></div>
+          <figcaption>The administrator tries to open user rmt-001's synced folder and is denied, as intended.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-block">
+        <h2>Problems I fixed</h2>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <h3>Browsers didn't trust our websites</h3>
+          <p>At first, browsers showed a security warning. Each website's certificate (its digital ID card) was missing a detail that browsers check.</p>
+          <p><span class="fix-label">Fix</span> I requested new certificates with that detail included. Now browsers trust them.</p>
+        </div>
+        <figure class="shot shot--screen shot--small">
+          <div class="media media--natural"><img src="../assets/projects/windows-server/cert-test.webp" alt="Windows certificate dialog: issued to test.wss07a.sg, issued by sp-root-ca, valid from 8/11/2026 to 8/10/2028, with a private key" loading="lazy" width="408" height="519"></div>
+          <figcaption>The new certificate for test.wss07a.sg, issued by our own certificate authority (sp-root-ca).</figcaption>
+        </figure>
+      </section>
+
+      <div class="fix-grid fix-grid--two">
+        <article class="fix">
+          <h3>A website that went round in circles</h3>
+          <p>Sending visitors from the insecure address (http) to the secure one (https) also redirected the secure address, so the page never loaded.</p>
+          <p><span class="fix-label">Fix</span> I made a tiny separate site whose only job is the redirect.</p>
+        </article>
+        <article class="fix">
+          <h3>Two services, one door</h3>
+          <p>The file sync and the websites both needed the same network "door" (port 443, used for secure web traffic).</p>
+          <p><span class="fix-label">Fix</span> I set them up so the server can tell which service each visitor wants, and both work side by side.</p>
+        </article>
+      </div>
+
+      <section class="cs-block cs-narrow cs-section">
+        <h2>What I learned</h2>
+        <ul>
+          <li><strong>Keep the rules in one place.</strong> I set every access rule in one layer, so when something went wrong there was only one place to look.</li>
+          <li><strong>Most website security problems are certificate problems.</strong> The certificate's details, and whether computers trust whoever issued it, both have to be right.</li>
+          <li><strong>Test as a normal user.</strong> An admin account can open almost anything, so it hides mistakes.</li>
+        </ul>
+      </section>
+
+      <a class="next-project" href="networking.html">
+        <span>
+          <span class="next-label">Next project</span>
+          <span class="next-title">Multi-Site Company Network <span class="next-arrow" aria-hidden="true">→</span></span>
+        </span>
+        <span class="media"><img src="../assets/projects/networking/diagram-thumb.webp" alt="" loading="lazy" width="1600" height="1000"></span>
+      </a>
+
+      <div class="actions cs-links">
+        <a class="btn" href="../index.html#project-winserver"><span aria-hidden="true">←</span> Back to home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <span>© <span id="year">2026</span> Han Lwin Htoo</span>
+    <a class="back-top" href="#main">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
+  </footer>
+
+  <script src="../script.js?v=2026-10-21n"></script>
+</body>
+</html>

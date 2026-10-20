@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multi-Site Company Network — Han Lwin Htoo</title>
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/images/me.png">
+  <meta name="description" content="Case study: a network for a company with a main office and two branches, designed and built individually in Cisco Packet Tracer with multi-area OSPF, a backup internet link, HSRP and a firewall ACL.">
+  <meta name="author" content="Han Lwin Htoo">
+  <meta property="og:site_name" content="Han Lwin Htoo">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://hanlwinhtoo.github.io/projects/networking.html">
+
+  <script>
+    document.documentElement.classList.add('js');
+    document.documentElement.setAttribute('data-theme', 'light'); // light by default
+    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- ?v=… makes browsers fetch the new file after an update: bump it whenever style.css or script.js change -->
+  <link rel="stylesheet" href="../style.css?v=2026-10-21n">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <nav class="topbar-inner" aria-label="Main">
+      <a class="brand" href="../index.html">Han Lwin Htoo</a>
+      <div class="nav-links" id="nav-links">
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Toggle light mode">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== Multi-Site Company Network (ET0010 Computer Networking mini project, individual work) =====
+       Facts come from my presentation slides and addressing tables (20 Aug 2026).
+       Admission number and the lab router passwords are left out on purpose.
+
+       Images: screenshots taken from the slides PDF, stored as .webp in
+       /assets/projects/networking/. The original PDF is kept outside the website in
+       Documents/portfolio-source/networking/. -->
+  <main id="main" class="page">
+    <div class="container">
+      <a class="back-link" href="../index.html#project-network"><span aria-hidden="true">←</span> Back to home</a>
+
+      <header class="cs-head">
+        <div class="cs-intro">
+          <!-- Project type: Side project / School project / Hackathon / Competition -->
+          <p class="project-labels"><span class="project-label project-type">School project</span><span class="project-label">Individual work</span></p>
+          <p class="kicker">ET0010 Computer Networking · Mini project</p>
+          <h1>Multi-Site Company Network</h1>
+          <p class="lead">The network for a company with a main office and two branch offices, designed and built on my own in Cisco Packet Tracer: the address plan, the routing between sites, backup links and a firewall.</p>
+          <dl class="facts">
+            <div><dt>My role</dt><dd>Individual work: design, build and testing</dd></div>
+            <div><dt>Timeline</dt><dd>AY2026/27, Semester 1</dd></div>
+            <div><dt>Platform</dt><dd>Cisco Packet Tracer, Cisco IOS</dd></div>
+            <div><dt>Tools</dt><dd>OSPF, HSRP, ACLs, VLSM subnetting</dd></div>
+          </dl>
+        </div>
+        <!-- Network diagram drawn in SVG; colours come from .dg-* classes in style.css (section 12) -->
+        <figure class="shot cs-hero">
+          <div class="media media--natural diagram">
+            <svg viewBox="0 0 720 560" role="img" aria-labelledby="dg-title">
+              <title id="dg-title">Network diagram, laid out like the brief's logical diagram. The internet connects to R1, the ISP router. Serial links run from R1 to R2 (border router and firewall) and R7 (backup border router). Inside the main building (OSPF Area 0), R2 and R7 connect to a server switch with the web and file servers, and to the backbone switch, which connects R3 and R5. R5 serves the Administration office. A serial link runs from R3 to R4, the area border router, which serves the Sales office (Area 2) and connects to R6, which serves the Engineering office (Area 1).</title>
+              <defs>
+                <!-- Router icon -->
+                <symbol id="dg-rtr" viewBox="0 0 80 50">
+                  <path class="dg-ico" d="M3 14v22a37 11 0 0 0 74 0V14"/>
+                  <ellipse class="dg-ico" cx="40" cy="14" rx="37" ry="11"/>
+                  <path class="dg-ico-line" d="M22 14h13M45 14h13M28 10l-6 4 6 4M52 10l6 4-6 4"/>
+                </symbol>
+                <!-- Switch icon -->
+                <symbol id="dg-sw" viewBox="0 0 80 32">
+                  <rect class="dg-ico" x="2" y="2" width="76" height="28" rx="5"/>
+                  <path class="dg-ico-line" d="M20 12h38M52 8l6 4-6 4M60 20H22M28 16l-6 4 6 4"/>
+                </symbol>
+                <!-- Server rack icon -->
+                <symbol id="dg-srv" viewBox="0 0 110 96">
+                  <path class="dg-ico" d="M14 2h82l12 14H2z"/>
+                  <rect class="dg-ico" x="2" y="20" width="106" height="24" rx="6"/><path class="dg-ico-line" d="M16 27v10M24 27v10M32 27v10M54 32h22"/><circle class="dg-ico" cx="92" cy="32" r="5"/>
+                  <rect class="dg-ico" x="2" y="46" width="106" height="24" rx="6"/><path class="dg-ico-line" d="M16 53v10M24 53v10M32 53v10M54 58h22"/><circle class="dg-ico" cx="92" cy="58" r="5"/>
+                  <rect class="dg-ico" x="2" y="72" width="106" height="22" rx="6"/><path class="dg-ico-line" d="M16 78v10M24 78v10M32 78v10M54 83h22"/><circle class="dg-ico" cx="92" cy="83" r="5"/>
+                </symbol>
+                <!-- Desktop PC icon -->
+                <symbol id="dg-pc" viewBox="0 0 120 96">
+                  <rect class="dg-ico" x="2" y="4" width="80" height="60" rx="6"/>
+                  <path class="dg-ico-line" d="M42 64v12M22 80h40"/>
+                  <rect class="dg-ico-fill" x="90" y="0" width="28" height="96" rx="4"/>
+                  <path class="dg-ico-cut" d="M96 12h16M96 20h16M96 28h16"/>
+                  <circle class="dg-ico-dot" cx="104" cy="74" r="4"/>
+                </symbol>
+              </defs>
+
+              <!-- Areas -->
+              <rect class="dg-zone" x="200" y="160" width="505" height="380" rx="10"/>
+              <text class="dg-label" x="214" y="530">Main building · OSPF Area 0</text>
+              <rect class="dg-zone" x="395" y="296" width="296" height="232" rx="10"/>
+              <text class="dg-label" x="680" y="516" text-anchor="end">Administration office</text>
+              <rect class="dg-box" x="15" y="190" width="165" height="200" rx="14"/>
+              <text class="dg-label" x="27" y="210">Engineering · Area 1</text>
+              <rect class="dg-box" x="15" y="420" width="140" height="120" rx="14"/>
+              <text class="dg-label" x="27" y="528">Sales · Area 2</text>
+
+              <!-- Links (zigzags are serial links) -->
+              <path class="dg-line" d="M192 55H218M345 152L482 196M462 156L500 189M542 200L600 183M542 200L600 233M330 155V238M455 156L352 240M316 262L270 312M346 262L430 312M470 340L532 393M546 413L512 449M574 413L618 433M60 263V311M92 323H110M148 342L190 452M168 470H98"/>
+              <path class="dg-line dg-serial" d="M255 72L284 94L272 98L312 120M284 58L358 72L350 82L442 122M248 350L232 400L246 404L212 455"/>
+
+              <!-- Internet + R1 -->
+              <path class="dg-box" d="M62 80a20 20 0 0 1 2-38a26 26 0 0 1 48-14a24 24 0 0 1 44 6a22 22 0 0 1 30 26a18 18 0 0 1-8 20z"/>
+              <text class="dg-name" x="122" y="62" text-anchor="middle">Internet</text>
+              <use href="#dg-rtr" x="218" y="34" width="64" height="40"/>
+              <text class="dg-name" x="250" y="24" text-anchor="middle">R1 <tspan class="dg-role">· ISP router</tspan></text>
+
+              <!-- Border routers -->
+              <use href="#dg-rtr" x="298" y="115" width="64" height="40"/>
+              <text class="dg-name" x="290" y="140" text-anchor="end">R2</text>
+              <text class="dg-role" x="290" y="155" text-anchor="end">Border router + firewall</text>
+              <use href="#dg-rtr" x="430" y="115" width="64" height="40"/>
+              <text class="dg-name" x="502" y="132">R7</text>
+              <text class="dg-role" x="502" y="148">Backup border router</text>
+
+              <!-- Server switch + servers -->
+              <use href="#dg-sw" x="478" y="187" width="64" height="26"/>
+              <text class="dg-label" x="510" y="232" text-anchor="middle">HSRP shared gateway</text>
+              <use href="#dg-srv" x="600" y="166" width="40" height="35"/>
+              <text class="dg-role" x="648" y="188">Web server</text>
+              <use href="#dg-srv" x="600" y="216" width="40" height="35"/>
+              <text class="dg-role" x="648" y="238">File server</text>
+
+              <!-- Backbone switch -->
+              <use href="#dg-sw" x="298" y="237" width="64" height="26"/>
+
+              <!-- R3, R5 -->
+              <use href="#dg-rtr" x="228" y="310" width="64" height="40"/>
+              <text class="dg-name" x="300" y="330">R3</text>
+              <text class="dg-role" x="300" y="346">To remote offices</text>
+              <use href="#dg-rtr" x="408" y="310" width="64" height="40"/>
+              <text class="dg-name" x="440" y="370" text-anchor="middle">R5</text>
+              <text class="dg-role" x="440" y="386" text-anchor="middle">Admin gateway</text>
+
+              <!-- Administration office -->
+              <use href="#dg-sw" x="528" y="387" width="64" height="26"/>
+              <use href="#dg-pc" x="482" y="448" width="56" height="45"/>
+              <use href="#dg-pc" x="612" y="428" width="56" height="45"/>
+
+              <!-- Engineering (Area 1) -->
+              <use href="#dg-pc" x="32" y="218" width="56" height="45"/>
+              <use href="#dg-sw" x="28" y="310" width="64" height="26"/>
+              <use href="#dg-rtr" x="108" y="303" width="64" height="40"/>
+              <text class="dg-name" x="140" y="296" text-anchor="middle">R6</text>
+
+              <!-- R4 + Sales (Area 2) -->
+              <use href="#dg-rtr" x="168" y="450" width="64" height="40"/>
+              <text class="dg-name" x="240" y="472">R4</text>
+              <text class="dg-role" x="240" y="488">Area border router</text>
+              <use href="#dg-pc" x="42" y="448" width="56" height="45"/>
+            </svg>
+          </div>
+          <figcaption>The company network: the main building (Area 0) and two branch offices. Zigzags are serial links.</figcaption>
+        </figure>
+      </header>
+
+      <!-- Headline numbers -->
+      <div class="cs-stats">
+        <div><span class="stat-num">7</span><span class="stat-label">routers, all configured by me</span></div>
+        <div><span class="stat-num">3</span><span class="stat-label">routing areas: the main office and two branches</span></div>
+        <div><span class="stat-num">2×</span><span class="stat-label">room to grow: every office's addresses can double</span></div>
+        <div><span class="stat-num">0%</span><span class="stat-label">of test messages lost with the main router switched off</span></div>
+      </div>
+
+      <section class="cs-row">
+        <div class="cs-section">
+          <h2>Overview</h2>
+          <p>For my Computer Networking module, I had to design and build the network for ABC Pte Ltd, a pretend IT company. Its main office has the Admin team and the company's web and file servers. Two branch offices, Engineering and Sales, connect to it over a long-distance link, and the main office connects to the internet through an internet provider.</p>
+          <p>This was individual work, so I did everything: planning the addresses, setting up all 7 routers, adding backups so one failure doesn't take the company offline, adding a firewall, and testing it all. I built it in Cisco Packet Tracer, which simulates real Cisco equipment.</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/topology.webp" alt="Cisco Packet Tracer workspace showing the finished network: routers R1 to R7, four switches, web and file servers, and PCs for the Admin, Sales and Engineering offices, joined by Ethernet and red serial cables" loading="lazy" width="1381" height="1033"></div>
+          <figcaption>The finished network in Cisco Packet Tracer. Red lines are serial (long-distance) links.</figcaption>
+        </figure>
+      </section>
+
+      <!-- What I built: one row per feature, text beside the screenshot that shows it -->
+      <section class="cs-block">
+        <h2>What I built</h2>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">01</span>
+          <h3>An address plan with room to double</h3>
+          <p>Every device needs an address, like a phone number. The company gave me one block of 256 addresses, and expects each office to double in size over the next 5–10 years.</p>
+          <p>I split the block into right-sized pieces (VLSM), each big enough for twice today's staff. The whole network uses 184 of the 256 addresses, so the rest stay free for later.</p>
+          <p class="card-tags">VLSM · Subnetting · IPv4</p>
+        </div>
+        <div class="cs-table-wrap cs-table-wrap--side">
+          <table class="cs-table cs-table--compact">
+            <caption>How I split the addresses</caption>
+            <thead>
+              <tr><th scope="col">Network</th><th scope="col">Addresses needed</th><th scope="col">Size given</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Admin office</th><td>56 (28 staff, doubled)</td><td>62</td></tr>
+              <tr><th scope="row">Engineering office</th><td>46 (23 staff, doubled)</td><td>62</td></tr>
+              <tr><th scope="row">Sales office</th><td>22 (11 staff, doubled)</td><td>30</td></tr>
+              <tr><th scope="row">Servers</th><td>5 (fixed maximum)</td><td>6</td></tr>
+              <tr><th scope="row">Main office routers</th><td>4</td><td>6</td></tr>
+              <tr><th scope="row">Link R3 to R4</th><td>2</td><td>2</td></tr>
+              <tr><th scope="row">Link R4 to R6</th><td>2</td><td>2</td></tr>
+            </tbody>
+          </table>
+          <p class="cs-table-note">Taken from the block 198.100.190.0/24, largest network first.</p>
+        </div>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">02</span>
+          <h3>A route to the internet</h3>
+          <p>The internet provider's router (R1) shouldn't learn the company's internal routes, so I set two fixed directions by hand:</p>
+          <ul>
+            <li><strong>R1:</strong> "anything for the company's addresses, send to R2".</li>
+            <li><strong>R2:</strong> "anything that isn't inside the company, send to the internet" (a default route).</li>
+          </ul>
+          <p class="card-tags">Static routes · Default route</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/static-routes.webp" alt="Two router command windows. R1's routing table shows a static route for 198.100.190.0/24 via 220.220.219.2. R2's routing table shows 'Gateway of last resort is 220.220.219.1' and a default static route 0.0.0.0/0 via 220.220.219.1" loading="lazy" width="1600" height="650"></div>
+          <figcaption>R1's route to the company (left) and R2's default route to the internet (right), both boxed in red.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">03</span>
+          <h3>Three areas that share their routes</h3>
+          <p>Inside the company, the routers find paths to each other automatically using OSPF, a routing protocol. I split the network into three areas: the main office (Area 0) and one for each branch (Areas 1 and 2). A change inside one branch then stays inside that branch.</p>
+          <p>R4 sits on the edge of all three areas and passes routes between them. I also stopped routing messages being sent out towards office PCs, since only routers need them.</p>
+          <p class="card-tags">Multi-area OSPF · Area border router · Passive interfaces</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/ospf-areas.webp" alt="R4 running configuration for OSPF process 99: router-id 4.4.4.4, passive-interface GigabitEthernet0/1, and three network statements in area 0, area 1 and area 2" loading="lazy" width="1079" height="651"></div>
+          <figcaption>R4's routing settings: one network in each of areas 0, 1 and 2.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">04</span>
+          <h3>A leader for the main office routers</h3>
+          <p>Four routers share the main office network. Rather than every router swapping updates with every other, OSPF picks one leader to collect and share them (the designated router), plus a backup.</p>
+          <p>I set priorities so the choice is fixed: R2 is the leader and R5 is its backup.</p>
+          <p class="card-tags">OSPF DR / BDR · Router priority · Loopback router IDs</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/dr-bdr.webp" alt="R2 output of show ip ospf interface GigabitEthernet0/0: State DR, Priority 100, Designated Router 2.2.2.2, Backup Designated Router 5.5.5.5, adjacent with neighbours 5.5.5.5, 7.7.7.7 and 3.3.3.3" loading="lazy" width="1600" height="828"></div>
+          <figcaption>R2 is the designated router ("State DR"), and R5 (5.5.5.5) is the backup.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">05</span>
+          <h3>Calmer check-ins on the slow link</h3>
+          <p>Routers send each other a regular "hello" to show they're still alive. On the slower serial link to the branches, I spaced these out to every 20 seconds, and a router is only treated as down after 80 seconds of silence. This means less chatter on a slow line.</p>
+          <p class="card-tags">OSPF hello and dead timers</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/ospf-timers.webp" alt="R3 output of show ip ospf interface Serial0/0/0: point-to-point link in area 0, with 'Timer intervals configured, Hello 20, Dead 80, Wait 80, Retransmit 5' boxed in red" loading="lazy" width="1600" height="779"></div>
+          <figcaption>R3's serial link: hello every 20 seconds, down after 80 seconds.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">06</span>
+          <h3>A backup way to the internet</h3>
+          <p>If R2 fails, the company would lose the internet. I added a second border router, R7, with its own link to the internet provider. R7 tells the other routers "you can reach the internet through me too", so traffic switches to it on its own.</p>
+          <p class="card-tags">Redundancy · default-information originate</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/backup-isp.webp" alt="R7 running configuration for OSPF process 99: router-id 7.7.7.7, networks in area 0, and 'default-information originate' boxed in red" loading="lazy" width="1146" height="792"></div>
+          <figcaption>R7 shares its internet route with the other routers ("default-information originate").</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">07</span>
+          <h3>Servers that never lose their gateway</h3>
+          <p>The web and file servers send all their traffic through one gateway address. R2 and R7 share that address using HSRP. R2 normally handles it, and R7 waits on standby. If R2 goes down, R7 takes over the same address, so the servers don't need any changes.</p>
+          <p class="card-tags">HSRP · First-hop redundancy</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/hsrp.webp" alt="Two command windows running show standby brief. R2 shows group 1, priority 110, state Active, virtual IP 198.100.190.161. R7 shows priority 90, state Standby, with the same virtual IP" loading="lazy" width="1600" height="673"></div>
+          <figcaption>R2 is active (top) and R7 is on standby (bottom), sharing the gateway address .161.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <span class="feature-num">08</span>
+          <h3>A firewall at the front door</h3>
+          <p>R2 checks every message coming in from the internet against a list of rules (an access control list):</p>
+          <ul class="checks">
+            <li><strong>Allowed:</strong> visits to the company website (web and secure web)</li>
+            <li><strong>Allowed:</strong> replies to connections started from inside, and ping tests</li>
+            <li class="no"><strong>Blocked:</strong> traffic pretending to come from private or fake addresses</li>
+            <li class="no"><strong>Blocked:</strong> everything else</li>
+          </ul>
+          <p class="card-tags">Extended ACL · Border firewall</p>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/firewall.webp" alt="R2 extended IP access list BORDER_FIREWALL: deny 10.0.0.0, 172.16.0.0, 192.168.0.0 and 127.0.0.0 sources; permit TCP to host 198.100.190.162 on www and 443; permit established TCP; permit ICMP echo-reply, echo and unreachable; deny ip any any. Below, the list is applied inbound on Serial0/0/0" loading="lazy" width="1044" height="531"></div>
+          <figcaption>The firewall rules (boxed), applied to traffic coming in on R2's internet link.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-block">
+        <h2>Tested</h2>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <h3>Every office can reach every other</h3>
+          <p>From a PC in the Admin office, I sent test messages (pings) to the Engineering office, the Sales office and the web server. Every message got a reply, with none lost.</p>
+          <ul class="checks">
+            <li><strong>Engineering office:</strong> 4 of 4 replies</li>
+            <li><strong>Sales office:</strong> 4 of 4 replies</li>
+            <li><strong>Web server:</strong> 4 of 4 replies</li>
+          </ul>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/ping-test.webp" alt="Admin PC command prompt pinging 198.100.190.66, 198.100.190.130 and 198.100.190.162, each with 4 replies and 0% loss" loading="lazy" width="1042" height="968"></div>
+          <figcaption>Pings from the Admin PC to Engineering (.66), Sales (.130) and the web server (.162): 0% loss.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-row flip cs-feature">
+        <div class="cs-section">
+          <h3>Still working with the main router switched off</h3>
+          <p>A backup only counts if it works, so I turned R2 off in the simulator and tested again. The offices could still reach each other, and the internet provider's router was still reachable through the backup router, R7.</p>
+          <ul class="checks">
+            <li><strong>Offices and servers:</strong> still reachable, 0% loss</li>
+            <li><strong>Internet provider (via R7):</strong> 4 of 4 replies</li>
+          </ul>
+        </div>
+        <figure class="shot shot--screen">
+          <div class="media media--natural"><img src="../assets/projects/networking/failover.webp" alt="Top: Packet Tracer physical view of R2 with its power switch boxed in red. Bottom: Admin PC pinging 220.220.219.5, the ISP router's link to R7, with 4 replies and 0% loss" loading="lazy" width="1009" height="954"></div>
+          <figcaption>R2's power switch turned off (top), and the Admin PC still reaching the internet provider through R7 (bottom).</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-block">
+        <h2>Cost and next steps</h2>
+      </section>
+
+      <section class="cs-row cs-feature">
+        <div class="cs-section">
+          <h3>What it would cost</h3>
+          <p>I also estimated the cost of building it for real: about <strong>S$22,780</strong>, mostly the 7 routers and the 2 servers.</p>
+        </div>
+        <div class="cs-table-wrap cs-table-wrap--side">
+          <table class="cs-table cs-table--compact">
+            <caption>Budget estimate</caption>
+            <thead>
+              <tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Cost (S$)</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Cisco 1941 routers</th><td>7</td><td>10,500</td></tr>
+              <tr><th scope="row">Cisco 2960 switches</th><td>5</td><td>3,500</td></tr>
+              <tr><th scope="row">Rack servers (web, file)</th><td>2</td><td>5,000</td></tr>
+              <tr><th scope="row">Internet lines (main + backup)</th><td>2</td><td>1,200</td></tr>
+              <tr><th scope="row">Cables</th><td>—</td><td>580</td></tr>
+              <tr><th scope="row">Installation and testing</th><td>1</td><td>2,000</td></tr>
+              <tr><th scope="row">Total</th><td></td><td><strong>22,780</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="cs-section cs-subhead"><h3>What I'd improve next</h3></div>
+      <div class="fix-grid">
+        <article class="fix">
+          <h3>A second internet provider</h3>
+          <p>R1 is still the only way out to the internet. A second, separate provider would remove that single point of failure.</p>
+        </article>
+        <article class="fix">
+          <h3>Backup gateways for every office</h3>
+          <p>HSRP only protects the servers today. Adding it for the Admin, Sales and Engineering offices would protect everyone.</p>
+        </article>
+        <article class="fix">
+          <h3>Tighter security</h3>
+          <p>Encrypted remote logins (SSH instead of Telnet), passwords on routing messages, and locking switch ports to known devices.</p>
+        </article>
+      </div>
+
+      <section class="cs-block cs-narrow cs-section">
+        <h2>What I learned</h2>
+        <ul>
+          <li><strong>Plan the addresses first.</strong> Once the address table was right, setting up each router was straightforward. A mistake there would have spread everywhere.</li>
+          <li><strong>A backup isn't real until you test it.</strong> Switching R2 off was the only way to prove that R7 and HSRP actually take over.</li>
+          <li><strong>Areas keep routing tidy.</strong> Splitting the network into areas means a change in one branch doesn't make every router recalculate.</li>
+        </ul>
+      </section>
+
+      <a class="next-project" href="proxmox-homelab.html">
+        <span>
+          <span class="next-label">Next project</span>
+          <span class="next-title">Proxmox Homelab <span class="next-arrow" aria-hidden="true">→</span></span>
+        </span>
+        <span class="media"><span class="shot-placeholder">Thumbnail</span></span>
+      </a>
+
+      <div class="actions cs-links">
+        <a class="btn" href="../index.html#project-network"><span aria-hidden="true">←</span> Back to home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <span>© <span id="year">2026</span> Han Lwin Htoo</span>
+    <a class="back-top" href="#main">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
+  </footer>
+
+  <script src="../script.js?v=2026-10-21n"></script>
+</body>
+</html>

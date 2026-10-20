@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="assets/images/me.png">
   <meta name="description" content="Han Lwin Htoo, Computer Engineering (Cloud Systems) student at Singapore Polytechnic. Seeking a year-long industrial attachment in DevOps / cloud infrastructure from March 2027.">
   <meta name="author" content="Han Lwin Htoo">
-  <meta name="keywords" content="Han Lwin Htoo, DevOps, cloud infrastructure, Proxmox, homelab, Linux, networking, internship, industrial attachment, Singapore Polytechnic">
+  <meta name="keywords" content="Han Lwin Htoo, DevOps, cloud infrastructure, Proxmox, homelab, Linux, Windows Server, Active Directory, Cisco, OSPF, networking, internship, industrial attachment, Singapore Polytechnic">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://hanlwinhtoo.github.io/">
   <meta property="og:type" content="website">
@@ -38,7 +38,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- ?v=… makes browsers fetch the new file after an update: bump it whenever style.css or script.js change -->
-  <link rel="stylesheet" href="style.css?v=2026-10-17g">
+  <link rel="stylesheet" href="style.css?v=2026-10-21n">
 </head>
 <body>
   <a class="skip-link" href="#projects">Skip to content</a>
@@ -68,6 +68,8 @@
     <a href="#home" aria-label="Home"></a>
     <a href="#projects" aria-label="Project 1: Proxmox Homelab"></a>
     <a href="#project-bustech" aria-label="Project 2: BusGuard"></a>
+    <a href="#project-winserver" aria-label="Project 3: Windows Server Domain"></a>
+    <a href="#project-network" aria-label="Project 4: Multi-Site Company Network"></a>
     <a href="#skills" aria-label="Skills"></a>
     <a href="#education" aria-label="Education"></a>
     <a href="#contact" aria-label="Contact"></a>
@@ -91,13 +93,13 @@
           <p class="hero-meta">Computer Engineering, Cloud Systems&nbsp;<span class="sep" aria-hidden="true">@</span>
             <img class="sp-logo sp-logo--light" src="assets/images/sp-logo.png" alt="Singapore Polytechnic" width="423" height="96"><img class="sp-logo sp-logo--dark" src="assets/images/sp-logo-white.png" alt="Singapore Polytechnic" width="423" height="96"></p>
           <div class="actions">
-            <a class="btn btn-primary" href="resume.pdf" download>Download Resume</a>
+            <a class="btn btn-primary" href="resume.pdf" download="Han_Lwin_Htoo_Resume.pdf">Download Resume</a>
             <a class="btn" href="#contact">Get in touch</a>
           </div>
         </div>
         <!-- Terminal window. script.js types the .t-cmd lines out each time Home
              appears; without JS (or with reduced motion) it shows as written. -->
-        <div class="terminal" role="img" aria-label="Terminal: whoami returns han-lwin-htoo; looking for a year-long DevOps / Cloud Infrastructure attachment in Singapore from March 2027; projects: proxmox-homelab, bustech-grand-challenge">
+        <div class="terminal" role="img" aria-label="Terminal: whoami returns han-lwin-htoo; looking for a year-long DevOps / Cloud Infrastructure attachment in Singapore from March 2027; projects: proxmox-homelab, bustech-grand-challenge, windows-server-domain, multi-site-network">
           <div class="term-bar" aria-hidden="true">
             <span class="term-dots"><i></i><i></i><i></i></span>
             <span class="term-title">han@portfolio: ~</span>
@@ -111,7 +113,7 @@
             <p class="t-out"><span class="t-key">start:</span> March 2027</p>
             <p class="t-out"><span class="t-key">based_in:</span> Singapore</p>
             <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">ls ~/projects</span></p>
-            <p class="t-out t-ls"><span>proxmox-homelab</span><span>bustech-grand-challenge</span></p>
+            <p class="t-out t-ls"><span>proxmox-homelab</span><span>bustech-grand-challenge</span><span>windows-server-domain</span><span>multi-site-network</span></p>
             <p class="t-cmd t-last"><span class="t-ps">han@portfolio:~$</span> <span class="t-text"></span><span class="t-cursor"></span></p>
           </div>
         </div>
@@ -124,7 +126,7 @@
     <section class="screen project" id="projects" data-nav="projects">
       <div class="container project-grid">
         <div class="project-info">
-          <p class="kicker">Projects · 1 of 2</p>
+          <p class="kicker">Projects · 1 of 4</p>
           <!-- Project type: Side project / School project / Hackathon / Competition -->
           <p class="project-labels"><span class="project-label project-type">Side project</span></p>
           <h2>Proxmox Homelab</h2>
@@ -134,14 +136,14 @@
             <a class="btn btn-primary" href="projects/proxmox-homelab.html">Read case study <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        <div class="project-index" aria-hidden="true"><span class="num">01</span><span class="of">/02</span></div>
+        <div class="project-index" aria-hidden="true"><span class="num">01</span><span class="of">/04</span></div>
       </div>
     </section>
 
     <section class="screen project" id="project-bustech" data-nav="projects">
       <div class="container project-grid">
         <div class="project-info">
-          <p class="kicker">Projects · 2 of 2</p>
+          <p class="kicker">Projects · 2 of 4</p>
           <!-- TODO after the Grand Final: update "Top 5 finalist" with the final placing -->
           <p class="project-labels"><span class="project-label project-type">Competition</span><span class="project-label">Top 5 finalist</span></p>
           <h2>BusGuard</h2>
@@ -151,7 +153,39 @@
             <a class="btn btn-primary" href="projects/bustech.html">Read case study <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        <div class="project-index" aria-hidden="true"><span class="num">02</span><span class="of">/02</span></div>
+        <div class="project-index" aria-hidden="true"><span class="num">02</span><span class="of">/04</span></div>
+      </div>
+    </section>
+
+    <section class="screen project" id="project-winserver" data-nav="projects">
+      <div class="container project-grid">
+        <div class="project-info">
+          <p class="kicker">Projects · 3 of 4</p>
+          <p class="project-labels"><span class="project-label project-type">School project</span></p>
+          <h2>Windows Server Domain</h2>
+          <p class="lead">A Windows Server 2025 domain for a mock company office, built in VMware by a team of four. I built the file, storage and web server: RAID-5 shares, FSRM quotas, HTTPS sites on IIS, and Work Folders sync.</p>
+          <p class="tags"><span>Windows Server</span><span>Active Directory</span><span>IIS</span><span>PowerShell</span></p>
+          <div class="actions">
+            <a class="btn btn-primary" href="projects/windows-server.html">Read case study <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="project-index" aria-hidden="true"><span class="num">03</span><span class="of">/04</span></div>
+      </div>
+    </section>
+
+    <section class="screen project" id="project-network" data-nav="projects">
+      <div class="container project-grid">
+        <div class="project-info">
+          <p class="kicker">Projects · 4 of 4</p>
+          <p class="project-labels"><span class="project-label project-type">School project</span><span class="project-label">Individual work</span></p>
+          <h2>Multi-Site Company Network</h2>
+          <p class="lead">A network for a company with a main office and two branches, built on my own in Cisco Packet Tracer: multi-area OSPF routing, a backup internet link, HSRP failover and a firewall.</p>
+          <p class="tags"><span>Cisco IOS</span><span>OSPF</span><span>HSRP</span><span>ACLs</span></p>
+          <div class="actions">
+            <a class="btn btn-primary" href="projects/networking.html">Read case study <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="project-index" aria-hidden="true"><span class="num">04</span><span class="of">/04</span></div>
       </div>
     </section>
 
@@ -164,21 +198,29 @@
             <p class="kicker">Skills</p>
             <h2>Tools I work with</h2>
           </div>
-          <p class="lead">Mostly learned hands-on by building, breaking and rebuilding my own homelab.</p>
+          <p class="lead">Learned hands-on in my homelab and in school and competition projects.</p>
         </div>
 
         <!-- One tile per tool. The icon comes from the i-* class (see style.css, section 7).
-             Order: virtualisation, Linux, networking, tools, then studying.
-             16 tiles = two full rows of 8 on desktop. -->
+             Order: virtualisation, Linux, Windows Server, networking, tools, then studying.
+             24 tiles = full rows at every width (8, 6 or 3 per row): add or remove in steps of 24's divisors. -->
         <ul class="tiles">
-          <li class="tile"><span class="ico i-proxmox"></span><span class="tile-name">Proxmox VE</span></li>
-          <li class="tile"><span class="ico i-lxc"></span><span class="tile-name">LXC</span></li>
-          <li class="tile"><span class="ico i-debian"></span><span class="tile-name">Debian</span></li>
-          <li class="tile"><span class="ico i-ubuntu"></span><span class="tile-name">Ubuntu</span></li>
+          <li class="tile"><span class="ico i-proxmox"></span><span class="tile-name">Proxmox VE &amp; LXC</span></li>
+          <li class="tile"><span class="ico i-vmware"></span><span class="tile-name">VMware</span></li>
+          <li class="tile"><span class="ico i-ubuntu"></span><span class="tile-name">Ubuntu / Debian</span></li>
           <li class="tile"><span class="ico i-bash"></span><span class="tile-name">Bash scripting</span></li>
           <li class="tile"><span class="ico i-ssh"></span><span class="tile-name">SSH &amp; key auth</span></li>
           <li class="tile"><span class="ico i-systemd"></span><span class="tile-name">systemd</span></li>
-          <li class="tile"><span class="ico i-tcpip"></span><span class="tile-name">TCP/IP, subnetting</span></li>
+          <li class="tile"><span class="ico i-windows"></span><span class="tile-name">Windows Server</span></li>
+          <li class="tile"><span class="ico i-ad"></span><span class="tile-name">Active Directory &amp; GPO</span></li>
+          <li class="tile"><span class="ico i-powershell"></span><span class="tile-name">PowerShell</span></li>
+          <li class="tile"><span class="ico i-iis"></span><span class="tile-name">IIS web server</span></li>
+          <li class="tile"><span class="ico i-pki"></span><span class="tile-name">Certificates (PKI)</span></li>
+          <li class="tile"><span class="ico i-storage"></span><span class="tile-name">RAID &amp; FSRM</span></li>
+          <li class="tile"><span class="ico i-tcpip"></span><span class="tile-name">TCP/IP, VLSM subnetting</span></li>
+          <li class="tile"><span class="ico i-ospf"></span><span class="tile-name">OSPF routing</span></li>
+          <li class="tile"><span class="ico i-hsrp"></span><span class="tile-name">HSRP failover</span></li>
+          <li class="tile"><span class="ico i-acl"></span><span class="tile-name">ACL firewalls</span></li>
           <li class="tile"><span class="ico i-vlan"></span><span class="tile-name">VLANs &amp; isolation</span></li>
           <li class="tile"><span class="ico i-dns"></span><span class="tile-name">DNS / DHCP</span></li>
           <li class="tile"><span class="ico i-tailscale"></span><span class="tile-name">Tailscale</span></li>
@@ -204,8 +246,8 @@
             <div>
               <h3>Singapore Polytechnic</h3>
               <p>Diploma in Computer Engineering, Specialisation in Cloud Systems</p>
-              <!-- TODO: replace with your relevant modules -->
-              <p class="tags"><span>[Module 1]</span><span>[Module 2]</span><span>[Module 3]</span><span>[Module 4]</span></p>
+              <!-- Relevant modules: add more as <span>…</span> -->
+              <p class="tags"><span>Cloud Foundations</span><span>Linux Essentials</span><span>Computer Networking</span><span>LAN Switching &amp; Wireless</span><span>Server Management</span><span>Network Hacking</span><span>Digital Signal Processing</span></p>
             </div>
           </li>
           <li>
@@ -262,7 +304,7 @@
           </li>
           <li class="contact-row">
             <!-- resume.pdf must sit in the same folder as index.html -->
-            <a class="row-link" href="resume.pdf" download>
+            <a class="row-link" href="resume.pdf" download="Han_Lwin_Htoo_Resume.pdf">
               <span class="ico row-ico i-doc" aria-hidden="true"></span>
               <span class="row-label">Resume</span>
               <span class="row-value">Download PDF</span>
@@ -279,6 +321,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=2026-10-17g"></script>
+  <script src="script.js?v=2026-10-21n"></script>
 </body>
 </html>
