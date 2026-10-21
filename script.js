@@ -20,7 +20,6 @@
   /* ---------- 1. Theme toggle ---------- */
   const toggle = document.querySelector('.theme-toggle');
   const metaTheme = document.querySelector('meta[name="theme-color"]');
-  let fadeTimer = null;
 
   function applyTheme(theme) {
     if (theme === 'light') root.setAttribute('data-theme', 'light');
@@ -34,11 +33,14 @@
   if (toggle) {
     toggle.addEventListener('click', function () {
       const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      // Turn on colour transitions only while switching, so normal hovers stay snappy
-      root.classList.add('theme-fade');
-      applyTheme(next);
-      clearTimeout(fadeTimer);
-      fadeTimer = setTimeout(function () { root.classList.remove('theme-fade'); }, 600);
+      // Cross-fade the whole page as one picture (View Transitions). Fading each
+      // element's colours separately made nested text lag behind its parent.
+      // Older browsers and reduced-motion visitors switch instantly.
+      if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.startViewTransition(function () { applyTheme(next); });
+      } else {
+        applyTheme(next);
+      }
       try { localStorage.setItem('theme', next); } catch (e) { /* storage blocked */ }
     });
   }

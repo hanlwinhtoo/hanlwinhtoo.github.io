@@ -56,9 +56,10 @@
   color-scheme: light;
 }
 
-/* Fade colors when the theme is switched (class added briefly by script.js) */
-.theme-fade, .theme-fade *, .theme-fade *::before {
-  transition: background-color .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease) !important;
+/* Theme switch: script.js cross-fades the whole page at once (View Transitions) */
+::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: .45s;
+  animation-timing-function: cubic-bezier(.22, .61, .36, 1);
 }
 
 /* ---------- 2. Base ---------- */
