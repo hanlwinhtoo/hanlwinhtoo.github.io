@@ -68,10 +68,6 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 0;
 }
-/* Snap one screen at a time on screens tall enough to fit each section */
-@media (min-width: 900px) and (min-height: 700px) {
-  html { scroll-snap-type: y mandatory; }
-}
 
 body {
   margin: 0;
@@ -187,7 +183,6 @@ mark.todo { background: var(--mark); color: inherit; padding: 0 3px; border-radi
   min-height: 100svh;
   display: flex; flex-direction: column; justify-content: center;
   padding: calc(var(--topbar) + 40px) 0 64px;
-  scroll-snap-align: start;
 }
 .screen:nth-of-type(even) { background: var(--bg-alt); }
 
@@ -538,10 +533,6 @@ footer {
 /* Skill rows keep their own hover transition once revealed */
 .js .screen.in .tile.reveal { transition: opacity .5s var(--ease) calc(var(--i, 0) * 25ms), transform .5s var(--ease); }
 .js .screen.in .tile.reveal:hover, .js .screen.in .tile.reveal.tap { transform: translateY(-4px); }
-
-/* Desktop blur through (script.js adds .paging): JS moves between screens and
-   animates the two screens' blur/opacity inline, so native snap is off */
-html.paging { scroll-snap-type: none; scroll-behavior: auto; }
 
 /* ---------- 11. Smaller screens ---------- */
 /* Shorter laptop windows: tighten spacing so every section fits one screen */

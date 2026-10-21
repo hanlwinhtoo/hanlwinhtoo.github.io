@@ -4,7 +4,7 @@
    1b. Phone menu: swipeable side drawer
    2. Highlight the nav link + side dot for the screen in view
    3. Scroll reveal: each screen's content fades up when it comes into view
-   4. Screen-to-screen blur through (wheel, keys and touch swipes)
+   4. Keep reveal + active link in sync with scrolling
    4b. Home terminal: types out commands each time Home appears
    5. Copy email button
    6. Tap effects on touch screens
@@ -181,196 +181,7 @@
     }
   }
 
-  /* ---------- 4. Screen-to-screen blur through (screens big enough to fit a section) ---------- */
-  // The current screen blurs and fades out, the page jumps while it's hidden,
-  // then the next screen comes in from blurry to sharp, like a camera
-  // refocusing. Only the two screens involved are blurred (cheap to draw).
-  // Works with mouse wheel, trackpad, keyboard and touch swipes. Phones and
-  // portrait tablets (sections taller than the screen) and reduced-motion
-  // visitors keep normal scrolling.
-  const pagingMQ = window.matchMedia('(min-width: 900px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)');
-  const screenList = Array.from(screens);
-  // Only page between screens where there are screens (not on project pages)
-  function paging() { return screenList.length > 0 && pagingMQ.matches; }
-  const BLUR_OUT = 300;    // ms, current screen blurs away
-  const BLUR_IN = 550;     // ms, next screen comes into focus
-  const BLUR = 14;         // px of blur at the hidden point
-  const EASE_OUT = 'cubic-bezier(.55, 0, 1, .45)';  // accelerates away
-  const EASE_IN = 'cubic-bezier(.22, .61, .36, 1)'; // settles softly
-  const COOLDOWN = 220;    // swallow trackpad momentum after a move
-  let animating = false;
-  let lockUntil = 0;
-
-  function setFx(el, opacity, blur, ms, easing) {
-    el.style.transition = ms ? 'opacity ' + ms + 'ms ' + easing + ', filter ' + ms + 'ms ' + easing : 'none';
-    el.style.opacity = opacity;
-    el.style.filter = blur ? 'blur(' + blur + 'px)' : 'none';
-  }
-  function clearFx(el) {
-    el.style.transition = '';
-    el.style.opacity = '';
-    el.style.filter = '';
-  }
-
-  // The screen covering the middle of the viewport
-  function currentIndex() {
-    const mid = window.innerHeight / 2;
-    let idx = 0;
-    screenList.forEach(function (s, i) {
-      if (s.getBoundingClientRect().top <= mid) idx = i;
-    });
-    return idx;
-  }
-
-  function blurTo(y) {
-    if (Math.abs(y - window.scrollY) < 1) return;
-    animating = true;
-    needFreshGesture = true;   // swallow this swipe's leftover momentum
-
-    // 1. Current screen blurs and fades out
-    const src = screenList[currentIndex()];
-    setFx(src, 0, BLUR, BLUR_OUT, EASE_OUT);
-
-    setTimeout(function () {
-      // 2. While hidden: jump (instant: html.paging turns smooth scrolling off)
-      window.scrollTo(0, y);
-      clearFx(src);
-      const dest = screenList[currentIndex()];
-      setFx(dest, 0, BLUR, 0);
-      // Always replay the arriving screen's reveal, whatever state it was in:
-      // hide its content (instant), force a reflow, then let updateScreens
-      // add .in again so the fade-up runs from the start
-      dest.classList.remove('in');
-      void dest.offsetWidth;   // also applies the blurred start state
-      updateScreens();         // resets the old screen, starts the new one's reveal
-
-      // 3. Next screen comes into focus
-      setFx(dest, 1, 0, BLUR_IN, EASE_IN);
-      setTimeout(function () {
-        clearFx(dest);
-        animating = false;
-        lockUntil = performance.now() + COOLDOWN;
-      }, BLUR_IN);
-    }, BLUR_OUT);
-  }
-
-  function goTo(i) {
-    const from = currentIndex();
-    i = Math.max(0, Math.min(screenList.length - 1, i));
-    const s = screenList[i];
-    const top = s.getBoundingClientRect().top + window.scrollY;
-    if (i === from) {
-      // Part-way through the current screen: just ease it back into place
-      window.scrollTo({ top: top, behavior: 'smooth' });
-      return;
-    }
-    // Going up into a screen taller than the window: land on its bottom edge
-    const target = i < from && isTall(s) ? top + s.offsetHeight - window.innerHeight : top;
-    blurTo(target);
-  }
-
-  // Let a screen taller than the window scroll normally until its edge
-  // A screen only counts as "taller than the window" if more than its bottom
-  // padding is cut off; a few px of overflow used to eat a scroll with a tiny
-  // nudge instead of a transition.
-  const SLACK = 64;
-  function isTall(s) {
-    return s.offsetHeight - window.innerHeight > SLACK;
-  }
-
-  // Edge of the current screen still to scroll to in this direction, or null
-  function insideTarget(dir) {
-    const s = screenList[currentIndex()];
-    if (!isTall(s)) return null;
-    const r = s.getBoundingClientRect();
-    const y = window.scrollY;
-    if (dir > 0 && r.bottom > window.innerHeight + 2) return y + r.bottom - window.innerHeight;
-    if (dir < 0 && r.top < -2) return y + r.top;
-    return null;
-  }
-
-  function step(dir, e) {
-    e.preventDefault();
-    if (animating || performance.now() < lockUntil) return;
-    const edge = insideTarget(dir);
-    if (edge !== null) {
-      // Tall screen: glide to its other edge in one smooth move first
-      animating = true;
-      needFreshGesture = true;
-      window.scrollTo({ top: edge, behavior: 'smooth' });
-      setTimeout(function () { animating = false; lockUntil = performance.now() + COOLDOWN; }, 500);
-      return;
-    }
-    goTo(currentIndex() + dir);
-  }
-
-  // Trackpads keep firing wheel events (momentum) for up to a second after the
-  // fingers stop. After each move, ignore that stream until it pauses, so one
-  // swipe can't carry on into a second transition and skip a screen.
-  const GESTURE_GAP = 160;   // ms of wheel silence that marks a new gesture
-  let lastWheel = 0;
-  let needFreshGesture = false;
-
-  window.addEventListener('wheel', function (e) {
-    if (!paging() || e.ctrlKey) return;
-    const now = performance.now();
-    const gap = now - lastWheel;
-    lastWheel = now;
-    if (Math.abs(e.deltaY) < 2) { e.preventDefault(); return; }
-    if (needFreshGesture && !animating) {
-      if (gap < GESTURE_GAP) { e.preventDefault(); return; } // still the old swipe
-      needFreshGesture = false;
-    }
-    step(e.deltaY > 0 ? 1 : -1, e);
-  }, { passive: false });
-
-  // Touch screens (tablets in landscape, touch laptops): one swipe = one screen.
-  // Only single-finger swipes are taken over, so taps and pinch-zoom still work.
-  const SWIPE_MIN = 40;      // px of finger travel that counts as a swipe
-  let touchY = null;
-  const noop = { preventDefault: function () {} };
-
-  window.addEventListener('touchstart', function (e) {
-    touchY = paging() && e.touches.length === 1 ? e.touches[0].clientY : null;
-  }, { passive: true });
-
-  window.addEventListener('touchmove', function (e) {
-    if (touchY === null || e.touches.length !== 1) return;
-    if (e.target.closest && e.target.closest('.nav-links')) return; // let the menu scroll
-    e.preventDefault(); // stop native scrolling; touchend decides the move
-  }, { passive: false });
-
-  window.addEventListener('touchend', function (e) {
-    if (touchY === null) return;
-    const dy = touchY - e.changedTouches[0].clientY;
-    touchY = null;
-    if (Math.abs(dy) < SWIPE_MIN) return; // a tap, not a swipe
-    step(dy > 0 ? 1 : -1, noop);
-  }, { passive: true });
-
-  window.addEventListener('keydown', function (e) {
-    if (!paging() || e.altKey || e.ctrlKey || e.metaKey) return;
-    if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(document.activeElement.tagName)) return;
-    const k = e.key;
-    if (k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) step(1, e);
-    else if (k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey)) step(-1, e);
-    else if (k === 'Home') { e.preventDefault(); goTo(0); }
-    else if (k === 'End') { e.preventDefault(); goTo(screenList.length - 1); }
-  });
-
-  // Menu links, side dots, "Get in touch" etc. use the same blur
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      if (!paging()) return;
-      const target = document.querySelector(a.getAttribute('href'));
-      const i = screenList.indexOf(target);
-      if (i === -1) return;
-      e.preventDefault();
-      if (!animating) goTo(i);
-    });
-  });
-
-  // Keep reveal + active link in sync with any scrolling (wheel, touch, keys)
+  /* ---------- 4. Keep reveal + active link in sync with scrolling ---------- */
   let ticking = false;
   function paint() {
     ticking = false;
@@ -380,14 +191,9 @@
     if (!ticking) { ticking = true; requestAnimationFrame(paint); }
   }
 
-  function syncMode() {
-    root.classList.toggle('paging', paging());
-    requestPaint();
-  }
-  if (pagingMQ.addEventListener) pagingMQ.addEventListener('change', syncMode);
   window.addEventListener('scroll', requestPaint, { passive: true });
   window.addEventListener('resize', requestPaint);
-  syncMode();
+  requestPaint();
 
   /* ---------- 4b. Home terminal typing ---------- */
   // Each time Home appears (.in), commands are typed out character by
