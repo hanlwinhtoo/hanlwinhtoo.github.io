@@ -61,6 +61,7 @@
   animation-duration: .45s;
   animation-timing-function: cubic-bezier(.22, .61, .36, 1);
 }
+.theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
 
 /* ---------- 2. Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }

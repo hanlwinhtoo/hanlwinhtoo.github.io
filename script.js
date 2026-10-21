@@ -37,7 +37,13 @@
       // element's colours separately made nested text lag behind its parent.
       // Older browsers and reduced-motion visitors switch instantly.
       if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.startViewTransition(function () { applyTheme(next); });
+        // .theme-switching pauses hover colour transitions, so links and
+        // buttons don't keep fading after the cross-fade has finished
+        const vt = document.startViewTransition(function () {
+          root.classList.add('theme-switching');
+          applyTheme(next);
+        });
+        vt.finished.finally(function () { root.classList.remove('theme-switching'); });
       } else {
         applyTheme(next);
       }
