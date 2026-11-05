@@ -362,6 +362,10 @@ h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035
 }
 .i-proxmox   { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/proxmox.svg"); --brand: #E57000; }
 .i-ubuntu    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/ubuntu.svg"); --brand: #E95420; }
+.i-linux     { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linux.svg"); }
+.i-aws       { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/amazonaws.svg"); } /* AWS's brand colour is near-black */
+.i-python    { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/python.svg"); --brand: #3776AB; }
+.i-code      { --icon: url("https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/regular/code.svg"); } /* programming languages (Python & C++ share one tile) */
 .i-bash      { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/gnubash.svg"); --brand: #4EAA25; }
 .i-tailscale { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/tailscale.svg"); }
 .i-git       { --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@11/icons/git.svg"); --brand: #F05032; }
@@ -440,6 +444,19 @@ h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 700; letter-spacing: -0.035
 .timeline h3 { font-size: 20px; }
 .timeline p { color: var(--muted); margin-top: 6px; }
 .timeline .tags { margin-top: 14px; }
+
+/* Certifications, courses and volunteering: two columns under the timeline.
+   Columns size to their text (one line each where it fits) and sit centred as a pair. */
+.edu-extra {
+  display: grid; grid-template-columns: auto auto; justify-content: center; gap: 24px 72px;
+  margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border);
+}
+.edu-extra h3 { font-size: 15px; color: var(--faint); font-weight: 500; letter-spacing: 0; }
+.edu-list { list-style: none; padding: 0; margin-top: 12px; }
+.edu-list li + li { margin-top: 12px; }
+.edu-item { display: block; font-weight: 500; }
+.edu-meta { display: block; font-size: 14px; color: var(--muted); }
+.edu-note { display: block; margin-top: 4px; font-size: 14px; color: var(--faint); line-height: 1.5; }
 
 /* ---------- 9. Contact ---------- */
 .contact { display: grid; grid-template-columns: 0.85fr 1.35fr; gap: 56px; align-items: center; }
@@ -545,6 +562,7 @@ footer {
   .tile { min-height: 90px; padding: 12px 8px; gap: 8px; }
   .ico { width: 26px; height: 26px; }
   .timeline li { padding-bottom: 32px; }
+  .edu-extra { margin-top: 28px; padding-top: 20px; }
 }
 /* Side dots need a free margin beside the content */
 @media (max-width: 1200px) {
@@ -629,6 +647,7 @@ footer {
 /* Education timeline: date stacks above the entry; the track stays on the left */
 @media (max-width: 767px) {
   .timeline li { grid-template-columns: 1fr; gap: 4px; padding-left: 24px; }
+  .edu-extra { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
