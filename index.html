@@ -36,172 +36,143 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- ?v=… makes browsers fetch the new file after an update: bump it whenever style.css or script.js change -->
-  <link rel="stylesheet" href="style.css?v=2026-11-05c">
+  <link rel="stylesheet" href="style.css?v=2026-11-12">
 </head>
-<body>
-  <a class="skip-link" href="#projects">Skip to content</a>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ===== Top bar ===== -->
-  <header class="topbar">
-    <nav class="topbar-inner" aria-label="Main">
-      <a class="brand" href="#home">Han Lwin Htoo</a>
-      <div class="nav-links" id="nav-links">
+  <!-- ===== Resume layout: sticky sidebar + one scrolling column (style.css, section 6) ===== -->
+  <div class="resume">
+
+    <!-- ===== Sidebar: who I am, section index, contact ===== -->
+    <aside class="sidebar">
+      <div class="side-top">
+        <p class="status"><span class="dot" aria-hidden="true"></span> Open to internships</p>
+        <button class="theme-toggle" type="button" aria-label="Toggle light mode">
+          <span class="theme-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <h1 class="name">Han Lwin Htoo</h1>
+      <p class="role">Cloud · Infrastructure · Security</p>
+      <p class="side-intro">Computer Engineering (Cloud Systems) student at Singapore Polytechnic.</p>
+
+      <!-- Section index: script.js (section 2) highlights the section in view -->
+      <nav class="side-nav" aria-label="Sections">
+        <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#volunteering">Volunteering</a>
+      </nav>
+
+      <div class="side-contact" id="contact">
+        <h2 class="side-label">Contact</h2>
+        <ul class="side-links">
+          <li>
+            <a href="mailto:hanlwinhtoo.connect@gmail.com"><span class="ico i-mail" aria-hidden="true"></span><span class="link-text">hanlwinhtoo.connect@gmail.com</span></a>
+            <button class="copy-btn" type="button" data-copy="hanlwinhtoo.connect@gmail.com" aria-label="Copy email address">Copy</button>
+          </li>
+          <li><a href="https://www.linkedin.com/in/hanlwinhtoo" target="_blank" rel="noopener"><span class="ico i-linkedin" aria-hidden="true"></span><span class="link-text">in/hanlwinhtoo</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://github.com/hanlwinhtoo" target="_blank" rel="noopener"><span class="ico i-github" aria-hidden="true"></span><span class="link-text">github.com/hanlwinhtoo</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
+          <!-- Opens the PDF in the browser's viewer (a new tab) instead of downloading it -->
+          <li><a href="resume.pdf" target="_blank" rel="noopener"><span class="ico i-doc" aria-hidden="true"></span><span class="link-text">Resume (PDF)</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
+        </ul>
+        <dl class="side-facts">
+          <div><dt>Looking for</dt><dd>Cloud / Infrastructure / Security internship</dd></div>
+          <div><dt>Dates</dt><dd>15 Mar – 13 Aug 2027</dd></div>
+          <div><dt>Based in</dt><dd>Singapore</dd></div>
+        </dl>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Toggle light mode">
-        <span class="theme-icon" aria-hidden="true"></span>
-      </button>
-      <!-- Phones: opens the section links as a dropdown (see script.js, section 1b) -->
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-        <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
-      </button>
-    </nav>
-  </header>
+    </aside>
 
-  <!-- ===== Side dots: one per screen ===== -->
-  <nav class="dots" aria-label="Sections">
-    <a href="#home" aria-label="Home"></a>
-    <a href="#projects" aria-label="Project 1: Proxmox Homelab"></a>
-    <a href="#project-bustech" aria-label="Project 2: BusGuard"></a>
-    <a href="#project-winserver" aria-label="Project 3: Windows Server Domain"></a>
-    <a href="#project-network" aria-label="Project 4: Multi-Site Company Network"></a>
-    <a href="#skills" aria-label="Skills"></a>
-    <a href="#education" aria-label="Education"></a>
-    <a href="#contact" aria-label="Contact"></a>
-  </nav>
+    <!-- ===== Main column: resume sections ===== -->
+    <main class="content" id="main">
 
-  <main>
+      <section class="r-section" id="about">
+        <h2 class="r-title">About</h2>
+        <p class="about">Computer Engineering student specialising in Cloud Systems, and 1st Runner-Up in the LTA Singapore BusTech Grand Challenge 2026, where I led networking and system integration. Hands-on with Windows Server, Cisco networking and a self-hosted Proxmox lab; studying for AWS SAA-C03, RHCSA and CCNA.</p>
+      </section>
 
-    <!-- ===== 1. Home ===== -->
-    <section class="screen" id="home">
-      <div class="container hero">
-        <div class="hero-text">
-          <div class="hero-top">
-            <!-- 360px face crop of me_cartoon.png (original kept in Documents/portfolio-source/images) -->
-            <img class="avatar" src="assets/images/me.png" alt="Cartoon portrait of Han Lwin Htoo" width="88" height="88">
-            <p class="status"><span class="dot" aria-hidden="true"></span> Open to internships · Mar – Aug 2027</p>
-          </div>
-          <h1 class="hero-title">Hi, I'm Han.<span class="hero-sub">I build, break and rebuild <span class="sr-only">cloud infrastructure, networks, Linux servers and security labs.</span><!--
-            script.js (section 8) types these words in turn; edit the list in data-words
-            --><span class="type-words" aria-hidden="true" data-words="cloud infrastructure.|networks.|Linux servers.|security labs.">cloud infrastructure.</span></span></h1>
-          <!-- SP logo: dark text in light mode, white text in dark mode (transparent PNGs) -->
-          <p class="hero-meta">Computer Engineering, Cloud Systems&nbsp;<span class="sep" aria-hidden="true">@</span>
-            <img class="sp-logo sp-logo--light" src="assets/images/sp-logo.png" alt="Singapore Polytechnic" width="423" height="96"><img class="sp-logo sp-logo--dark" src="assets/images/sp-logo-white.png" alt="Singapore Polytechnic" width="423" height="96"></p>
-          <div class="actions">
-            <!-- Opens the PDF in the browser's viewer (a new tab) instead of downloading it -->
-            <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener">View Resume</a>
-            <a class="btn" href="#contact">Get in touch</a>
-          </div>
-        </div>
-        <!-- Terminal window. script.js types the .t-cmd lines out each time Home
-             appears; without JS (or with reduced motion) it shows as written. -->
-        <div class="terminal" role="img" aria-label="Terminal: whoami returns han-lwin-htoo; looking for a cloud, infrastructure or security internship in Singapore from 15 March to 13 August 2027; projects: proxmox-homelab, bustech-grand-challenge, windows-server-domain, multi-site-network">
-          <div class="term-bar" aria-hidden="true">
-            <span class="term-dots"><i></i><i></i><i></i></span>
-            <span class="term-title">han@portfolio: ~</span>
-          </div>
-          <div class="term-body" aria-hidden="true">
-            <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">whoami</span></p>
-            <p class="t-out">han-lwin-htoo</p>
-            <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">cat looking-for.yml</span></p>
-            <p class="t-out"><span class="t-key">role:</span> Cloud / Infrastructure / Security</p>
-            <p class="t-out"><span class="t-key">type:</span> internship</p>
-            <p class="t-out"><span class="t-key">dates:</span> 15 Mar – 13 Aug 2027</p>
-            <p class="t-out"><span class="t-key">based_in:</span> Singapore</p>
-            <p class="t-cmd"><span class="t-ps">han@portfolio:~$</span> <span class="t-text">ls ~/projects</span></p>
-            <p class="t-out t-ls"><span>proxmox-homelab</span><span>bustech-grand-challenge</span><span>windows-server-domain</span><span>multi-site-network</span></p>
-            <p class="t-cmd t-last"><span class="t-ps">han@portfolio:~$</span> <span class="t-text"></span><span class="t-cursor"></span></p>
-          </div>
-        </div>
-      </div>
-      <a class="scroll-hint" href="#projects" aria-label="Scroll to projects">Scroll <span aria-hidden="true">↓</span></a>
-    </section>
+      <!-- Projects: ids project-bustech / -winserver / -network are linked from the case-study pages -->
+      <section class="r-section" id="projects">
+        <h2 class="r-title">Projects</h2>
 
-    <!-- ===== 2. Projects: one full screen per project =====
-         data-nav keeps the "Projects" menu link highlighted on both -->
-    <section class="screen project" id="projects" data-nav="projects">
-      <div class="container project-grid">
-        <div class="project-info">
-          <p class="kicker">Projects · 1 of 4</p>
-          <!-- Project type: Side project / School project / Hackathon / Competition -->
-          <p class="project-labels"><span class="project-label project-type">Side project</span></p>
-          <h2>Proxmox Homelab</h2>
-          <p class="lead">My own Proxmox VE 9.2 server on a mini PC, where I practise infrastructure outside of class. I manage it remotely over Tailscale without opening any ports to the internet, and run an isolated security lab on it where I can break things safely.</p>
-          <p class="tags"><span>Proxmox</span><span>Linux</span><span>Networking</span><span>Tailscale</span></p>
-        </div>
-        <div class="project-index" aria-hidden="true"><span class="num">01</span><span class="of">/04</span></div>
-      </div>
-    </section>
+        <article class="entry" id="project-bustech">
+          <header class="entry-head">
+            <h3>BusGuard <span class="entry-type">Hackathon</span></h3>
+            <span class="entry-date">Jun – Oct 2026</span>
+          </header>
+          <p class="entry-sub">LTA Singapore BusTech Grand Challenge 2026 · 1st Runner-Up</p>
+          <ul class="entry-points">
+            <li>Led networking and integration in a team of five, linking camera AI, a passenger app and a 3D digital twin, with fail-safes for frozen video and duplicate messages.</li>
+            <li><strong>Impact:</strong> lets remote operators assist passengers with special needs on autonomous vehicles, with no staff on board.</li>
+          </ul>
+          <p class="tags"><span>MQTT</span><span>RTSP</span><span>Bosch IP camera</span><span>Offline private network</span></p>
+          <a class="entry-link" href="projects/bustech.html">Read case study <span aria-hidden="true">→</span></a>
+        </article>
 
-    <section class="screen project" id="project-bustech" data-nav="projects">
-      <div class="container project-grid">
-        <div class="project-info">
-          <p class="kicker">Projects · 2 of 4</p>
-          <p class="project-labels"><span class="project-label project-type">Hackathon</span><span class="project-label">1st Runner-Up</span></p>
-          <h2>BusGuard</h2>
-          <p class="lead">Passenger assistance for autonomous vehicles, built for the LTA Singapore BusTech Grand Challenge 2026. I handled the networking: local MQTT and RTSP camera streaming to the operator console.</p>
-          <p class="tags"><span>Computer Vision</span><span>MQTT</span><span>RTSP</span></p>
-          <div class="actions">
-            <a class="btn btn-primary" href="projects/bustech.html">Read case study <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="project-index" aria-hidden="true"><span class="num">02</span><span class="of">/04</span></div>
-      </div>
-    </section>
+        <article class="entry" id="project-winserver">
+          <header class="entry-head">
+            <h3>Windows Server Domain <span class="entry-type">School project</span></h3>
+            <span class="entry-date">Jul 2026</span>
+          </header>
+          <p class="entry-sub">Server Management · Team of four</p>
+          <ul class="entry-points">
+            <li>Built the file and web server, with RAID-5, secured department shares, GPO drive maps and HTTPS sites, and fixed SAN certificate errors via certreq.</li>
+            <li><strong>Impact:</strong> secure, centralised file storage with quota control and remote file sync for a simulated company.</li>
+          </ul>
+          <p class="tags"><span>Windows Server 2025</span><span>AD DS</span><span>AD CS</span><span>IIS</span><span>FSRM</span><span>Group Policy</span><span>PowerShell</span><span>VMware</span></p>
+          <a class="entry-link" href="projects/windows-server.html">Read case study <span aria-hidden="true">→</span></a>
+        </article>
 
-    <section class="screen project" id="project-winserver" data-nav="projects">
-      <div class="container project-grid">
-        <div class="project-info">
-          <p class="kicker">Projects · 3 of 4</p>
-          <p class="project-labels"><span class="project-label project-type">School project</span></p>
-          <h2>Windows Server Domain</h2>
-          <p class="lead">A Windows Server 2025 domain for a mock company office, built in VMware by a team of four. I built the file, storage and web server: RAID-5 shares, FSRM quotas, HTTPS sites on IIS, and Work Folders sync.</p>
-          <p class="tags"><span>Windows Server</span><span>Active Directory</span><span>IIS</span><span>PowerShell</span></p>
-          <div class="actions">
-            <a class="btn btn-primary" href="projects/windows-server.html">Read case study <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="project-index" aria-hidden="true"><span class="num">03</span><span class="of">/04</span></div>
-      </div>
-    </section>
+        <article class="entry" id="project-network">
+          <header class="entry-head">
+            <h3>Multi-Site Company Network <span class="entry-type">School project</span></h3>
+            <span class="entry-date">Aug 2026</span>
+          </header>
+          <p class="entry-sub">Computer Networking · Individual work</p>
+          <ul class="entry-points">
+            <li>Designed a 7-router, multi-area OSPF network from a single /24, with a backup border router, HSRP failover and an extended-ACL firewall.</li>
+            <li><strong>Impact:</strong> keeps every office online if the main border router fails, with 0% packet loss in simulated failover testing and room for 100% growth.</li>
+          </ul>
+          <p class="tags"><span>Cisco IOS</span><span>OSPF</span><span>HSRP</span><span>Extended ACLs</span><span>VLSM</span><span>Packet Tracer</span></p>
+          <a class="entry-link" href="projects/networking.html">Read case study <span aria-hidden="true">→</span></a>
+        </article>
 
-    <section class="screen project" id="project-network" data-nav="projects">
-      <div class="container project-grid">
-        <div class="project-info">
-          <p class="kicker">Projects · 4 of 4</p>
-          <p class="project-labels"><span class="project-label project-type">School project</span><span class="project-label">Individual work</span></p>
-          <h2>Multi-Site Company Network</h2>
-          <p class="lead">A network for a company with a main office and two branches, built on my own in Cisco Packet Tracer: multi-area OSPF routing, a backup internet link, HSRP failover and a firewall.</p>
-          <p class="tags"><span>Cisco IOS</span><span>OSPF</span><span>HSRP</span><span>ACLs</span></p>
-          <div class="actions">
-            <a class="btn btn-primary" href="projects/networking.html">Read case study <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="project-index" aria-hidden="true"><span class="num">04</span><span class="of">/04</span></div>
-      </div>
-    </section>
+        <article class="entry" id="project-homelab">
+          <header class="entry-head">
+            <h3>Proxmox Homelab <span class="entry-type">Side project</span></h3>
+            <span class="entry-date">Ongoing</span>
+          </header>
+          <ul class="entry-points">
+            <li>Self-hosted Proxmox VE 9.2 on a mini PC (64 GB RAM), with Tailscale remote access, no open ports and an isolated Parrot Security VM.</li>
+            <li><strong>Impact:</strong> an always-on lab to practise Linux and penetration testing safely from anywhere.</li>
+          </ul>
+          <p class="tags"><span>Proxmox VE</span><span>LXC</span><span>Linux</span><span>Tailscale</span></p>
+        </article>
 
-    <!-- ===== 3. Skills ===== -->
-    <!-- Edit the lists to match what you actually use -->
-    <section class="screen" id="skills">
-      <div class="container">
-        <div class="skills-head">
-          <div>
-            <p class="kicker">Skills</p>
-            <h2>Tools I work with</h2>
-          </div>
-          <p class="lead">Learned hands-on in my homelab and in school and competition projects.</p>
-        </div>
+        <article class="entry" id="project-aws">
+          <header class="entry-head">
+            <h3>AWS VPC Web Server <span class="entry-type">Side project</span></h3>
+            <span class="entry-date">In progress</span>
+          </header>
+          <ul class="entry-points">
+            <li>Building a custom VPC with EC2 and S3 access through IAM roles while studying for SAA-C03.</li>
+          </ul>
+          <p class="tags"><span>AWS VPC</span><span>EC2</span><span>S3</span><span>IAM</span></p>
+        </article>
+      </section>
 
-        <!-- One tile per tool. The icon comes from the i-* class (see style.css, section 7).
-             Order: virtualisation, Linux, Windows Server, networking, tools, then studying.
-             24 tiles = full rows at every width (8, 6 or 3 per row): add or remove in steps of 24's divisors. -->
+      <!-- Skills: one tile per tool. The icon comes from the i-* class (style.css, section 7).
+           24 tiles = full rows at every width (6, 4 or 3 per row). -->
+      <section class="r-section" id="skills">
+        <h2 class="r-title">Skills</h2>
+        <p class="r-note">Learned hands-on in my homelab and in school and competition projects.</p>
         <ul class="tiles">
           <li class="tile"><span class="ico i-proxmox"></span><span class="tile-name">Proxmox VE &amp; LXC</span></li>
           <li class="tile"><span class="ico i-vmware"></span><span class="tile-name">VMware</span></li>
@@ -229,116 +200,63 @@
           <li class="tile studying"><span class="ico i-cisco"></span><span class="tile-name">CCNA</span><span class="tile-note">Studying</span></li>
           <li class="tile studying"><span class="ico i-redhat"></span><span class="tile-name">RHCSA</span><span class="tile-note">Studying</span></li>
         </ul>
-      </div>
-    </section>
+      </section>
 
-    <!-- ===== 4. Education ===== -->
-    <section class="screen" id="education">
-      <div class="container">
-        <p class="kicker">Education</p>
-        <h2>Where I've learned</h2>
+      <section class="r-section" id="education">
+        <h2 class="r-title">Education</h2>
 
-        <ol class="timeline">
-          <li>
-            <span class="years">2025 – 2028</span>
-            <div>
-              <h3>Singapore Polytechnic</h3>
-              <p>Diploma in Computer Engineering, Specialisation in Cloud Systems</p>
-              <!-- Relevant modules: add more as <span>…</span> -->
-              <p class="tags"><span>Cloud Foundations</span><span>Linux Essentials</span><span>Computer Networking</span><span>LAN Switching &amp; Wireless</span><span>Server Management</span><span>ML/AI with Python</span></p>
-            </div>
-          </li>
-          <li>
-            <span class="years">2023 – 2024</span>
-            <div>
-              <h3>Guarantee International College, Yangon</h3>
-              <p>Cambridge IGCSE: 4 A* and 1 A</p>
-              <p class="tags"><span>A* · Computer Science</span><span>A* · ICT</span><span>A* · Mathematics</span><span>A* · Physics</span><span>A · Additional Mathematics</span></p>
-            </div>
-          </li>
-        </ol>
+        <article class="entry">
+          <header class="entry-head">
+            <h3>Singapore Polytechnic</h3>
+            <span class="entry-date">Apr 2025 – Apr 2028 (expected)</span>
+          </header>
+          <p class="entry-sub">Diploma in Computer Engineering, Specialisation in Cloud Systems</p>
+          <!-- Relevant modules: add more as <span>…</span> -->
+          <p class="tags"><span>Cloud Foundations</span><span>Linux Essentials</span><span>Computer Networking</span><span>LAN Switching &amp; Wireless</span><span>Server Management</span><span>ML/AI with Python</span></p>
+        </article>
 
-        <!-- Certifications, courses and volunteering (from the resume) -->
-        <div class="edu-extra">
-          <div>
-            <h3>Certifications &amp; courses</h3>
-            <ul class="edu-list">
-              <li><span class="edu-item">Introduction to Networking</span><span class="edu-meta">NVIDIA · Oct 2026</span></li>
-              <li><span class="edu-item">AI for Essential Digital Skills</span><span class="edu-meta">AI Singapore · Sep 2026</span></li>
-              <li><span class="edu-item">Introduction to Cybersecurity</span><span class="edu-meta">Cisco Networking Academy · Sep 2026</span></li>
-              <li><span class="edu-item">Red Hat System Administration I (RH124)</span><span class="edu-meta">Red Hat · Aug 2026</span></li>
-            </ul>
-          </div>
-          <div>
-            <h3>Volunteering</h3>
-            <ul class="edu-list">
-              <li><span class="edu-item">KSUG.AI: KubeSmart &amp; AI User Group</span><span class="edu-meta">Community Volunteer &amp; Event Assistant · Dec 2025 – Mar 2026</span>
-                <span class="edu-note">Created LinkedIn event posts and helped run on-site meetups on AI and cloud-native topics.</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+        <article class="entry">
+          <header class="entry-head">
+            <h3>Guarantee International College, Yangon</h3>
+            <span class="entry-date">Jul 2023 – Nov 2024</span>
+          </header>
+          <p class="entry-sub">Cambridge IGCSE: 4 A* and 1 A</p>
+          <p class="tags"><span>A* · Computer Science</span><span>A* · ICT</span><span>A* · Mathematics</span><span>A* · Physics</span><span>A · Additional Mathematics</span></p>
+        </article>
+      </section>
 
-    <!-- ===== 5. Contact ===== -->
-    <section class="screen" id="contact">
-      <div class="container contact">
-        <div class="contact-intro">
-          <p class="kicker">Contact</p>
-          <h2>Let's work together</h2>
-          <p class="lead">I'm looking for an internship in cloud, infrastructure or cybersecurity. Email is the quickest way to reach me.</p>
-          <dl class="contact-facts">
-            <div><dt>Role</dt><dd>Cloud / Infrastructure / Security</dd></div>
-            <div><dt>Type</dt><dd>Internship</dd></div>
-            <div><dt>Dates</dt><dd>15 Mar – 13 Aug 2027</dd></div>
-            <div><dt>Based in</dt><dd>Singapore</dd></div>
-          </dl>
-        </div>
-
-        <ul class="contact-list">
-          <li class="contact-row">
-            <a class="row-link" href="mailto:hanlwinhtoo.connect@gmail.com">
-              <span class="ico row-ico i-mail" aria-hidden="true"></span>
-              <span class="row-label">Email</span>
-              <span class="row-value">hanlwinhtoo.connect@gmail.com</span>
-            </a>
-            <button class="copy-btn" type="button" data-copy="hanlwinhtoo.connect@gmail.com" aria-label="Copy email address">Copy</button>
-          </li>
-          <li class="contact-row">
-            <a class="row-link" href="https://www.linkedin.com/in/hanlwinhtoo" target="_blank" rel="noopener">
-              <span class="ico row-ico i-linkedin" aria-hidden="true"></span>
-              <span class="row-label">LinkedIn</span>
-              <span class="row-value">in/hanlwinhtoo</span>
-              <span class="row-arrow" aria-hidden="true">↗</span>
-            </a>
-          </li>
-          <li class="contact-row">
-            <a class="row-link" href="https://github.com/hanlwinhtoo" target="_blank" rel="noopener">
-              <span class="ico row-ico i-github" aria-hidden="true"></span>
-              <span class="row-label">GitHub</span>
-              <span class="row-value">hanlwinhtoo</span>
-              <span class="row-arrow" aria-hidden="true">↗</span>
-            </a>
-          </li>
-          <li class="contact-row">
-            <!-- resume.pdf must sit in the same folder as index.html -->
-            <a class="row-link" href="resume.pdf" target="_blank" rel="noopener">
-              <span class="ico row-ico i-doc" aria-hidden="true"></span>
-              <span class="row-label">Resume</span>
-              <span class="row-value">View PDF</span>
-              <span class="row-arrow" aria-hidden="true">↗</span>
-            </a>
-          </li>
+      <section class="r-section" id="certifications">
+        <h2 class="r-title">Certifications &amp; courses</h2>
+        <ul class="r-list">
+          <li><span class="r-item">Introduction to Networking <span class="r-org">NVIDIA</span></span><span class="entry-date">Oct 2026</span></li>
+          <li><span class="r-item">AI for Essential Digital Skills <span class="r-org">AI Singapore</span></span><span class="entry-date">Sep 2026</span></li>
+          <li><span class="r-item">Introduction to Cybersecurity <span class="r-org">Cisco Networking Academy</span></span><span class="entry-date">Sep 2026</span></li>
+          <li><span class="r-item">Red Hat System Administration I (RH124) <span class="r-org">Red Hat</span></span><span class="entry-date">Aug 2026</span></li>
         </ul>
-      </div>
+        <p class="r-note r-note--after">Preparing for CCNA (target Jan 2027), RHCSA (Feb 2027) and AWS SAA-C03 (Mar 2027).</p>
+      </section>
 
-      <footer>
+      <section class="r-section" id="volunteering">
+        <h2 class="r-title">Volunteering</h2>
+        <article class="entry">
+          <header class="entry-head">
+            <h3>KSUG.AI: KubeSmart &amp; AI User Group</h3>
+            <span class="entry-date">Dec 2025 – Mar 2026</span>
+          </header>
+          <p class="entry-sub">Community Volunteer &amp; Event Assistant</p>
+          <ul class="entry-points">
+            <li>Created LinkedIn event posts and helped run on-site meetups on AI and cloud-native topics.</li>
+          </ul>
+        </article>
+      </section>
+
+      <footer class="content-footer">
         <span>© <span id="year">2026</span> Han Lwin Htoo</span>
-        <a class="back-top" href="#home">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
+        <a class="back-top" href="#top">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
       </footer>
-    </section>
-  </main>
+    </main>
+  </div>
 
-  <script src="script.js?v=2026-11-05c"></script>
+  <script src="script.js?v=2026-11-12"></script>
 </body>
 </html>
