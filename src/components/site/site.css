@@ -113,3 +113,12 @@ html {
 .sodium :is(a, button, [role="button"]) {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Phones: the display size (your name on the home page) scales with the screen below 640px, so "Han Lwin Htoo" stays
+   on one line from a folded Galaxy Fold up: as large as fits (the name is about 6.2 times its font size wide; 7
+   leaves room), never under 30px and never over the 60px it is on larger screens. Larger screens are unchanged. */
+@media (max-width: 639px) {
+  .sodium {
+    --type-display: 400 clamp(30px, calc((100vw - 32px) / 7), 60px)/1.02 var(--font-sans);
+  }
+}

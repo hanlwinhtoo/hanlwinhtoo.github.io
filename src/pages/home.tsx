@@ -18,7 +18,7 @@ function Hero() {
   return <section aria-label="Introduction" className="flex flex-col gap-6 pt-16 pb-10 lg:pt-20">
     <Status status="ok">{person.availability}</Status>
     <div className="flex flex-col gap-3">
-      <h1 className="type-display">{person.name}</h1>
+      <h1 className="type-display whitespace-nowrap">{person.name}</h1>
       <p className="max-w-measure type-heading-sm text-text-2">{person.headline}</p>
     </div>
     <div className="flex flex-wrap items-center gap-2">
@@ -87,7 +87,7 @@ export function Home() {
 
       <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-line py-6">
         <span className="flex items-center gap-1">
-          <span className="type-code-sm text-text-2">{person.email}</span>
+          <a href={`mailto:${person.email}`} className="type-code-sm text-text-2 hover:text-text-1">{person.email}</a>
           <CopyButton value={person.email} label="email address"/>
         </span>
         <span className="type-caption text-text-3">© {new Date().getFullYear()} {person.name}</span>
