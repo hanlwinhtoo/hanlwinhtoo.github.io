@@ -1,0 +1,269 @@
+/* Sodium utilities, converted for plain HTML from design.how's styles.css (Tailwind @utility blocks).
+   Each `@utility name { … }` became `.sodium .name { … }` unchanged, so the look matches the system.
+   Load after sodium-tokens.css and sodium-base.css. Regenerate rather than edit by hand. */
+.sodium .type-display { font: var(--type-display); letter-spacing: var(--tracking-display); }
+
+.sodium .type-title { font: var(--type-title); letter-spacing: var(--tracking-title); }
+
+.sodium .type-heading { font: var(--type-heading); letter-spacing: var(--tracking-heading); }
+
+.sodium .type-heading-sm { font: var(--type-heading-sm); letter-spacing: var(--tracking-heading); }
+
+.sodium .type-figure { font: var(--type-figure); letter-spacing: var(--tracking-title); font-variant-numeric: tabular-nums; }
+
+.sodium .type-body { font: var(--type-body); letter-spacing: var(--tracking-body); }
+
+.sodium .type-body-sm { font: var(--type-body-sm); letter-spacing: var(--tracking-body); }
+
+.sodium .type-caption { font: var(--type-caption); letter-spacing: var(--tracking-body); }
+
+.sodium .type-label-lg { font: var(--type-label-lg); letter-spacing: var(--tracking-label-lg); text-transform: uppercase; font-variant-numeric: tabular-nums; }
+
+.sodium .type-label { font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase; font-variant-numeric: tabular-nums; }
+
+.sodium .type-label-sm { font: var(--type-label-sm); letter-spacing: var(--tracking-label-sm); text-transform: uppercase; font-variant-numeric: tabular-nums; }
+
+.sodium .type-micro { font: var(--type-micro); letter-spacing: var(--tracking-label-sm); text-transform: uppercase; font-variant-numeric: tabular-nums; }
+
+.sodium .type-code { font: var(--type-code); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+
+.sodium .type-code-sm { font: var(--type-code-sm); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+
+.sodium .data { font-variant-numeric: tabular-nums; }
+
+.sodium .mono { font-family: var(--font-mono); font-size: calc(1em * var(--mono-scale)); letter-spacing: 0; }
+
+.sodium .focus-ring { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+
+.sodium .focus-ring-inset { outline: var(--focus-width) solid var(--focus); outline-offset: calc(var(--focus-width) * -1); }
+
+.sodium .frame { position: relative; min-width: 0; background-color: var(--page); border: var(--line-width) solid var(--line); }
+
+.sodium .panel { min-width: 0; background-color: var(--panel); border: var(--line-width) solid var(--line); }
+
+.sodium .panel-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  min-height: var(--head);
+  padding-inline: var(--inset);
+  background-color: var(--panel);
+  border-block-end: var(--line-width) solid var(--line);
+  font: var(--type-code);
+  color: var(--text-1);
+}
+
+.sodium .panel-head-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-2);
+  margin-inline-start: auto;
+  margin-inline-end: calc((var(--control-sm) - var(--icon)) / -2);
+}
+
+.sodium .rule-row {
+  border-block-end: var(--line-width) solid var(--line-faint);
+  &:last-child { border-block-end-width: 0; }
+}
+
+.sodium .rule-col {
+  border-inline-end: var(--line-width) solid var(--line);
+  &:last-child { border-inline-end-width: 0; }
+}
+
+.sodium .slab {
+  --k: var(--primary-light);
+  color: var(--primary-text);
+  background-color: var(--primary-bg);
+  background-image: radial-gradient(95% 140% at 50% 150%, var(--k), transparent 68%), linear-gradient(color-mix(in srgb, var(--k) 45%, transparent), transparent 40%);
+  border: var(--line-width) solid var(--primary-edge);
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 0 0 var(--line-width) transparent;
+  transition-property: background-color, color, border-color, box-shadow, --k;
+  transition-duration: var(--dur-light), var(--dur-light), var(--dur-light), var(--dur-light), var(--dur-glow);
+  transition-timing-function: var(--ease-soft);
+  @media (hover: hover) { &:hover:not(:disabled, [data-disabled], [aria-busy="true"]) { --k: var(--primary-light-hover); box-shadow: 0 0 0 var(--line-width) var(--primary-ring); background-color: var(--primary-hover); border-color: var(--primary-edge-hover); } }
+  &[data-force-hover]:not(:disabled, [data-disabled]) { --k: var(--primary-light-hover); box-shadow: 0 0 0 var(--line-width) var(--primary-ring); background-color: var(--primary-hover); border-color: var(--primary-edge-hover); }
+  &:is(:active, [data-force-active]):not(:disabled, [data-disabled]) { --k: transparent; box-shadow: 0 0 0 var(--line-width) var(--primary-ring); background-color: var(--primary-pressed); border-color: var(--primary-edge); transition-duration: var(--dur-press); transition-timing-function: var(--ease-out); }
+  &[aria-busy="true"] { --k: transparent; }
+  &:is(:disabled, [data-disabled], [aria-disabled="true"]):not([aria-busy="true"]) { --k: transparent; box-shadow: none; background-color: var(--well); border-color: var(--line); color: var(--text-disabled); }
+  @media (forced-colors: active) { border-color: ButtonText; background-image: none; box-shadow: none; }
+}
+
+.sodium .slab-fail {
+  color: var(--fail-text);
+  background-color: var(--fail-tint);
+  border: var(--line-width) solid var(--fail);
+  -webkit-tap-highlight-color: transparent;
+  transition-property: background-color, color, border-color;
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+  @media (hover: hover) { &:hover:not(:disabled, [data-disabled], [aria-busy="true"]) { background-image: linear-gradient(var(--hover), var(--hover)); } }
+  &[data-force-hover]:not(:disabled, [data-disabled]) { background-image: linear-gradient(var(--hover), var(--hover)); }
+  &:is(:active, [data-force-active]):not(:disabled, [data-disabled]) { background-image: linear-gradient(var(--pressed), var(--pressed)); }
+  &:is(:disabled, [data-disabled], [aria-disabled="true"]):not([aria-busy="true"]) { background-color: var(--well); border-color: var(--line); color: var(--text-disabled); }
+  @media (forced-colors: active) { border-color: ButtonText; }
+}
+
+.sodium .edged {
+  --k: var(--secondary-light);
+  color: var(--text-1);
+  background-color: var(--secondary-bg);
+  background-image: radial-gradient(95% 140% at 50% 150%, var(--k), transparent 68%), linear-gradient(color-mix(in srgb, var(--k) 45%, transparent), transparent 40%);
+  border: var(--line-width) solid var(--secondary-edge);
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 0 0 var(--line-width) transparent;
+  transition-property: background-color, color, border-color, box-shadow, --k;
+  transition-duration: var(--dur-light), var(--dur-light), var(--dur-light), var(--dur-light), var(--dur-glow);
+  transition-timing-function: var(--ease-soft);
+  @media (hover: hover) { &:hover:not(:disabled, [data-disabled], [aria-busy="true"]) { --k: var(--secondary-light-hover); box-shadow: 0 0 0 var(--line-width) var(--secondary-ring); background-color: var(--secondary-hover); border-color: var(--secondary-edge-hover); } }
+  &[data-force-hover]:not(:disabled, [data-disabled]) { --k: var(--secondary-light-hover); box-shadow: 0 0 0 var(--line-width) var(--secondary-ring); background-color: var(--secondary-hover); border-color: var(--secondary-edge-hover); }
+  &:is(:active, [data-force-active]):not(:disabled, [data-disabled]) { --k: transparent; box-shadow: 0 0 0 var(--line-width) var(--secondary-ring); background-color: var(--secondary-pressed); border-color: var(--secondary-edge); transition-duration: var(--dur-press); transition-timing-function: var(--ease-out); }
+  &[aria-busy="true"] { --k: transparent; }
+  &:is(:disabled, [data-disabled], [aria-disabled="true"]):not([aria-busy="true"]) { --k: transparent; box-shadow: none; background-color: var(--well); color: var(--text-disabled); }
+  @media (forced-colors: active) { background-image: none; box-shadow: none; }
+}
+
+.sodium .quiet {
+  color: var(--text-2);
+  background-color: transparent;
+  border: var(--line-width) solid transparent;
+  -webkit-tap-highlight-color: transparent;
+  transition-property: background-color, color;
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+  @media (hover: hover) { &:hover:not(:disabled, [data-disabled], [aria-busy="true"]) { background-color: var(--hover); color: var(--text-1); } }
+  &[data-force-hover]:not(:disabled, [data-disabled]) { background-color: var(--hover); color: var(--text-1); }
+  &:is(:active, [data-force-active]):not(:disabled, [data-disabled]) { background-color: var(--pressed); color: var(--text-1); }
+  &:is(:disabled, [data-disabled], [aria-disabled="true"]):not([aria-busy="true"]) { color: var(--text-disabled); }
+}
+
+.sodium .selected { background-color: var(--selected); color: var(--text-1); }
+
+.sodium .bracketed {
+  &::before { content: "[" / ""; }
+  &::after { content: "]" / ""; }
+}
+
+.sodium .checked {
+  --k: var(--primary-light);
+  background-color: var(--check-bg);
+  background-image: radial-gradient(95% 140% at 50% 150%, var(--k), transparent 68%), linear-gradient(color-mix(in srgb, var(--k) 45%, transparent), transparent 40%);
+  border: var(--line-width) solid var(--check-edge);
+  color: var(--check-mark);
+  @media (hover: hover) { &:hover:not([data-disabled], [data-readonly]) { --k: var(--primary-light-hover); } }
+  &[data-force-hover]:not([data-disabled]) { --k: var(--primary-light-hover); }
+  &:is(:active, [data-force-active], [data-dragging]):not([data-disabled], [data-readonly]) { --k: transparent; }
+  &[data-disabled] { --k: transparent; background-image: none; }
+  @media (forced-colors: active) { background-image: none; }
+}
+
+.sodium .light-motion {
+  transition-property: background-color, border-color, color, --k;
+  transition-duration: var(--dur-light), var(--dur-light), var(--dur-light), var(--dur-glow);
+  transition-timing-function: var(--ease-soft);
+}
+
+.sodium .field-surface {
+  background-color: var(--field-bg);
+  border: var(--line-width) solid var(--field-edge);
+  color: var(--text-1);
+  box-shadow: 0 0 0 var(--line-width) transparent;
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: var(--dur-light);
+  transition-timing-function: var(--ease-soft);
+  -webkit-tap-highlight-color: transparent;
+  &::placeholder, & ::placeholder { color: var(--text-3); }
+  &:is(:focus-visible, [data-force-focus-visible]) { outline: none; }
+  @media (hover: hover) { &:hover:not(:focus-within, [data-popup-open], :disabled, [data-disabled], :has([data-control]:disabled), [readonly], [data-readonly], :has([data-control][readonly]), [aria-invalid="true"], [data-invalid], :has([data-control][aria-invalid="true"])) { background-color: var(--field-hover); border-color: var(--field-edge-hover); box-shadow: 0 0 0 var(--line-width) var(--field-ring-hover); } }
+  &[data-force-hover]:not(:disabled, [data-disabled], [readonly], [data-readonly]) { background-color: var(--field-hover); border-color: var(--field-edge-hover); box-shadow: 0 0 0 var(--line-width) var(--field-ring-hover); }
+  &:is(:focus-within, [data-popup-open], [data-force-focus], [data-force-focus-visible]) { background-color: var(--field-focus-bg); border-color: var(--field-focus-edge); box-shadow: 0 0 0 var(--line-width) var(--field-ring-focus); }
+  &:is([aria-invalid="true"], [data-invalid], :has([data-control][aria-invalid="true"])) { border-color: var(--fail); box-shadow: 0 0 0 var(--line-width) var(--field-ring-fail); }
+  &:is([aria-invalid="true"], [data-invalid], :has([data-control][aria-invalid="true"])):is(:focus-within, [data-popup-open], [data-force-focus], [data-force-focus-visible]) { background-color: var(--field-focus-bg); box-shadow: inset 0 0 0 var(--line-width) var(--fail), 0 0 0 var(--line-width) var(--field-ring-fail); }
+  &:is(:disabled, [data-disabled], :has([data-control]:disabled)) { background-color: var(--well); border-color: var(--line); color: var(--text-disabled); box-shadow: none; }
+  &:is(:disabled, [data-disabled], :has([data-control]:disabled))::placeholder, &:is(:disabled, [data-disabled], :has([data-control]:disabled)) ::placeholder { color: var(--text-disabled); }
+  /* Forced colours drop box-shadow, so focus there is an outline on the edge. */
+  @media (forced-colors: active) { &:is(:focus-within, [data-popup-open]) { outline: var(--focus-width) solid Highlight; outline-offset: calc(var(--focus-width) * -1); } }
+}
+
+.sodium .overlay { background-color: var(--panel); border: var(--line-width) solid var(--line); color: var(--text-1); }
+
+.sodium .menu-row {
+  transition-property: background-color, box-shadow, color;
+  transition-duration: var(--dur-state);
+  transition-timing-function: var(--ease-soft);
+  &[data-highlighted] { color: var(--text-1); background-color: var(--row-highlight); box-shadow: inset 0 var(--line-width) 0 var(--row-highlight-edge), inset 0 calc(var(--line-width) * -1) 0 var(--row-highlight-edge); }
+  &:first-child[data-highlighted] { box-shadow: inset 0 calc(var(--line-width) * -1) 0 var(--row-highlight-edge); }
+  &:last-child[data-highlighted] { box-shadow: inset 0 var(--line-width) 0 var(--row-highlight-edge); }
+  @media (forced-colors: active) { &[data-highlighted] { outline: var(--focus-width) solid Highlight; outline-offset: calc(var(--focus-width) * -1); } }
+}
+
+.sodium .well { background-color: var(--well); }
+
+.sodium .code-surface { background-color: var(--code-surface); border: var(--line-width) solid var(--line); }
+
+.sodium .dots {
+  background-image: radial-gradient(circle at center, var(--dot) 0.75px, transparent 1px);
+  background-size: var(--dot-pitch) var(--dot-pitch);
+  background-position: center;
+}
+
+.sodium .rail {
+  background-image: linear-gradient(var(--mark) 0 var(--rail-dot), transparent var(--rail-dot));
+  background-size: var(--rail-dot) var(--rail-pitch);
+  background-repeat: repeat-y;
+  background-position: center top;
+  @media (forced-colors: active) { background-image: none; }
+}
+
+.sodium .overlay-motion {
+  transition-property: opacity, translate;
+  transition-duration: var(--dur-overlay);
+  transition-timing-function: var(--ease-out);
+  &:is([data-starting-style], [data-ending-style]) { opacity: 0; }
+  &[data-ending-style] { transition-duration: var(--dur-state); transition-timing-function: var(--ease-in); }
+  &:is([data-side="bottom"]):is([data-starting-style], [data-ending-style]) { translate: 0 calc(var(--overlay-shift) * -1); }
+  &:is([data-side="top"]):is([data-starting-style], [data-ending-style]) { translate: 0 var(--overlay-shift); }
+  &:is([data-side="right"], [data-side="inline-end"]):is([data-starting-style], [data-ending-style]) { translate: calc(var(--overlay-shift) * -1) 0; }
+  &:is([data-side="left"], [data-side="inline-start"]):is([data-starting-style], [data-ending-style]) { translate: var(--overlay-shift) 0; }
+}
+
+.sodium .wipe {
+  clip-path: inset(0);
+  transition: clip-path var(--dur-wipe) var(--ease-linear);
+  &[data-starting-style] { clip-path: inset(0 100% 0 0); }
+  &:dir(rtl)[data-starting-style] { clip-path: inset(0 0 0 100%); }
+}
+
+.sodium .draw {
+  transform-origin: left center;
+  transition: scale var(--dur-draw) var(--ease-out);
+  &:dir(rtl) { transform-origin: right center; }
+  &[data-starting-style] { scale: 0 1; }
+}
+
+.sodium .caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 0.85em;
+  margin-inline-start: 0.04em;
+  vertical-align: -0.06em;
+  background-color: var(--caret);
+}
+
+.sodium .pending {
+  display: inline-block;
+  flex: none;
+  width: calc(var(--pending-cell) * 4 + var(--space-0-5) * 3);
+  height: var(--pending-cell);
+  background-image: linear-gradient(currentColor, currentColor),
+    repeating-linear-gradient(to right, color-mix(in srgb, currentColor 32%, transparent) 0 var(--pending-cell), transparent var(--pending-cell) calc(var(--pending-cell) + var(--space-0-5)));
+  background-size: var(--pending-cell) var(--pending-cell), 100% 100%;
+  background-repeat: no-repeat;
+  animation: var(--animate-pending);
+  @media (prefers-reduced-motion: reduce) { animation: none; }
+  :where([data-force-reduced-motion]) & { animation: none; }
+  &:dir(rtl) { scale: -1 1; }
+}
