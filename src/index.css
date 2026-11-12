@@ -1,0 +1,3 @@
+/* Tailwind entry shadcn points at (components.json). Not imported: the site uses Sodium only,
+   through src/components/sodium/styles.css. */
+@import "tailwindcss";

@@ -1,0 +1,115 @@
+/* The site's changes to Sodium, in one place: the type (token overrides), underlined links, page transitions and
+   a few rules for phones. Import it right after Sodium's styles.css, so these win.
+
+   Type: every piece of text is Geist (sans): both font tokens point at it, so the sans roles (headlines, sentences) and
+   the mono roles (labels, buttons, tags, values, code) share one face, in place of Sodium's Inter Display and Commit
+   Mono. Sizes sit a touch above Sodium's compact scale, and sentences are set a little tighter (below). One weight,
+   as Sodium sets only one. Geist: (c) Vercel with basement.studio, SIL Open Font License 1.1. */
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/sodium/Geist-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.sodium {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist", ui-sans-serif, system-ui, sans-serif;
+  /* Mono inside a sentence is the same face now, so it keeps the size around it. */
+  --mono-scale: 1;
+  /* Tight: sentences close up a little; headlines keep Sodium's own tight tracking (-0.025 to -0.04em).
+     The capital labels stay slightly open, as capitals crowd when closed up. */
+  --tracking-body: -0.01em;
+
+  /* Type a touch above Sodium's compact sizes: sentences and headings about one step up, labels at Sodium's own size.
+     Sodium's own values are noted after each line. */
+  --type-display: 400 60px/1.02 var(--font-sans);    /* 56px */
+  --type-title: 400 34px/1.1 var(--font-sans);       /* 32px */
+  --type-heading: 400 26px/1.2 var(--font-sans);     /* 24px */
+  --type-heading-sm: 400 19px/1.3 var(--font-sans);  /* 18px */
+  --type-figure: 400 42px/1 var(--font-sans);        /* 40px */
+  --type-body: 400 16px/26px var(--font-sans);       /* 15/24 */
+  --type-body-sm: 400 15px/22px var(--font-sans);    /* 14/20 */
+  --type-caption: 400 14px/20px var(--font-sans);    /* 13/18 */
+  --type-label-lg: 400 14px/20px var(--font-mono);   /* 14/20 */
+  --type-label: 400 13px/16px var(--font-mono);      /* 13/16 */
+  --type-label-sm: 400 12px/16px var(--font-mono);   /* 12/16 */
+  --type-micro: 400 11px/14px var(--font-mono);      /* 11/14 */
+  --type-code: 400 14px/20px var(--font-mono);       /* 13/20 */
+  --type-code-sm: 400 13px/18px var(--font-mono);    /* 12/16 */
+}
+
+/* The diagrams place every label by hand in their own units, so they keep Sodium's original sizes. */
+.sodium svg {
+  --type-body: 400 15px/24px var(--font-sans);
+  --type-caption: 400 13px/18px var(--font-sans);
+  --type-micro: 400 11px/14px var(--font-mono);
+  --type-code: 400 13px/20px var(--font-mono);
+  --type-code-sm: 400 12px/16px var(--font-mono);
+}
+
+/* Links: every text link is underlined, in the control line's colour, a grid step below the letters; under the
+   pointer the line takes the text colour. That covers project names, the breadcrumb, and the ghost buttons that
+   read as text (LinkedIn, GitHub, Back to top). A boxed button (primary or secondary) is already plainly a control,
+   so it stays without a line; an image link has no text to underline. */
+.sodium a:not([data-slot="button"]),
+.sodium a[data-slot="button"][data-variant="ghost"] {
+  text-decoration-line: underline;
+  text-decoration-color: var(--line-control);
+  text-decoration-thickness: var(--line-width);
+  text-underline-offset: var(--space-1);
+}
+
+.sodium a:not([data-slot="button"]):hover,
+.sodium a[data-slot="button"][data-variant="ghost"]:hover {
+  text-decoration-color: currentColor;
+}
+
+
+/* Page transitions. Going between pages (home and a case study) cross-fades with the browser's own View Transitions:
+   the old page fades out, the new one fades in rising 12px. Jumps within a page (Back to top, Projects) scroll
+   smoothly. Both follow Sodium's motion: ease-out, short, and nothing at all under reduced motion. A browser without
+   View Transitions changes page as it always has. These rules sit on the document, outside .sodium, so the
+   durations and the curve are written out: 200ms out and 320ms in, a little longer than Sodium's 160ms
+   --dur-overlay so a page change reads as one, on its --ease-out curve. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: page-out 200ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes page-out {
+  to { opacity: 0; }
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none; }
+}
+
+/* Every device: phones keep the text size set here when turned sideways (iOS and Android otherwise enlarge it),
+   and a tap on a link or button flashes no grey box (the focus ring and the pressed state already answer it). */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.sodium :is(a, button, [role="button"]) {
+  -webkit-tap-highlight-color: transparent;
+}

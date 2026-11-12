@@ -6,19 +6,19 @@
 
   <!-- ===== SEO ===== -->
   <title>Han's Portfolio</title>
-  <link rel="icon" type="image/png" href="assets/images/favicon.png">
-  <link rel="apple-touch-icon" href="assets/images/me.png">
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3">
+  <link rel="apple-touch-icon" href="/assets/images/me.png?v=3">
   <meta name="description" content="Han Lwin Htoo, Computer Engineering (Cloud Systems) student at Singapore Polytechnic. Seeking an internship in cloud, infrastructure or cybersecurity from 15 March to 13 August 2027.">
   <meta name="author" content="Han Lwin Htoo">
   <meta name="keywords" content="Han Lwin Htoo, cloud, AWS, infrastructure, cybersecurity, Proxmox, homelab, Linux, RHEL, Windows Server, Active Directory, Cisco, OSPF, networking, internship, Singapore Polytechnic">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#141412">
   <link rel="canonical" href="https://www.hanlwinhtoo.dev/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Han Lwin Htoo">
   <meta property="og:title" content="Han Lwin Htoo — Cloud, Infrastructure & Security">
   <meta property="og:description" content="I run a Proxmox homelab to learn infrastructure hands-on.">
   <meta property="og:url" content="https://www.hanlwinhtoo.dev/">
-  <meta property="og:image" content="https://www.hanlwinhtoo.dev/assets/images/me.png">
+  <meta property="og:image" content="https://www.hanlwinhtoo.dev/assets/images/me.png?v=3">
   <meta name="twitter:card" content="summary">
   <!-- Site name shown in Google results, above the title link (instead of the domain).
        Keep "name" the same as og:site_name and the top-bar brand. -->
@@ -26,237 +26,17 @@
   {"@context": "https://schema.org", "@type": "WebSite", "name": "Han Lwin Htoo", "alternateName": "Han Lwin Htoo Portfolio", "url": "https://www.hanlwinhtoo.dev/",
    "author": {"@type": "Person", "name": "Han Lwin Htoo", "url": "https://www.hanlwinhtoo.dev/", "image": "https://www.hanlwinhtoo.dev/assets/images/me.png"}}
   </script>
-
-  <!-- Apply a saved theme before paint (default: light); .js enables the scroll fade-ins -->
+  <!-- Sodium's dark theme is data-theme="dark" on <html>. Dark is the default; light only when the visitor chose it.
+       Applied before paint, so the page never flashes the other theme. -->
   <script>
-    document.documentElement.classList.add('js');
-    document.documentElement.setAttribute('data-theme', 'light'); // light by default
-    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    var light = false; try { light = localStorage.getItem('theme-choice') === 'light'; } catch (e) {}
+    if (!light) document.documentElement.setAttribute('data-theme', 'dark');
   </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <!-- ?v=… makes browsers fetch the new file after an update: bump it whenever style.css or script.js change -->
-  <link rel="stylesheet" href="style.css?v=2026-11-12">
+  <!-- The page is drawn by this script; blocking="render" holds the first paint until it has run, so the page never
+       shows blank and the page-change fade lands on the finished page. -->
+  <script type="module" blocking="render" src="/src/main.tsx"></script>
 </head>
-<body id="top">
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- ===== Resume layout: sticky sidebar + one scrolling column (style.css, section 6) ===== -->
-  <div class="resume">
-
-    <!-- ===== Sidebar: who I am, section index, contact ===== -->
-    <aside class="sidebar">
-      <div class="side-top">
-        <p class="status"><span class="dot" aria-hidden="true"></span> Open to internships</p>
-        <button class="theme-toggle" type="button" aria-label="Toggle light mode">
-          <span class="theme-icon" aria-hidden="true"></span>
-        </button>
-      </div>
-
-      <h1 class="name">Han Lwin Htoo</h1>
-      <p class="role">Cloud · Infrastructure · Security</p>
-      <p class="side-intro">Computer Engineering (Cloud Systems) student at Singapore Polytechnic.</p>
-
-      <!-- Section index: script.js (section 2) highlights the section in view -->
-      <nav class="side-nav" aria-label="Sections">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#volunteering">Volunteering</a>
-      </nav>
-
-      <div class="side-contact" id="contact">
-        <h2 class="side-label">Contact</h2>
-        <ul class="side-links">
-          <li>
-            <a href="mailto:hanlwinhtoo.connect@gmail.com"><span class="ico i-mail" aria-hidden="true"></span><span class="link-text">hanlwinhtoo.connect@gmail.com</span></a>
-            <button class="copy-btn" type="button" data-copy="hanlwinhtoo.connect@gmail.com" aria-label="Copy email address">Copy</button>
-          </li>
-          <li><a href="https://www.linkedin.com/in/hanlwinhtoo" target="_blank" rel="noopener"><span class="ico i-linkedin" aria-hidden="true"></span><span class="link-text">in/hanlwinhtoo</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
-          <li><a href="https://github.com/hanlwinhtoo" target="_blank" rel="noopener"><span class="ico i-github" aria-hidden="true"></span><span class="link-text">github.com/hanlwinhtoo</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
-          <!-- Opens the PDF in the browser's viewer (a new tab) instead of downloading it -->
-          <li><a href="resume.pdf" target="_blank" rel="noopener"><span class="ico i-doc" aria-hidden="true"></span><span class="link-text">Resume (PDF)</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
-        </ul>
-        <dl class="side-facts">
-          <div><dt>Looking for</dt><dd>Cloud / Infrastructure / Security internship</dd></div>
-          <div><dt>Dates</dt><dd>15 Mar – 13 Aug 2027</dd></div>
-          <div><dt>Based in</dt><dd>Singapore</dd></div>
-        </dl>
-      </div>
-    </aside>
-
-    <!-- ===== Main column: resume sections ===== -->
-    <main class="content" id="main">
-
-      <section class="r-section" id="about">
-        <h2 class="r-title">About</h2>
-        <p class="about">Computer Engineering student specialising in Cloud Systems, and 1st Runner-Up in the LTA Singapore BusTech Grand Challenge 2026, where I led networking and system integration. Hands-on with Windows Server, Cisco networking and a self-hosted Proxmox lab; studying for AWS SAA-C03, RHCSA and CCNA.</p>
-      </section>
-
-      <!-- Projects: ids project-bustech / -winserver / -network are linked from the case-study pages -->
-      <section class="r-section" id="projects">
-        <h2 class="r-title">Projects</h2>
-
-        <article class="entry" id="project-bustech">
-          <header class="entry-head">
-            <h3>BusGuard <span class="entry-type">Hackathon</span></h3>
-            <span class="entry-date">Jun – Oct 2026</span>
-          </header>
-          <p class="entry-sub">LTA Singapore BusTech Grand Challenge 2026 · 1st Runner-Up</p>
-          <ul class="entry-points">
-            <li>Led networking and integration in a team of five, linking camera AI, a passenger app and a 3D digital twin, with fail-safes for frozen video and duplicate messages.</li>
-            <li><strong>Impact:</strong> lets remote operators assist passengers with special needs on autonomous vehicles, with no staff on board.</li>
-          </ul>
-          <p class="tags"><span>MQTT</span><span>RTSP</span><span>Bosch IP camera</span><span>Offline private network</span></p>
-          <a class="entry-link" href="projects/bustech.html">Read case study <span aria-hidden="true">→</span></a>
-        </article>
-
-        <article class="entry" id="project-winserver">
-          <header class="entry-head">
-            <h3>Windows Server Domain <span class="entry-type">School project</span></h3>
-            <span class="entry-date">Jul 2026</span>
-          </header>
-          <p class="entry-sub">Server Management · Team of four</p>
-          <ul class="entry-points">
-            <li>Built the file and web server, with RAID-5, secured department shares, GPO drive maps and HTTPS sites, and fixed SAN certificate errors via certreq.</li>
-            <li><strong>Impact:</strong> secure, centralised file storage with quota control and remote file sync for a simulated company.</li>
-          </ul>
-          <p class="tags"><span>Windows Server 2025</span><span>AD DS</span><span>AD CS</span><span>IIS</span><span>FSRM</span><span>Group Policy</span><span>PowerShell</span><span>VMware</span></p>
-          <a class="entry-link" href="projects/windows-server.html">Read case study <span aria-hidden="true">→</span></a>
-        </article>
-
-        <article class="entry" id="project-network">
-          <header class="entry-head">
-            <h3>Multi-Site Company Network <span class="entry-type">School project</span></h3>
-            <span class="entry-date">Aug 2026</span>
-          </header>
-          <p class="entry-sub">Computer Networking · Individual work</p>
-          <ul class="entry-points">
-            <li>Designed a 7-router, multi-area OSPF network from a single /24, with a backup border router, HSRP failover and an extended-ACL firewall.</li>
-            <li><strong>Impact:</strong> keeps every office online if the main border router fails, with 0% packet loss in simulated failover testing and room for 100% growth.</li>
-          </ul>
-          <p class="tags"><span>Cisco IOS</span><span>OSPF</span><span>HSRP</span><span>Extended ACLs</span><span>VLSM</span><span>Packet Tracer</span></p>
-          <a class="entry-link" href="projects/networking.html">Read case study <span aria-hidden="true">→</span></a>
-        </article>
-
-        <article class="entry" id="project-homelab">
-          <header class="entry-head">
-            <h3>Proxmox Homelab <span class="entry-type">Side project</span></h3>
-            <span class="entry-date">Ongoing</span>
-          </header>
-          <ul class="entry-points">
-            <li>Self-hosted Proxmox VE 9.2 on a mini PC (64 GB RAM), with Tailscale remote access, no open ports and an isolated Parrot Security VM.</li>
-            <li><strong>Impact:</strong> an always-on lab to practise Linux and penetration testing safely from anywhere.</li>
-          </ul>
-          <p class="tags"><span>Proxmox VE</span><span>LXC</span><span>Linux</span><span>Tailscale</span></p>
-        </article>
-
-        <article class="entry" id="project-aws">
-          <header class="entry-head">
-            <h3>AWS VPC Web Server <span class="entry-type">Side project</span></h3>
-            <span class="entry-date">In progress</span>
-          </header>
-          <ul class="entry-points">
-            <li>Building a custom VPC with EC2 and S3 access through IAM roles while studying for SAA-C03.</li>
-          </ul>
-          <p class="tags"><span>AWS VPC</span><span>EC2</span><span>S3</span><span>IAM</span></p>
-        </article>
-      </section>
-
-      <!-- Skills: one tile per tool. The icon comes from the i-* class (style.css, section 7).
-           24 tiles = full rows at every width (6, 4 or 3 per row). -->
-      <section class="r-section" id="skills">
-        <h2 class="r-title">Skills</h2>
-        <p class="r-note">Learned hands-on in my homelab and in school and competition projects.</p>
-        <ul class="tiles">
-          <li class="tile"><span class="ico i-proxmox"></span><span class="tile-name">Proxmox VE &amp; LXC</span></li>
-          <li class="tile"><span class="ico i-vmware"></span><span class="tile-name">VMware</span></li>
-          <li class="tile"><span class="ico i-aws"></span><span class="tile-name">AWS (IAM, EC2, S3, VPC)</span></li>
-          <li class="tile"><span class="ico i-linux"></span><span class="tile-name">RHEL / Ubuntu / Debian</span></li>
-          <li class="tile"><span class="ico i-bash"></span><span class="tile-name">Bash scripting</span></li>
-          <li class="tile"><span class="ico i-ssh"></span><span class="tile-name">SSH &amp; key auth</span></li>
-          <li class="tile"><span class="ico i-systemd"></span><span class="tile-name">systemd</span></li>
-          <li class="tile"><span class="ico i-windows"></span><span class="tile-name">Windows Server</span></li>
-          <li class="tile"><span class="ico i-ad"></span><span class="tile-name">Active Directory &amp; GPO</span></li>
-          <li class="tile"><span class="ico i-powershell"></span><span class="tile-name">PowerShell</span></li>
-          <li class="tile"><span class="ico i-pki"></span><span class="tile-name">IIS &amp; AD CS (PKI)</span></li>
-          <li class="tile"><span class="ico i-storage"></span><span class="tile-name">RAID &amp; FSRM</span></li>
-          <li class="tile"><span class="ico i-tcpip"></span><span class="tile-name">TCP/IP, VLSM subnetting</span></li>
-          <li class="tile"><span class="ico i-ospf"></span><span class="tile-name">OSPF &amp; HSRP</span></li>
-          <li class="tile"><span class="ico i-acl"></span><span class="tile-name">ACL firewalls</span></li>
-          <li class="tile"><span class="ico i-vlan"></span><span class="tile-name">VLANs &amp; isolation</span></li>
-          <li class="tile"><span class="ico i-dns"></span><span class="tile-name">DNS / DHCP</span></li>
-          <li class="tile"><span class="ico i-tailscale"></span><span class="tile-name">Tailscale</span></li>
-          <li class="tile"><span class="ico i-code"></span><span class="tile-name">Python &amp; C++</span></li>
-          <li class="tile"><span class="ico i-git"></span><span class="tile-name">Git</span></li>
-          <li class="tile"><span class="ico i-mqtt"></span><span class="tile-name">MQTT &amp; RTSP</span></li>
-          <!-- Certifications: keep only the ones you're actively studying -->
-          <li class="tile studying"><span class="ico i-aws"></span><span class="tile-name">AWS SAA-C03</span><span class="tile-note">Studying</span></li>
-          <li class="tile studying"><span class="ico i-cisco"></span><span class="tile-name">CCNA</span><span class="tile-note">Studying</span></li>
-          <li class="tile studying"><span class="ico i-redhat"></span><span class="tile-name">RHCSA</span><span class="tile-note">Studying</span></li>
-        </ul>
-      </section>
-
-      <section class="r-section" id="education">
-        <h2 class="r-title">Education</h2>
-
-        <article class="entry">
-          <header class="entry-head">
-            <h3>Singapore Polytechnic</h3>
-            <span class="entry-date">Apr 2025 – Apr 2028 (expected)</span>
-          </header>
-          <p class="entry-sub">Diploma in Computer Engineering, Specialisation in Cloud Systems</p>
-          <!-- Relevant modules: add more as <span>…</span> -->
-          <p class="tags"><span>Cloud Foundations</span><span>Linux Essentials</span><span>Computer Networking</span><span>LAN Switching &amp; Wireless</span><span>Server Management</span><span>ML/AI with Python</span></p>
-        </article>
-
-        <article class="entry">
-          <header class="entry-head">
-            <h3>Guarantee International College, Yangon</h3>
-            <span class="entry-date">Jul 2023 – Nov 2024</span>
-          </header>
-          <p class="entry-sub">Cambridge IGCSE: 4 A* and 1 A</p>
-          <p class="tags"><span>A* · Computer Science</span><span>A* · ICT</span><span>A* · Mathematics</span><span>A* · Physics</span><span>A · Additional Mathematics</span></p>
-        </article>
-      </section>
-
-      <section class="r-section" id="certifications">
-        <h2 class="r-title">Certifications &amp; courses</h2>
-        <ul class="r-list">
-          <li><span class="r-item">Introduction to Networking <span class="r-org">NVIDIA</span></span><span class="entry-date">Oct 2026</span></li>
-          <li><span class="r-item">AI for Essential Digital Skills <span class="r-org">AI Singapore</span></span><span class="entry-date">Sep 2026</span></li>
-          <li><span class="r-item">Introduction to Cybersecurity <span class="r-org">Cisco Networking Academy</span></span><span class="entry-date">Sep 2026</span></li>
-          <li><span class="r-item">Red Hat System Administration I (RH124) <span class="r-org">Red Hat</span></span><span class="entry-date">Aug 2026</span></li>
-        </ul>
-        <p class="r-note r-note--after">Preparing for CCNA (target Jan 2027), RHCSA (Feb 2027) and AWS SAA-C03 (Mar 2027).</p>
-      </section>
-
-      <section class="r-section" id="volunteering">
-        <h2 class="r-title">Volunteering</h2>
-        <article class="entry">
-          <header class="entry-head">
-            <h3>KSUG.AI: KubeSmart &amp; AI User Group</h3>
-            <span class="entry-date">Dec 2025 – Mar 2026</span>
-          </header>
-          <p class="entry-sub">Community Volunteer &amp; Event Assistant</p>
-          <ul class="entry-points">
-            <li>Created LinkedIn event posts and helped run on-site meetups on AI and cloud-native topics.</li>
-          </ul>
-        </article>
-      </section>
-
-      <footer class="content-footer">
-        <span>© <span id="year">2026</span> Han Lwin Htoo</span>
-        <a class="back-top" href="#top">Back to top <span class="back-top-arrow" aria-hidden="true">↑</span></a>
-      </footer>
-    </main>
-  </div>
-
-  <script src="script.js?v=2026-11-12"></script>
+<body class="sodium">
+  <div id="root"></div>
 </body>
 </html>
